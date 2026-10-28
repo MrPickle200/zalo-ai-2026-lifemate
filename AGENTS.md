@@ -18,6 +18,7 @@ When implementation ideas are needed, consult relevant GitHub repositories and K
 - `scripts/`: sample runner, local evaluation, dataset inspection, and submission writer.
 - `cache/transcripts/`: reusable transcripts keyed by audio content.
 - `outputs/eval/` and `outputs/submissions/`: generated local artifacts (ignored by git).
+- Organize `outputs/eval/` artifacts into one directory per experiment (for example, `baseline-v1-val309/` or `oracle-asr-v1-val309/`), keeping that experiment's predictions and summary together. Put cross-experiment comparisons in `outputs/eval/paired-analysis/`; don't leave experiment result files loose in the `outputs/eval/` root.
 - `tests/`: focused regression checks.
 - `train+public_test/`: competition data and official `zaic_tools` packages; do not inspect or read any `*_environment/` file directly. Use ToolEnv only.
 

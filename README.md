@@ -25,4 +25,17 @@ $env:LIFEMATE_OLLAMA_CONTEXT = "16384"
 .venv\Scripts\python scripts\make_submission.py --split public_test
 ```
 
-If interrupted, add `--resume` to continue from the existing valid output prefix. Run one sample with `scripts/run_sample.py --sample train_0001`, or local CV with `scripts/run_eval.py --split train --limit 20`.
+If interrupted, add `--resume` to continue from the existing valid output prefix. Run one sample with `scripts/run_sample.py --sample train_0001`.
+
+Run the fixed train-only validation and oracle-ASR comparison with:
+
+```powershell
+.venv\Scripts\python scripts\make_split.py
+.venv\Scripts\python scripts\run_eval.py --mode baseline
+.venv\Scripts\python scripts\run_eval.py --mode oracle
+.venv\Scripts\python scripts\run_eval.py --mode retrieval
+.venv\Scripts\python scripts\analyze_eval.py --retrieval-experiment retrieval-v1-val309
+```
+
+Evaluation artifacts are grouped under `outputs/eval/<experiment>/`; the paired report is in `outputs/eval/paired-analysis/`.
+Generate a retrieval-assisted public-test submission with `.venv\Scripts\python scripts\make_submission.py --split public_test --retrieval`; add `--resume` to continue from a matching valid prefix.

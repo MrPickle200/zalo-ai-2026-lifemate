@@ -7,6 +7,7 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 from lifemate.pipeline import LifeMatePipeline
+from lifemate.retrieval import DEFAULT_TOP_K, MAX_CANDIDATE_TOOLS
 from lifemate.utils import find_data_root, load_jsonl, seed_everything
 
 
@@ -14,15 +15,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate a competition-format submission JSONL")
     parser.add_argument("--split", choices=["public_test", "train"], default="public_test")
     parser.add_argument("--data-root")
-    parser.add_argument("--output", default="outputs/submissions/submission.jsonl")
+    parser.add_argument("--output")
     parser.add_argument("--limit", type=int, help="optional small smoke run")
     parser.add_argument("--resume", action="store_true", help="continue after an existing valid output prefix")
+    parser.add_argument("--retrieval", action="store_true", help="use train-only TF-IDF routing and few-shot examples")
+    parser.add_argument("--retrieval-top-k", type=int, default=DEFAULT_TOP_K)
+    parser.add_argument("--max-candidate-tools", type=int, default=MAX_CANDIDATE_TOOLS)
     args = parser.parse_args()
     seed_everything()
     root = find_data_root(args.data_root)
     items = list(load_jsonl(root / args.split / f"{args.split}.jsonl"))
-    pipeline = LifeMatePipeline(root, args.split)
-    out_path = Path(args.output)
+    pipeline = LifeMatePipeline(root, args.split, retrieval_assisted=args.retrieval,
+                                retrieval_top_k=args.retrieval_top_k,
+                                retrieval_max_candidate_tools=args.max_candidate_tools)
+    default_output = "outputs/submissions/retrieval-v1.jsonl" if args.retrieval else "outputs/submissions/submission.jsonl"
+    out_path = Path(args.output or default_output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     count = 0
     if args.resume and out_path.exists():

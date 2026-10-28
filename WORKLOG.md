@@ -18,10 +18,6 @@
 - `.gitignore`
 - `PROGRESS.md`
 - `INSIGHTS.md`
-- `src/lifemate/`
-- `scripts/`
-- `configs/baseline.yaml`
-- `requirements-torch-cu132.txt`
 
 ## 2026-10-28 — CUDA and model setup
 
@@ -70,22 +66,33 @@
 
 ### Files
 - `src/lifemate/agent.py`
-- `outputs/eval/ollama_train_0001.json`
 
 ## 2026-10-28 — Ollama local CV
 
 ### Done
 - [x] Completed the default 20-sample labeled train evaluation with Ollama and Qwen3-4B-Instruct-2507 Q4_K_M at 16384 context.
-- [x] Saved the evaluation report to `outputs/eval/ollama_cv20.json`.
+- [x] Saved the evaluation report to `outputs/eval/ollama-q4/cv20-summary.json`.
 
 ### Result
 - 20/20 samples completed without runtime failures. Tool-call F1 was 0.0247, exact match 0.05, state match 0.25, and average latency 8.47 seconds per sample. LLM requests at 16384 context used a CPU/GPU split on this 6 GB GPU.
 
 ### Files
 - `src/lifemate/agent.py`
-- `outputs/eval/ollama_cv20.json`
+- `outputs/eval/ollama-q4/cv20-summary.json`
 - `PROGRESS.md`
 - `INSIGHTS.md`
+
+## 2026-10-28 — Evaluation output organization
+
+### Done
+- [x] Grouped artifacts into `ollama-q4/`, `baseline-v1-val309/`, `oracle-asr-v1-val309/`, and `paired-analysis/` under `outputs/eval/`.
+- [x] Updated evaluation and analysis scripts to read/write the experiment-specific directories and documented the layout and commands.
+
+### Files
+- `scripts/run_eval.py`
+- `scripts/analyze_eval.py`
+- `README.md`
+- `WORKLOG.md`
 
 ## 2026-10-28 — Whisper CUDA runtime
 
@@ -137,3 +144,64 @@
 
 ### Files
 - `PROGRESS.md`
+
+## 2026-10-28 — Fixed validation and oracle-ASR
+
+### Done
+- [x] Created a fixed 1,236/309 grouped train/validation split with seed 20261028; transcript near-duplicates at similarity >= 0.92 stay in one partition.
+- [x] Added a deterministic local holdout runner with baseline and oracle-transcript modes, per-sample outputs, ToolEnv final-state checks, and paired error analysis.
+- [x] Ran both modes on all 309 validation samples (0 runtime failures) and updated score tracking and insights.
+
+### Result
+- Baseline proxy mean 0.1919 (tool-call F1 0.1155; state match 0.2492).
+- Oracle transcript proxy mean 0.2920 (tool-call F1 0.2429; state match 0.3301); paired gain +0.1001.
+- Heuristic baseline errors were led by WRONG_TOOL (204) and MISSING_INFO_ERROR (51); oracle-corrected ASR cases: 16.
+
+### Files
+- `data/splits/train_ids.json`
+- `data/splits/val_ids.json`
+- `data/splits/split_report.json`
+- `scripts/make_split.py`
+- `scripts/run_eval.py`
+- `scripts/analyze_eval.py`
+- `src/lifemate/pipeline.py`
+- `outputs/eval/baseline-v1-val309/predictions.jsonl`
+- `outputs/eval/oracle-asr-v1-val309/predictions.jsonl`
+- `outputs/eval/paired-analysis/summary.json`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
+## 2026-10-28 — Retrieval routing and new submission
+
+### Done
+- [x] Built a TF-IDF/cosine index from only the 1,236 fixed train IDs; added retrieved few-shots, tool shortlist/fallback, and train-derived missing-info examples.
+- [x] Ran retrieval-v1 and a wider top-5/eight-tool variant across all 309 validation IDs (0 runtime failures each); compared paired metrics and error categories.
+- [x] Generated the retrieval-v1 public-test submission and validated all rows, IDs/order, state-hash format, and tool schemas against the manifest/catalog without loading environment files.
+
+### Result
+- Retrieval-v1: proxy 0.2432, tool-call F1 0.2299, state match 0.2880; `WRONG_TOOL` 188 and `MISSING_INFO_ERROR` 53.
+- Wider variant was lower (proxy 0.2392, F1 0.2287, state match 0.2783), so retrieval-v1 was selected.
+- `outputs/submissions/retrieval-v1.jsonl` contains 634 valid rows. One transient Ollama CUDA OOM stopped the first pass at row 500; `--resume` completed the remaining prefix with unchanged context/model settings.
+- User later reported Public LB 6.66 for retrieval-v1 (baseline Public LB: 7.85); recorded in `PROGRESS.md` and `INSIGHTS.md`.
+
+### Files
+- `src/lifemate/retrieval.py`
+- `src/lifemate/agent.py`
+- `src/lifemate/pipeline.py`
+- `scripts/run_eval.py`
+- `scripts/analyze_eval.py`
+- `scripts/make_submission.py`
+- `scripts/validate_submission.py`
+- `outputs/eval/retrieval-v1-val309/`
+- `outputs/eval/retrieval-v2-wide-val309/`
+- `outputs/eval/paired-analysis/baseline-vs-retrieval-v1/`
+- `outputs/eval/paired-analysis/baseline-vs-retrieval-v2-wide/`
+- `outputs/submissions/retrieval-v1.jsonl`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+- `README.md`
+
+- `src/lifemate/`
+- `scripts/`
+- `configs/baseline.yaml`
+- `requirements-torch-cu132.txt`

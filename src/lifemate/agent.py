@@ -123,15 +123,42 @@ class Agent:
                                 "args": properties})
         return compact
 
-    def next_action(self, transcript: str, context: dict, history: list, available_tools: list[str], observations: list):
+    def next_action(self, transcript: str, context: dict, history: list, available_tools: list[str], observations: list,
+                    candidate_tools: list[str] | None = None, few_shot_examples: list[dict] | None = None,
+                    missing_info_demos: list[dict] | None = None, missing_info_rule: bool = False):
         allowed = set(available_tools)
-        tool_specs = self._tool_specs(available_tools, self.catalog)
+        selected_tools = [name for name in candidate_tools if name in allowed] if candidate_tools is not None else available_tools
+        model_allowed = set(selected_tools)
+        tool_specs = self._tool_specs(selected_tools, self.catalog)
         system = (
             "Bạn là agent LifeMate tiếng Việt. Dùng transcript cuối cùng, context, history và tool schema để thực hiện yêu cầu. "
             "Chỉ gọi tool đã cài và có trong schema. Không bịa dữ liệu; thiếu thông tin thiết yếu thì gọi sys.ask_missing_info. "
             "Sau khi hoàn tất, trả action stop. Mỗi lần chỉ trả đúng một JSON object, không giải thích. "
             'Ví dụ: {"action":"tool_call","tool":"app.tool","arguments":{}} hoặc {"action":"stop"}. /no_think'
         )
+        if missing_info_rule:
+            system += (
+                " Nếu đã xác định được tool phù hợp nhưng thiếu required argument và không thể suy ra an toàn từ context/history, "
+                "không đoán; gọi sys.ask_missing_info với tool_name và params cần hỏi. Nếu request đã đủ thông tin thì không hỏi lại. "
+                + ("Chỉ gọi các tool có schema trong danh sách rút gọn." if candidate_tools is not None else "")
+            )
+        examples = []
+        seen_examples = set()
+        for source, docs in (("retrieved", few_shot_examples or []), ("missing-info", missing_info_demos or [])):
+            for doc in docs:
+                sample_id = doc.get("sample_id")
+                if sample_id in seen_examples:
+                    continue
+                seen_examples.add(sample_id)
+                examples.append({"source": source, "category": doc.get("category"),
+                                 "transcript": doc.get("transcript", ""),
+                                 "expected_tool_calls": doc.get("expected_tool_calls", [])})
+        if examples:
+            lines = ["Ví dụ tham khảo từ train (không sao chép argument nếu yêu cầu hiện tại khác):"]
+            for example in examples:
+                lines.append("User request:\n" + example["transcript"])
+                lines.append("Expected tool calls:\n" + json.dumps(example["expected_tool_calls"], ensure_ascii=False, separators=(",", ":")))
+            system += "\n" + "\n".join(lines)
         # installed_apps only repeats tool names; the separate schema list above is authoritative.
         compact_context = {key: value for key, value in context.items() if key != "installed_apps"}
         payload = {"transcript": transcript, "context": compact_context, "history": history,
@@ -141,7 +168,7 @@ class Agent:
         raw = self._generate(messages)
         try:
             action = parse_action(raw)
-            valid, error = validate_action(action, self.catalog, allowed)
+            valid, error = validate_action(action, self.catalog, model_allowed)
             if valid:
                 return action
         except (ValueError, TypeError) as exc:
@@ -151,7 +178,7 @@ class Agent:
                          {"role": "user", "content": f"Output không hợp lệ ({error}). Hãy sửa format/schema một lần; không tự đoán giá trị. Chỉ trả JSON action."}])
         try:
             action = parse_action(self._generate(messages))
-            valid, _ = validate_action(action, self.catalog, allowed)
+            valid, _ = validate_action(action, self.catalog, model_allowed)
             return action if valid else {"action": "stop"}
         except (ValueError, TypeError):
             return {"action": "stop"}
