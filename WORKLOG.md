@@ -115,3 +115,25 @@
 - `scripts/make_submission.py`
 - `README.md`
 - `outputs/submissions/submission.jsonl`
+
+## 2026-10-28 — Public test submission complete
+
+### Done
+- [x] Completed all 634 public-test samples with Whisper Small and Ollama Qwen3-4B-Instruct-2507 Q4_K_M.
+- [x] Validated the submission row count, schema, unique IDs, and order against the public manifest.
+
+### Result
+- `outputs/submissions/submission.jsonl` contains 634 valid rows in manifest order. The public split has no labels, so no score can be computed locally.
+
+### Files
+- `outputs/submissions/submission.jsonl`
+- `scripts/make_submission.py`
+
+
+## 2026-10-28 ? Public leaderboard score
+
+### Done
+- [x] Recorded the user-reported public score of 7.85 for the Ollama Qwen3-4B Q4_K_M baseline.
+
+### Files
+- `PROGRESS.md`
