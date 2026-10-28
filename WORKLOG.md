@@ -101,3 +101,17 @@
 - `src/lifemate/asr.py`
 - `requirements-torch-cu132.txt`
 - `README.md`
+
+## 2026-10-28 — Public test run paused
+
+### Done
+- [x] Generated 158 valid public-test submission rows before pausing at the user's request.
+- [x] Added `--resume` to continue only from a matching valid output prefix.
+
+### Result
+- `outputs/submissions/submission.jsonl` has 158 unique, schema-valid rows. No public-test score is available because the split has no labels.
+
+### Files
+- `scripts/make_submission.py`
+- `README.md`
+- `outputs/submissions/submission.jsonl`

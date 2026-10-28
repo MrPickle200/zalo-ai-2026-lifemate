@@ -25,4 +25,4 @@ $env:LIFEMATE_OLLAMA_CONTEXT = "16384"
 .venv\Scripts\python scripts\make_submission.py --split public_test
 ```
 
-Run one sample with `scripts/run_sample.py --sample train_0001`, or local CV with `scripts/run_eval.py --split train --limit 20`.
+If interrupted, add `--resume` to continue from the existing valid output prefix. Run one sample with `scripts/run_sample.py --sample train_0001`, or local CV with `scripts/run_eval.py --split train --limit 20`.
