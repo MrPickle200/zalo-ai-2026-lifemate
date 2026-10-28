@@ -1,0 +1,28 @@
+﻿# Secrets and local environment
+.env
+.env.*
+!.env.example
+.venv/
+
+# Downloaded data and model weights
+models/
+train+public_test/
+
+# Runtime artifacts
+cache/transcripts/
+outputs/eval/
+outputs/submissions/
+.tmp/
+*.log
+
+# Python and tools
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.vscode/
+.idea/
+
+# md files
+TASK.md
