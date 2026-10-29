@@ -133,6 +133,8 @@ class Agent:
         system = (
             "Bạn là agent LifeMate tiếng Việt. Dùng transcript cuối cùng, context, history và tool schema để thực hiện yêu cầu. "
             "Chỉ gọi tool đã cài và có trong schema. Không bịa dữ liệu; thiếu thông tin thiết yếu thì gọi sys.ask_missing_info. "
+            "Nếu tool phù hợp yêu cầu required argument nhưng request hiện tại không cung cấp và không thể suy ra an toàn "
+            "từ context/history, không đoán giá trị; gọi sys.ask_missing_info. "
             "Sau khi hoàn tất, trả action stop. Mỗi lần chỉ trả đúng một JSON object, không giải thích. "
             'Ví dụ: {"action":"tool_call","tool":"app.tool","arguments":{}} hoặc {"action":"stop"}. /no_think'
         )
@@ -140,7 +142,7 @@ class Agent:
             system += (
                 " Nếu đã xác định được tool phù hợp nhưng thiếu required argument và không thể suy ra an toàn từ context/history, "
                 "không đoán; gọi sys.ask_missing_info với tool_name và params cần hỏi. Nếu request đã đủ thông tin thì không hỏi lại. "
-                + ("Chỉ gọi các tool có schema trong danh sách rút gọn." if candidate_tools is not None else "")
+                + ("Toàn bộ tool schema đã cho đều có thể xem xét." if candidate_tools is None else "Chỉ gọi các tool có schema trong danh sách rút gọn.")
             )
         examples = []
         seen_examples = set()
@@ -154,10 +156,11 @@ class Agent:
                                  "transcript": doc.get("transcript", ""),
                                  "expected_tool_calls": doc.get("expected_tool_calls", [])})
         if examples:
-            lines = ["Ví dụ tham khảo từ train (không sao chép argument nếu yêu cầu hiện tại khác):"]
+            lines = ["Retrieved examples are references only. Do not copy their arguments unless they are explicitly present in the current request. Always decide the correct tool from the current request and available tool schemas.",
+                     "Ví dụ tham khảo từ train:"]
             for example in examples:
-                lines.append("User request:\n" + example["transcript"])
-                lines.append("Expected tool calls:\n" + json.dumps(example["expected_tool_calls"], ensure_ascii=False, separators=(",", ":")))
+                lines.append("Example:\n\nUser request:\n" + example["transcript"])
+                lines.append("\nCorrect tool calls:\n" + json.dumps(example["expected_tool_calls"], ensure_ascii=False, separators=(",", ":")))
             system += "\n" + "\n".join(lines)
         # installed_apps only repeats tool names; the separate schema list above is authoritative.
         compact_context = {key: value for key, value in context.items() if key != "installed_apps"}

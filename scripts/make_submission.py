@@ -19,16 +19,26 @@ def main() -> int:
     parser.add_argument("--limit", type=int, help="optional small smoke run")
     parser.add_argument("--resume", action="store_true", help="continue after an existing valid output prefix")
     parser.add_argument("--retrieval", action="store_true", help="use train-only TF-IDF routing and few-shot examples")
+    parser.add_argument("--soft-retrieval", action="store_true", help="use TF-IDF top-k demos with the full tool set")
+    parser.add_argument("--curated-fewshot", action="store_true", help="use fixed train-only curated demos with the full tool set")
     parser.add_argument("--retrieval-top-k", type=int, default=DEFAULT_TOP_K)
     parser.add_argument("--max-candidate-tools", type=int, default=MAX_CANDIDATE_TOOLS)
     args = parser.parse_args()
     seed_everything()
     root = find_data_root(args.data_root)
     items = list(load_jsonl(root / args.split / f"{args.split}.jsonl"))
-    pipeline = LifeMatePipeline(root, args.split, retrieval_assisted=args.retrieval,
+    selected_modes = sum((args.retrieval, args.soft_retrieval, args.curated_fewshot))
+    if selected_modes > 1:
+        parser.error("choose at most one of --retrieval, --soft-retrieval, or --curated-fewshot")
+    retrieval_on = selected_modes == 1
+    pipeline = LifeMatePipeline(root, args.split, retrieval_assisted=retrieval_on,
                                 retrieval_top_k=args.retrieval_top_k,
-                                retrieval_max_candidate_tools=args.max_candidate_tools)
-    default_output = "outputs/submissions/retrieval-v1.jsonl" if args.retrieval else "outputs/submissions/submission.jsonl"
+                                retrieval_max_candidate_tools=args.max_candidate_tools,
+                                soft_retrieval=args.soft_retrieval,
+                                curated_fewshot=args.curated_fewshot)
+    default_output = ("outputs/submissions/soft-retrieval-v1.jsonl" if args.soft_retrieval else
+                      "outputs/submissions/curated-fewshot-v1.jsonl" if args.curated_fewshot else
+                      "outputs/submissions/retrieval-v1.jsonl" if args.retrieval else "outputs/submissions/submission.jsonl")
     out_path = Path(args.output or default_output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     count = 0

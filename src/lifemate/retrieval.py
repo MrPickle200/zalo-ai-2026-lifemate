@@ -61,6 +61,38 @@ class TrainRetriever:
             for term, value in vector.items():
                 self.inverted[term].append((i, value))
         self.missing_info_demos = self._select_missing_info_demos()
+        self.curated_demos = self._select_curated_demos()
+
+    def _select_curated_demos(self) -> list[dict[str, Any]]:
+        """Pick a small, deterministic set of diverse train-only demonstrations."""
+        selected: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        # Stable representative patterns: multi-tool plans, missing required info, and
+        # common tool families. The examples are references; schemas remain authoritative.
+        missing = next((d for d in self.missing_info_demos if d["category"] == "recipient"), None)
+        if missing:
+            selected.append(missing)
+            seen.add(missing["sample_id"])
+        multi = [d for d in self.documents if len(d["expected_tool_calls"]) >= 2
+                 and d["sample_id"] not in seen]
+        if multi:
+            doc = min(multi, key=lambda d: (len(d["transcript"]), d["sample_id"]))
+            selected.append({"category": "multi-tool", "sample_id": doc["sample_id"],
+                             "transcript": doc["transcript"], "expected_tool_calls": doc["expected_tool_calls"]})
+            seen.add(doc["sample_id"])
+        # Cover distinct first-call tool families without including empty/out-of-scope rows.
+        by_tool: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for doc in self.documents:
+            calls = doc["expected_tool_calls"]
+            if calls and calls[0].get("name") != MISSING_INFO and doc["sample_id"] not in seen:
+                by_tool[calls[0].get("name", "")].append(doc)
+        for tool in sorted(by_tool):
+            doc = min(by_tool[tool], key=lambda d: (len(d["transcript"]), d["sample_id"]))
+            selected.append({"category": tool, "sample_id": doc["sample_id"],
+                             "transcript": doc["transcript"], "expected_tool_calls": doc["expected_tool_calls"]})
+            if len(selected) >= 6:
+                break
+        return selected[:6]
 
     def _select_missing_info_demos(self) -> list[dict[str, Any]]:
         categories = {

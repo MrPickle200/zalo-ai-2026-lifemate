@@ -57,7 +57,7 @@ def metrics(rows):
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate a fixed train-only holdout through the local ToolEnv pipeline")
-    parser.add_argument("--mode", choices=("baseline", "oracle", "retrieval"), default="baseline")
+    parser.add_argument("--mode", choices=("baseline", "oracle", "retrieval", "soft-retrieval", "curated-fewshot"), default="baseline")
     parser.add_argument("--limit", type=int, help="optional prefix of the fixed validation IDs")
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--data-root")
@@ -79,13 +79,17 @@ def main() -> int:
     ids = val_ids[args.offset: args.offset + args.limit if args.limit is not None else None]
     if not ids:
         raise SystemExit("No validation samples selected")
-    pipeline = LifeMatePipeline(root, "train", retrieval_assisted=args.mode == "retrieval",
+    retrieval_on = args.mode in {"retrieval", "soft-retrieval", "curated-fewshot"}
+    pipeline = LifeMatePipeline(root, "train", retrieval_assisted=retrieval_on,
                                 retrieval_top_k=args.top_k,
-                                retrieval_max_candidate_tools=args.max_candidate_tools)
+                                retrieval_max_candidate_tools=args.max_candidate_tools,
+                                soft_retrieval=args.mode == "soft-retrieval",
+                                curated_fewshot=args.mode == "curated-fewshot")
     rows = []
     output_root = Path(args.output_root)
     experiment = args.experiment_name or {"baseline": "baseline-v1-val309", "oracle": "oracle-asr-v1-val309",
-                                          "retrieval": "retrieval-v1-val309"}[args.mode]
+                                          "retrieval": "retrieval-v1-val309", "soft-retrieval": "soft-retrieval-v1-val309",
+                                          "curated-fewshot": "curated-fewshot-v1-val309"}[args.mode]
     outdir = output_root / experiment
     outdir.mkdir(parents=True, exist_ok=True)
     prediction_path = outdir / "predictions.jsonl"
@@ -127,7 +131,7 @@ def main() -> int:
     # Error attribution uses paired baseline/oracle outputs when available; the oracle comparison is descriptive only.
     oracle_rows_path = output_root / "oracle-asr-v1-val309" / "predictions.jsonl"
     oracle_correct = {}
-    if args.mode in {"baseline", "retrieval"} and oracle_rows_path.is_file():
+    if args.mode in {"baseline", "retrieval", "soft-retrieval", "curated-fewshot"} and oracle_rows_path.is_file():
         for line in oracle_rows_path.read_text(encoding="utf-8").splitlines():
             r = json.loads(line)
             oracle_correct[r["id"]] = bool(r.get("exact_match") and r.get("state_match"))
@@ -144,10 +148,13 @@ def main() -> int:
               "error_percent_of_incorrect": {t: error_counts[t] / sum(error_counts.values()) if sum(error_counts.values()) else 0 for t in ERROR_TYPES},
               "metric_note": "composite_proxy_mean = mean((per-sample tool-call F1 + exact labeled final-state match)/2); official scorer formula not available in the local kit",
               "predictions_file": "predictions.jsonl"}
-    if args.mode == "retrieval":
+    if retrieval_on:
         report["retrieval_config"] = {"method": "word and adjacent word-bigram TF-IDF cosine",
                                       "corpus": "train_ids.json only", "top_k": args.top_k,
-                                      "max_candidate_tools": args.max_candidate_tools,
+                                      "few_shot_mode": args.mode,
+                                      "full_tool_set": args.mode in {"soft-retrieval", "curated-fewshot"},
+                                      "max_candidate_tools": (None if args.mode in {"soft-retrieval", "curated-fewshot"}
+                                                              else args.max_candidate_tools),
                                       "min_similarity": MIN_CONFIDENCE,
                                       "fallback": "all tools available for sample",
                                       "fallback_samples": sum(not row.get("candidate_tools") for row in rows),

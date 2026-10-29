@@ -201,6 +201,30 @@
 - `INSIGHTS.md`
 - `README.md`
 
+## 2026-10-29 — Soft retrieval
+
+### Done
+- [x] Added a full-tool soft-retrieval mode: TF-IDF top-3 demonstrations stay prompt-only, with explicit anti-copy and missing-required-argument instructions.
+- [x] Added a deterministic curated-fewshot mode based on diverse train-only examples; kept it available but skipped its validation run after soft retrieval performed well.
+- [x] Measured hard-shortlist recall from previous validation predictions and evaluated soft retrieval on all 309 validation samples.
+
+### Result
+- Soft retrieval achieved proxy 0.2558, aggregate tool-call F1 0.2435, and state match 0.2977 with zero runtime failures. Paired vs baseline: 86 improved, 32 worsened, 191 tied. Error counts: WRONG_TOOL 194 and MISSING_INFO_ERROR 49.
+- Selected soft retrieval; full public inference completed in 6,914.7 seconds and created `outputs/submissions/soft-retrieval-v1.jsonl` with 634 unique rows, correct manifest order, and zero schema errors. Empty tool-call rows: 139 (retrieval-v1: 156). Public leaderboard result is pending external upload.
+- User-reported Public LB: 7.51, improving over retrieval-v1 (6.66) but below baseline (7.85).
+
+### Files
+- `src/lifemate/agent.py`
+- `src/lifemate/pipeline.py`
+- `src/lifemate/retrieval.py`
+- `scripts/run_eval.py`
+- `scripts/make_submission.py`
+- `outputs/eval/soft-retrieval-v1-val309/`
+- `outputs/eval/paired-analysis/baseline-vs-soft-retrieval-v1/`
+- `outputs/submissions/soft-retrieval-v1.jsonl`
+- `INSIGHTS.md`
+- `PROGRESS.md`
+
 - `src/lifemate/`
 - `scripts/`
 - `configs/baseline.yaml`

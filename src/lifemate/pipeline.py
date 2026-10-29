@@ -19,7 +19,8 @@ class LifeMatePipeline:
     def __init__(self, data_root: Path, split: str, asr: ASRModel | None = None,
                  agent: Agent | None = None, max_steps: int = MAX_STEPS,
                  retrieval_assisted: bool = False, retrieval_top_k: int = DEFAULT_TOP_K,
-                 retrieval_max_candidate_tools: int = MAX_CANDIDATE_TOOLS):
+                 retrieval_max_candidate_tools: int = MAX_CANDIDATE_TOOLS,
+                 soft_retrieval: bool = False, curated_fewshot: bool = False):
         self.data_root = Path(data_root)
         self.split = split
         self.split_dir = self.data_root / split
@@ -29,6 +30,8 @@ class LifeMatePipeline:
         self.retriever = TrainRetriever(self.data_root) if retrieval_assisted else None
         self.retrieval_top_k = retrieval_top_k
         self.retrieval_max_candidate_tools = retrieval_max_candidate_tools
+        self.soft_retrieval = soft_retrieval
+        self.curated_fewshot = curated_fewshot
         catalog_path = self.split_dir / f"{split}_tools_catalog.json"
         self.catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
         self.agent.catalog = self.catalog
@@ -55,15 +58,17 @@ class LifeMatePipeline:
         retrieved_examples = self.retriever.search(transcript, top_k=self.retrieval_top_k) if self.retriever else []
         candidate_tools, retrieval_confidence = (self.retriever.shortlist(
             retrieved_examples, allowed, top_tools=self.retrieval_max_candidate_tools)
-                                                  if self.retriever else (None, 0.0))
+                                                  if self.retriever and not self.soft_retrieval and not self.curated_fewshot else (None, 0.0))
         missing_info_demos = self.retriever.missing_info_demos if self.retriever else []
-        few_shot_examples = retrieved_examples[:DEFAULT_TOP_K] if candidate_tools else []
+        few_shot_examples = (self.retriever.curated_demos if self.curated_fewshot else
+                             retrieved_examples[:DEFAULT_TOP_K] if self.retriever and self.soft_retrieval else
+                             retrieved_examples[:DEFAULT_TOP_K] if candidate_tools else [])
         for _ in range(self.max_steps):
             action = self.agent.next_action(transcript, item.get("context", {}), history, allowed, observations,
                                             candidate_tools=candidate_tools,
                                             few_shot_examples=few_shot_examples,
                                             missing_info_demos=missing_info_demos,
-                                            missing_info_rule=self.retriever is not None)
+                                            missing_info_rule=self.retriever is not None or self.curated_fewshot)
             actions.append(action)
             if action.get("action") == "stop":
                 break
