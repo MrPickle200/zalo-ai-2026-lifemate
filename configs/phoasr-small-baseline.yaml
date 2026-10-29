@@ -1,0 +1,13 @@
+seed: 17
+data_root: train+public_test/train+public_test
+asr_backend: phoasr-whisper-small
+asr_model: models/pho-asr-whisper-small
+llm_model: models/Qwen3-4B-Instruct-2507
+max_steps: 5
+max_new_tokens: 512
+context_limit: 8192
+transcript_cache: cache/transcripts
+retrieval: false
+tool_shortlist: false
+dynamic_fewshot: false
+curated_retrieval_demos: false

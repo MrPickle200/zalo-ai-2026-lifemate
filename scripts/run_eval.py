@@ -8,6 +8,7 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 from lifemate.pipeline import LifeMatePipeline
+from lifemate.asr import ASRModel, PhoASRModel
 from lifemate.retrieval import DEFAULT_TOP_K, MAX_CANDIDATE_TOOLS, MIN_CONFIDENCE
 from lifemate.utils import find_data_root, load_jsonl, seed_everything
 
@@ -61,6 +62,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int, help="optional prefix of the fixed validation IDs")
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--data-root")
+    parser.add_argument("--asr", choices=("whisper-small", "phoasr-whisper-small"), default="whisper-small")
     parser.add_argument("--split-dir", default="data/splits")
     parser.add_argument("--output-root", default="outputs/eval")
     parser.add_argument("--experiment-name", help="override the default output experiment directory")
@@ -80,14 +82,15 @@ def main() -> int:
     if not ids:
         raise SystemExit("No validation samples selected")
     retrieval_on = args.mode in {"retrieval", "soft-retrieval", "curated-fewshot"}
-    pipeline = LifeMatePipeline(root, "train", retrieval_assisted=retrieval_on,
+    asr = PhoASRModel() if args.asr == "phoasr-whisper-small" else ASRModel()
+    pipeline = LifeMatePipeline(root, "train", asr=asr, retrieval_assisted=retrieval_on,
                                 retrieval_top_k=args.top_k,
                                 retrieval_max_candidate_tools=args.max_candidate_tools,
                                 soft_retrieval=args.mode == "soft-retrieval",
                                 curated_fewshot=args.mode == "curated-fewshot")
     rows = []
     output_root = Path(args.output_root)
-    experiment = args.experiment_name or {"baseline": "baseline-v1-val309", "oracle": "oracle-asr-v1-val309",
+    experiment = args.experiment_name or ({"phoasr-whisper-small": "phoasr-small-baseline-val309"}.get(args.asr) if args.asr != "whisper-small" and args.mode == "baseline" else None) or {"baseline": "baseline-v1-val309", "oracle": "oracle-asr-v1-val309",
                                           "retrieval": "retrieval-v1-val309", "soft-retrieval": "soft-retrieval-v1-val309",
                                           "curated-fewshot": "curated-fewshot-v1-val309"}[args.mode]
     outdir = output_root / experiment
@@ -143,7 +146,7 @@ def main() -> int:
                                  row.get("asr_text", ""), item.get("audio_text", ""), oracle_correct.get(row["id"], False))
             row["error_type"] = typ
             error_counts[typ] += 1
-    report = {"mode": args.mode, "split": "train", "validation_samples": len(ids), **metrics(rows),
+    report = {"mode": args.mode, "asr": args.asr, "split": "train", "validation_samples": len(ids), **metrics(rows),
               "error_counts": {t: error_counts[t] for t in ERROR_TYPES},
               "error_percent_of_incorrect": {t: error_counts[t] / sum(error_counts.values()) if sum(error_counts.values()) else 0 for t in ERROR_TYPES},
               "metric_note": "composite_proxy_mean = mean((per-sample tool-call F1 + exact labeled final-state match)/2); official scorer formula not available in the local kit",

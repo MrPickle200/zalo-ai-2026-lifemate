@@ -1,5 +1,13 @@
 # Insights
 
+## PhoASR controlled ASR ablation (2026-10-29)
+
+- Kept the baseline Qwen3-4B Q4_K_M agent, prompt, full tool schemas, ToolEnv, evaluator, and fixed 309-ID split. Only replaced Whisper Small with the official Qualcomm-AI-Research PhoASR-whisper-small checkpoint; retrieval and all demo/shortlist modes were off.
+- Checkpoint: `Qualcomm-AI-Research/PhoASR-whisper-small` (Whisper Small fine-tune, 0.2B parameters), released under BSD-3-Clause-Clear and Qualcomm Responsible AI License. Used local Transformers inference on CUDA with deterministic greedy decoding; no CTranslate2 conversion.
+- Corpus WER improved from 0.5108 to 0.2804 and CER from 0.3657 to 0.2013. PhoASR still made errors with numerals, names, and place names, but reduced Whisper repetition failures substantially. Examples are in `outputs/eval/paired-analysis/baseline-vs-phoasr-small-baseline/asr-analysis.json`.
+- Downstream proxy improved from 0.1919 to 0.2286, tool-call F1 from 0.1155 to 0.1693, and final-state match from 0.2492 to 0.2751. Paired counts: 55 improved, 24 worsened, 230 unchanged. PhoASR closed 36.7% of the oracle proxy gap, 42.3% of tool-F1 gap, and 32.0% of state-match gap.
+- Full validation had zero runtime failures; mean latency was 11.17s and one sample exceeded 30s (max 34.08s) on the local RTX 4050. This is a runtime risk to recheck on A30. Public inference hit two Ollama runner resource failures, resumed from the ordered prefix each time, and completed. The 634-row candidate passed the official schema/order validator. User-reported Public LB: 9.79.
+
 ## Dev kit
 
 - `ToolEnv` records every attempted call, including schema-rejected calls; submit exactly `env.get_tool_calls()`.

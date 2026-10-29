@@ -7,6 +7,7 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 from lifemate.pipeline import LifeMatePipeline
+from lifemate.asr import ASRModel, PhoASRModel
 from lifemate.retrieval import DEFAULT_TOP_K, MAX_CANDIDATE_TOOLS
 from lifemate.utils import find_data_root, load_jsonl, seed_everything
 
@@ -15,6 +16,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate a competition-format submission JSONL")
     parser.add_argument("--split", choices=["public_test", "train"], default="public_test")
     parser.add_argument("--data-root")
+    parser.add_argument("--asr", choices=("whisper-small", "phoasr-whisper-small"), default="whisper-small")
     parser.add_argument("--output")
     parser.add_argument("--limit", type=int, help="optional small smoke run")
     parser.add_argument("--resume", action="store_true", help="continue after an existing valid output prefix")
@@ -31,12 +33,14 @@ def main() -> int:
     if selected_modes > 1:
         parser.error("choose at most one of --retrieval, --soft-retrieval, or --curated-fewshot")
     retrieval_on = selected_modes == 1
-    pipeline = LifeMatePipeline(root, args.split, retrieval_assisted=retrieval_on,
+    asr = PhoASRModel() if args.asr == "phoasr-whisper-small" else ASRModel()
+    pipeline = LifeMatePipeline(root, args.split, asr=asr, retrieval_assisted=retrieval_on,
                                 retrieval_top_k=args.retrieval_top_k,
                                 retrieval_max_candidate_tools=args.max_candidate_tools,
                                 soft_retrieval=args.soft_retrieval,
                                 curated_fewshot=args.curated_fewshot)
-    default_output = ("outputs/submissions/soft-retrieval-v1.jsonl" if args.soft_retrieval else
+    default_output = ("outputs/submissions/phoasr-small-baseline-v1.jsonl" if args.asr == "phoasr-whisper-small" and not retrieval_on else
+                      "outputs/submissions/soft-retrieval-v1.jsonl" if args.soft_retrieval else
                       "outputs/submissions/curated-fewshot-v1.jsonl" if args.curated_fewshot else
                       "outputs/submissions/retrieval-v1.jsonl" if args.retrieval else "outputs/submissions/submission.jsonl")
     out_path = Path(args.output or default_output)

@@ -95,3 +95,73 @@ class ASRModel:
         cache_path.write_text(json.dumps({"text": transcript}, ensure_ascii=False), encoding="utf-8")
         return transcript
 
+
+class PhoASRModel(ASRModel):
+    """PhoASR-whisper-small using the released Hugging Face Transformers weights."""
+
+    def __init__(self, model_path: str | Path = "models/pho-asr-whisper-small",
+                 cache_dir: str | Path = "cache/transcripts", device: str | None = None):
+        super().__init__(model_path, cache_dir, device)
+        self.processor = None
+
+    def _load(self):
+        if self._model is None:
+            if not self.model_path.is_dir():
+                raise FileNotFoundError(f"PhoASR weights not found locally: {self.model_path}")
+            try:
+                import torch
+                from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
+            except ImportError as exc:
+                raise RuntimeError("PhoASR requires torch and transformers") from exc
+            self.processor = AutoProcessor.from_pretrained(str(self.model_path), local_files_only=True)
+            self._model = AutoModelForSpeechSeq2Seq.from_pretrained(
+                str(self.model_path), local_files_only=True,
+                torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
+            ).to(self.device)
+            self._model.eval()
+        return self._model
+
+    @staticmethod
+    def _read_audio(path: Path):
+        # Decode/resample locally through PyAV, already installed with faster-whisper.
+        import av
+        import numpy as np
+        container = av.open(str(path))
+        stream = container.streams.audio[0]
+        resampler = av.AudioResampler(format="fltp", layout="mono", rate=16000)
+        chunks = []
+        for frame in container.decode(stream):
+            chunks.extend(frame.to_ndarray() for frame in resampler.resample(frame))
+        chunks.extend(frame.to_ndarray() for frame in resampler.resample(None))
+        container.close()
+        if not chunks:
+            raise ValueError(f"No audio frames decoded from {path}")
+        return np.concatenate(chunks, axis=-1).reshape(-1)
+
+    def transcribe(self, audio_path: str) -> str:
+        path = Path(audio_path)
+        if not path.is_file():
+            raise FileNotFoundError(f"Audio not found: {path}")
+        key = hashlib.sha256()
+        key.update(str(self.model_path).encode("utf-8"))
+        with path.open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                key.update(chunk)
+        cache_path = self.cache_dir / f"{key.hexdigest()}.json"
+        if cache_path.exists():
+            return json.loads(cache_path.read_text(encoding="utf-8"))["text"]
+        import torch
+        model = self._load()
+        waveform = self._read_audio(path)
+        inputs = self.processor(waveform, sampling_rate=16000, return_tensors="pt", return_attention_mask=True)
+        inputs = {name: tensor.to(device=self.device,
+                                  dtype=model.dtype if name == "input_features" else tensor.dtype)
+                  for name, tensor in inputs.items()}
+        with torch.inference_mode():
+            tokens = model.generate(**inputs, language="vi", task="transcribe", do_sample=False,
+                                    num_beams=1, return_timestamps=False)
+        transcript = self.processor.batch_decode(tokens, skip_special_tokens=True)[0].strip()
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(json.dumps({"text": transcript}, ensure_ascii=False), encoding="utf-8")
+        return transcript
+

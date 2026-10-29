@@ -32,6 +32,36 @@
 ### Files
 - `requirements.txt`
 - `requirements-torch-cu132.txt`
+
+## 2026-10-29 — PhoASR controlled ASR ablation
+
+### Done
+- Added a separate PhoASR Transformers backend using the official Qualcomm-AI-Research PhoASR-whisper-small local checkpoint; retained the faster-whisper Whisper Small backend as baseline.
+- Added `--asr` selection to local validation and submission runners, plus a PhoASR baseline config and paired ASR/downstream analysis script.
+- Smoke-tested 5 fixed validation samples with non-empty Vietnamese transcripts and downstream Qwen/ToolEnv execution.
+- Ran the full 309-sample fixed validation with baseline Qwen3-4B, full schemas, and retrieval disabled. No runtime failures.
+- Generated the 634-row public-test candidate at `outputs/submissions/phoasr-small-baseline-v1.jsonl`. Two Ollama runner resource failures were recovered using `--resume`, with the same baseline configuration.
+
+### Result
+- PhoASR corpus WER/CER: 0.2804 / 0.2013; Whisper Small: 0.5108 / 0.3657.
+- PhoASR downstream proxy/F1/state: 0.2286 / 0.1693 / 0.2751; baseline: 0.1919 / 0.1155 / 0.2492.
+- Paired: 55 improved, 24 worsened, 230 unchanged. Proxy oracle gap closed: 36.7%.
+- Mean latency 11.17s; one validation sample exceeded 30s locally (34.08s max), so A30 runtime remains to be checked.
+
+### Files
+- `src/lifemate/asr.py`
+- `scripts/run_eval.py`
+- `scripts/make_submission.py`
+- `scripts/analyze_asr.py`
+- `configs/phoasr-small-baseline.yaml`
+- `outputs/eval/phoasr-small-baseline-val309/`
+- `outputs/eval/paired-analysis/baseline-vs-phoasr-small-baseline/`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
+### Public candidate status
+- Complete: 634 rows, 634 unique IDs in manifest order, zero schema errors via `scripts/validate_submission.py`.
+- Candidate passed validation. User-reported Public LB: 9.79.
 - `scripts/download_models.py`
 - `src/lifemate/agent.py`
 - `src/lifemate/asr.py`
