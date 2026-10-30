@@ -1,5 +1,14 @@
 # Insights
 
+## PhoASR LifeMate fine-tune (2026-10-30)
+
+- Fine-tuned the existing local `Qualcomm-AI-Research/PhoASR-whisper-small` checkpoint (local revision hash unavailable) with Transformers/PyTorch. Fixed split audit passed for all 1,545 audio files; 1,236 train and 309 validation IDs had no overlap. UTF-8 Vietnamese transcripts were passed without normalization.
+- Configuration: seed 17, one epoch, LR 2e-6, per-device batch 1, gradient accumulation 8; encoder and decoder blocks 0–9 frozen, blocks 10–11 plus final layer norm/output projection trainable (58.7M params). Train loss mean 2.776 (first item 5.541, last item 1.822), validation teacher-forced loss 2.497, training 523.8s, peak VRAM 2.03 GB. Checkpoint reload and greedy inference succeeded.
+- Direct ASR on the fixed 309 validation samples: PhoASR public WER/CER 0.2804/0.2013; fine-tuned WER/CER 0.2757/0.1966. This is a small absolute WER gain of 0.0047. Some utterances improved on numeric formatting and phrase recovery (for example `train_0373`, 30 and 26 degrees; `train_0994`, preserving the hesitation phrase), but proper names remain unreliable (`train_0244` turns Minh into Minh Trúc; `train_0166` still hears Lan as Lenin).
+- Controlled downstream run completed 309/309 with the same Ollama Qwen3-4B Q4_K_M, prompt, full schemas, ToolEnv, and no retrieval; no runtime failures. Proxy/F1/state changed from 0.2286/0.1693/0.2751 to 0.2222/0.1634/0.2686. Paired sample scores: 9 improved, 12 worsened, 288 unchanged. Mean latency 11.69s vs 11.17s for PhoASR public.
+- Oracle gap remaining after fine-tune: proxy 0.0698, tool F1 0.0795, final-state match 0.0615. Relative to the PhoASR public gap, the FT closed -10.2% / -8.0% / -11.8% respectively (that is, widened downstream gaps despite modestly lower WER). The checkpoint did not qualify under the original local-validation submission criterion. At the user's later request, a 634-row public-test candidate was generated and validated; user-reported Public LB: 9.78.
+- Conclusion: one conservative domain fine-tune improves lexical WER/CER slightly but not local downstream validation. Its Public LB of 9.78 is 0.01 below the PhoASR public candidate's 9.79, so it effectively matched that result without measurable public-score headroom. More ASR tuning is not justified without a changed training strategy or stronger validation evidence.
+
 ## PhoASR controlled ASR ablation (2026-10-29)
 
 - Kept the baseline Qwen3-4B Q4_K_M agent, prompt, full tool schemas, ToolEnv, evaluator, and fixed 309-ID split. Only replaced Whisper Small with the official Qualcomm-AI-Research PhoASR-whisper-small checkpoint; retrieval and all demo/shortlist modes were off.

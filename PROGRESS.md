@@ -11,3 +11,4 @@
 | soft-retrieval-v1-val309 | TF-IDF top-3 demos + full tool schemas + missing-info demos | proxy 0.2558; tool-call F1 0.2435; state match 0.2977 | - |
 | soft-retrieval-v1 | TF-IDF top-3 demos + full tool schemas; 634-row submission | proxy 0.2558; tool-call F1 0.2435; state match 0.2977 | 7.51 |
 | phoasr-small-baseline-v1 | PhoASR-whisper-small + baseline Qwen3-4B, full tool set, no retrieval; 634-row submission candidate validated | proxy 0.2286; tool-call F1 0.1693; state match 0.2751; WER 0.2804 | 9.79 |
+| phoasr-lifemate-ft-v1 | PhoASR-whisper-small LifeMate fine-tune + baseline Qwen3-4B, full tool set, no retrieval; 634-row public candidate validated | proxy 0.2222; tool-call F1 0.1634; state match 0.2686; WER 0.2757; CER 0.1966 | 9.78 |

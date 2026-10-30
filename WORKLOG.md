@@ -259,3 +259,43 @@
 - `scripts/`
 - `configs/baseline.yaml`
 - `requirements-torch-cu132.txt`
+
+## 2026-10-30 — PhoASR LifeMate domain fine-tuning
+
+### Done
+- Confirmed the local base is `Qualcomm-AI-Research/PhoASR-whisper-small`; local model metadata did not include a revision commit. Backend: Hugging Face Transformers `AutoModelForSpeechSeq2Seq` with PyTorch; model config reports Transformers 4.48.0, installed runtime is Transformers 5.21.0.
+- Added `scripts/finetune_phoasr.py` to verify the fixed split, audio readability, transcript presence/UTF-8 handling, run smoke/full training, select by validation loss, and reload/infer the checkpoint. Added `scripts/analyze_phoasr_ft.py` for paired WER/CER and downstream/oracle-gap analysis. Made PhoASR model path configurable through `LIFEMATE_ASR_MODEL`.
+- Audited and decoded all 1,236 train and 309 validation audio files; zero missing/unreadable audio, empty transcripts, or train/validation ID overlaps.
+- Smoke run trained the fixed eight-ID subset, completed eight optimizer steps with finite loss, saved/reloaded weights and generated a transcript. Peak GPU memory 1.94 GB.
+- Full run: seed 17; one epoch; LR 2e-6; batch 1; accumulation 8; encoder and decoder blocks 0–9 frozen, decoder blocks 10–11 plus layer norm/output head trainable. 58,734,336 trainable params, 155 optimizer steps, 523.8s training, peak GPU memory 2.03 GB. Train loss mean 2.776, validation loss 2.4969. Best checkpoint: `outputs/models/phoasr-lifemate-v1/best-checkpoint`.
+- Evaluated exactly the fixed 309 validation samples using the baseline Ollama Qwen3-4B Q4_K_M agent, full tool schemas, existing prompt/decoding, one ToolEnv/sample, and retrieval off. All 309 completed without runtime failures.
+- Direct validation WER/CER: PhoASR public 0.2804/0.2013; LifeMate FT 0.2757/0.1966. Downstream proxy/F1/state: PhoASR public 0.2286/0.1693/0.2751; FT 0.2222/0.1634/0.2686. Paired score counts: 9 improved, 12 worsened, 288 unchanged.
+
+### Decision
+- WER/CER improved slightly, but all downstream metrics regressed. Remaining oracle gaps are proxy 0.0698, tool F1 0.0795, final-state 0.0615; the FT widened the public-ASR oracle gap on all three downstream measures. No public submission was created. No Public LB is available.
+
+### Files
+- `src/lifemate/asr.py`
+- `scripts/finetune_phoasr.py`
+- `scripts/analyze_phoasr_ft.py`
+- `outputs/models/phoasr-lifemate-v1/`
+- `outputs/models/phoasr-lifemate-v1-smoke/`
+- `outputs/eval/phoasr-lifemate-ft-v1-val309/`
+- `outputs/eval/paired-analysis/phoasr-public-vs-ft-v1/summary.json`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
+## 2026-10-31 — PhoASR fine-tune public-test candidate
+
+### Done
+- Generated `outputs/submissions/phoasr-lifemate-ft-v1.jsonl` on all 634 public-test samples using the fine-tuned ASR checkpoint, baseline Ollama Qwen3-4B Q4_K_M, full tool schemas, and no retrieval.
+- Inference completed in 6,886.8 seconds (10.86 seconds/sample average).
+- Official submission validator passed: 634 rows, 634 unique IDs in manifest order, zero tool-schema errors. There were zero malformed calls and 108 empty tool-call rows.
+
+### Result
+- Candidate is ready at `outputs/submissions/phoasr-lifemate-ft-v1.jsonl`. User-reported Public LB: 9.78, 0.01 below the PhoASR public candidate's 9.79; this is effectively a tie with no measurable public-score gain despite the small WER reduction.
+
+### Files
+- `outputs/submissions/phoasr-lifemate-ft-v1.jsonl`
+- `PROGRESS.md`
+- `INSIGHTS.md`

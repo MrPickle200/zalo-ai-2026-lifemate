@@ -99,9 +99,9 @@ class ASRModel:
 class PhoASRModel(ASRModel):
     """PhoASR-whisper-small using the released Hugging Face Transformers weights."""
 
-    def __init__(self, model_path: str | Path = "models/pho-asr-whisper-small",
+    def __init__(self, model_path: str | Path | None = None,
                  cache_dir: str | Path = "cache/transcripts", device: str | None = None):
-        super().__init__(model_path, cache_dir, device)
+        super().__init__(model_path or os.environ.get("LIFEMATE_ASR_MODEL", "models/pho-asr-whisper-small"), cache_dir, device)
         self.processor = None
 
     def _load(self):
