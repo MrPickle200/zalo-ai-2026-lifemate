@@ -1,0 +1,14 @@
+{
+  "tool_call_f1": 0.1138888888888889,
+  "state_match": 0.0,
+  "proxy": 0.05694444444444445,
+  "trajectory_exact": 0.0,
+  "first_full_call_accuracy": 0.0,
+  "first_tool_accuracy": 0.16666666666666666,
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "samples": 30,
+  "runtime_failures": 0,
+  "malformed_outputs": 0,
+  "average_trajectory_length": 3.2,
+  "predictions_file": "predictions.jsonl"
+}

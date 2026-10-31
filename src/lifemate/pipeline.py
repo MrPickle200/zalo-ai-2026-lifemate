@@ -36,7 +36,16 @@ class LifeMatePipeline:
         self.catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
         self.agent.catalog = self.catalog
 
-    def run(self, item: dict[str, Any], transcript_override: str | None = None) -> dict[str, Any]:
+    def run(self, item: dict[str, Any], transcript_override: str | None = None,
+            forced_first_tool_name: str | None = None,
+            injected_first_call: dict[str, Any] | None = None,
+            injected_first_calls: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+        if injected_first_call is not None and injected_first_calls is not None:
+            raise ValueError("Pass injected_first_call or injected_first_calls, not both")
+        calls_to_inject = injected_first_calls if injected_first_calls is not None else (
+            [injected_first_call] if injected_first_call is not None else [])
+        if forced_first_tool_name is not None and calls_to_inject:
+            raise ValueError("Only one first-action diagnostic intervention may be used")
         started = time.perf_counter()
         env = create_tool_env(self.split, item["id"], self.data_root)
         if transcript_override is None:
@@ -63,12 +72,31 @@ class LifeMatePipeline:
         few_shot_examples = (self.retriever.curated_demos if self.curated_fewshot else
                              retrieved_examples[:DEFAULT_TOP_K] if self.retriever and self.soft_retrieval else
                              retrieved_examples[:DEFAULT_TOP_K] if candidate_tools else [])
-        for _ in range(self.max_steps):
+        first_turn = 0
+        for injected_index, injected_call in enumerate(calls_to_inject):
+            if injected_index >= self.max_steps:
+                raise ValueError("Injected calls exceed the pipeline turn cap")
+            tool = injected_call.get("name")
+            args = injected_call.get("arguments", {})
+            actions.append({"action": "tool_call", "tool": tool, "arguments": args,
+                            "diagnostic_injection": f"gold_first_call_{injected_index + 1}"})
+            result = env.validate(tool, args)
+            if not result.get("ok"):
+                observation = env.call(tool, args)
+                observations.append({"tool": tool, "arguments": args, "result": observation})
+                first_turn = self.max_steps
+                break
+            else:
+                observation = env.call(tool, args)
+                observations.append({"tool": tool, "arguments": args, "result": observation})
+                first_turn = injected_index + 1
+        for step in range(first_turn, self.max_steps):
             action = self.agent.next_action(transcript, item.get("context", {}), history, allowed, observations,
                                             candidate_tools=candidate_tools,
                                             few_shot_examples=few_shot_examples,
                                             missing_info_demos=missing_info_demos,
-                                            missing_info_rule=self.retriever is not None or self.curated_fewshot)
+                                            missing_info_rule=self.retriever is not None or self.curated_fewshot,
+                                            forced_tool_name=forced_first_tool_name if step == 0 else None)
             actions.append(action)
             if action.get("action") == "stop":
                 break

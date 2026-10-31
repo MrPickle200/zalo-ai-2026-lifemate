@@ -1,5 +1,30 @@
 # WORKLOG.md
 
+## 2026-10-31 — PhoASR paired error diversity and hybrid
+
+### Done
+- Created `outputs/eval/asr-paired-val309/paired_transcripts.jsonl` and summary from the existing public and fine-tuned PhoASR validation outputs; all 309 fixed IDs align.
+- Quantified WER and transcript overlap: 203 identical / 106 different; public lower WER on 19, FT lower on 37, tied on 253; both wrong on 301.
+- Confirmed stored ASR output has no confidence metadata, so confidence selection was not implemented.
+- Added an opt-in dual-transcript prompt path to the baseline evaluator and agent. Evaluated full val309 using baseline Qwen3-4B, full schemas, no retrieval, and ToolEnv; 309/309 completed with zero failures.
+- Wrote paired metric and regression artifacts under `outputs/eval/paired-analysis/phoasr-hybrid-v1/`. Paired comparison: 28 improved, 49 worsened, 232 unchanged vs PhoASR public.
+- Compiled the changed Python files and did not create a public submission because hybrid metrics regressed.
+
+### Result
+- Dual transcript: proxy 0.2064, micro tool-call F1 0.1509, final-state match 0.2718 vs PhoASR public 0.2286 / 0.1693 / 0.2751.
+- 37 of the 49 regressions had identical transcripts, with examples of unnecessary tool calls and missed correct calls; the added prompt itself shifted agent behavior. Keep PhoASR public, stop this ASR hybrid line, and focus on agent/tool selection.
+
+### Files
+- `src/lifemate/agent.py`
+- `scripts/run_eval.py`
+- `scripts/make_paired_asr.py`
+- `scripts/analyze_phoasr_hybrid.py`
+- `outputs/eval/asr-paired-val309/`
+- `outputs/eval/phoasr-dual-transcript-v1-val309/`
+- `outputs/eval/paired-analysis/phoasr-hybrid-v1/`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
 ## 2026-10-28 — Initial baseline
 
 ### Done
@@ -299,3 +324,99 @@
 - `outputs/submissions/phoasr-lifemate-ft-v1.jsonl`
 - `PROGRESS.md`
 - `INSIGHTS.md`
+
+## 2026-10-31 — Qwen tool-calling SFT preparation
+
+### Done
+- Added `scripts/prepare_qwen_sft.py` and generated the train-only dataset at `outputs/models/qwen3-4b-lifemate-lora-v1/sft_train.jsonl` with a companion audit summary.
+- Verified the fixed split contains 1,236 train IDs and 309 held-out validation IDs with zero overlap. Dataset contains 1,236 rows; official `zaic_tools.schema_validate` reported zero invalid gold calls.
+- Attempted to provision the PEFT/quantization backend; package installation was unavailable because pip is configured with `PIP_NO_INDEX=1` and the packages are not installed.
+
+### Result
+- Stopped before smoke training under the task fallback. The 6 GB RTX 4050 cannot support full fine-tuning of the 4B model. No adapter or validation outputs exist, and no public submission was created.
+- Training configuration/time/checkpoint and downstream metrics are N/A. Whether SFT produces a gain on PhoASR transcripts remains undetermined.
+
+### Files
+- `scripts/prepare_qwen_sft.py`
+- `outputs/models/qwen3-4b-lifemate-lora-v1/sft_train.jsonl`
+- `outputs/models/qwen3-4b-lifemate-lora-v1/dataset-audit.json`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
+## 2026-10-31 — Agent architecture audit and step-cap diagnostic
+
+### Done
+- Audited `LifeMatePipeline`, `Agent`, and official ToolEnv interface. Confirmed one ToolEnv per sample, one action per Qwen turn, observation feedback to later prompts, persistent session state, and a five-turn default cap.
+- Audited gold call-count distribution over the 1,545 labeled train examples: 111 zero-call, 369 one-call, 428 two-call, 359 three-call, 161 four-call, 107 five-call, and 10 six-call.
+- Added `scripts/audit_agent_architecture.py`; selected 30 complex fixed-validation samples with existing PhoASR baseline predictions and emitted gold trajectories, tool results, dependency reasons, baseline action/observation traces, and failure labels.
+- Added optional `--sample-ids-file` and `--max-steps` support to `scripts/run_eval.py`; evaluated the same 30 IDs at caps 6 and 7 using PhoASR public + Ollama Qwen3-4B, full schemas, no retrieval. Baseline cap5 predictions were already available.
+- Added `scripts/compare_agent_architecture_audit.py` and paired cap5/6/7 metrics under `outputs/eval/paired-analysis/agent-architecture-cap5-vs-cap7/`.
+
+### Result
+- Gold trajectory heuristic found 30/30 read-before-write, observation-dependent cases (25 primarily categorized observation-dependent and five missing-info; categories overlap). Baseline cap5 missed the first exact action on all 30, final-state match 0/30, tool-call F1 0.1073.
+- Caps 6 and 7 did not improve first-action, full-trajectory, or state match; both had 29 unchanged and one worsened paired proxy outcomes, with slightly lower F1 and higher mean latency. Cap7 reached its turn limit on 10/30 samples.
+- Kept production MAX_STEPS at 5. Existing code is already iterative; the measured bottleneck on this hard subset is wrong first-tool selection, not absent observation plumbing. No new prototype or public submission was created.
+
+### Files
+- `scripts/run_eval.py`
+- `scripts/audit_agent_architecture.py`
+- `scripts/compare_agent_architecture_audit.py`
+- `outputs/eval/agent-architecture-audit-v1-val309/`
+- `outputs/eval/agent-architecture-audit-v1-iterative-cap6-val30/`
+- `outputs/eval/agent-architecture-audit-v1-iterative-cap7-val30/`
+- `outputs/eval/paired-analysis/agent-architecture-cap5-vs-cap7/`
+- `PROGRESS.md`
+- `INSIGHTS.md`
+
+## 2026-10-31 — First-action oracle diagnostic
+
+### Done
+- Added diagnostic-only controls to `Agent.next_action` and `LifeMatePipeline.run`: constrain the first tool name while generating its arguments, inject the exact first gold call, or inject the first two gold calls. All injected calls are schema-validated and executed on the sample's ToolEnv; later observations feed normal Qwen turns.
+- Added `scripts/run_first_action_oracles.py` for the fixed 30 IDs, using the exact stored PhoASR public transcript and cap 5. Added `scripts/analyze_oracle_continuation.py` to label the first post-oracle failure in Oracle B.
+- Added `scripts/validate_oracle_artifacts.py` to verify the 30 rows, transcript identity, injected-call execution, observations, and zero runtime failures.
+- Completed Oracle A, B, and optional C across 30/30 samples each, with zero runtime failures. Oracle C was run because Oracle B improved tool F1 but still had 0/30 final-state matches.
+- Saved per-sample trajectories, observations, states, summaries, continuation taxonomy, and paired outcomes under the requested experiment directories.
+
+### Results
+- Baseline: first full action 0/30; F1 0.1073; state 0/30; exact trajectory 0/30; proxy 0.0518.
+- Oracle A: forced tool name 30/30; Qwen-generated first full call exact 3/30; F1 0.1304; state 0/30; proxy 0.0596. Paired: 5 improved, 19 unchanged, 6 worsened.
+- Oracle B: injected first call exact 30/30; F1 0.3431; state 0/30; proxy 0.1719. Paired: 27 improved, 0 unchanged, 3 worsened. Continuation failures: wrong second tool 24; observation ignored 0; wrong later argument 2; premature stop 1; extra call 0; turn cap 0; other 3.
+- Oracle C: injected first two calls exact 30/30; F1 0.5191; state 1/30; proxy 0.2783. Paired: 29 improved, 0 unchanged, 1 worsened. Exact full trajectories remained 0/30.
+- Conclusion: both first-call argument grounding and subsequent next-tool policy matter. The large Oracle A→B gain indicates first-call arguments are difficult; Oracle B continuation is usually wrong at tool 2, and Oracle C still rarely reaches the final state. Prioritize SFT on next full action with observation-conditioned iterative trajectories, not only tool-name routing. No fine-tuning or submission was done.
+
+### Files
+- `src/lifemate/agent.py`
+- `src/lifemate/pipeline.py`
+- `scripts/run_first_action_oracles.py`
+- `scripts/analyze_oracle_continuation.py`
+- `outputs/eval/oracle-first-tool-name-30/`
+- `outputs/eval/oracle-first-full-call-30/`
+- `outputs/eval/oracle-first-two-calls-30/`
+- `outputs/eval/paired-analysis/oracle-first-action/`
+- `INSIGHTS.md`
+
+## 2026-10-31 — Qwen next-action trajectory dataset
+
+### Done
+- Added `scripts/build_qwen_next_action_dataset.py` to construct one ToolEnv per fixed train trajectory, replay each gold call, and serialize each next full action plus a terminal STOP with real preceding observations.
+- Kept the fixed 309 validation IDs out of the dataset. Prompts use the local PhoASR public model on train audio and history audio, and mirror the production `Agent.next_action` system prompt, compact tool schemas, context/history payload, and observation structure.
+- Replayed all 1,236 train trajectories successfully. Generated 4,043 examples, average 2.271 tool actions (maximum six), 1,236 STOP targets, 170 `sys.ask_missing_info` targets, zero replay failures, and zero duplicate timesteps.
+- Added reproducibility hashes to `outputs/training/qwen-next-action-v1/manifest.json`; validated all 4,043 targets through the production action parser and checked train/validation membership, tool names, and argument keys.
+- Added a QLoRA training runner and private Kaggle GPU notebook configured for a 30-step smoke run before the full run.
+
+### Current status
+- The first upload attempt was blocked by automatic approval review because the dataset contains derived PhoASR transcripts and ToolEnv observations. After the user explicitly confirmed, uploaded the private Kaggle dataset `daoviet/lifemate-qwen-next-action-v1` (v1), then published v2 with the reproducibility manifest. Verified the private dataset file list.
+- Kaggle kernel v1 reached ERROR because the notebook hard-coded an input path absent from the Kaggle mount. Dynamic input discovery fixed the path for v2.
+- Kaggle kernel v2 loaded the dataset/model but ran out of memory on a 6,144-token sequence: the T4 had 551 MiB free and SDPA needed another 864 MiB. Reduced the configured context to 4,096, enabled PyTorch expandable allocator segments, and aligned the local inference context setting with training.
+- Published dataset v3 and submitted the T4 smoke kernel. The run completed 30 optimizer steps (loss 2.693 to 0.224; peak VRAM 13.38 GiB), then ended ERROR in the post-training probe because the probe used an unrelated greeting prompt and required action JSON. Kaggle exposed no output artifacts for the failed run.
+- Added `scripts/monitor_kaggle_kernel.py` to poll status/logs every five minutes by default and print the terminal error trace. The watcher stopped after the kernel reached ERROR.
+- Fixed the smoke probe to use a real SFT prompt, validate the generated tool/argument shape, and use gradient accumulation 4 during smoke only. Regenerated the private notebook and staged dataset runner/manifest locally; syntax and staged hashes pass. No upload or new model run was started, per the pause instruction.
+
+### Files
+- `scripts/build_qwen_next_action_dataset.py`
+- `scripts/finalize_qwen_next_action_manifest.py`
+- `scripts/train_qwen_next_action.py`
+- `scripts/prepare_qwen_kaggle_kernel.py`
+- `scripts/analyze_qwen_next_action.py`
+- `src/lifemate/agent.py`
+- `outputs/training/qwen-next-action-v1/`

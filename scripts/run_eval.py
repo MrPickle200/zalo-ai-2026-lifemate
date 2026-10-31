@@ -7,7 +7,7 @@ from collections import Counter
 from pathlib import Path
 
 import _bootstrap  # noqa: F401
-from lifemate.pipeline import LifeMatePipeline
+from lifemate.pipeline import MAX_STEPS, LifeMatePipeline
 from lifemate.asr import ASRModel, PhoASRModel
 from lifemate.retrieval import DEFAULT_TOP_K, MAX_CANDIDATE_TOOLS, MIN_CONFIDENCE
 from lifemate.utils import find_data_root, load_jsonl, seed_everything
@@ -61,8 +61,14 @@ def main() -> int:
     parser.add_argument("--mode", choices=("baseline", "oracle", "retrieval", "soft-retrieval", "curated-fewshot"), default="baseline")
     parser.add_argument("--limit", type=int, help="optional prefix of the fixed validation IDs")
     parser.add_argument("--offset", type=int, default=0)
+    parser.add_argument("--sample-ids-file", help="JSON list of fixed validation IDs for a paired diagnostic subset")
+    parser.add_argument("--max-steps", type=int, default=MAX_STEPS, help="maximum iterative agent turns (including stop)")
     parser.add_argument("--data-root")
     parser.add_argument("--asr", choices=("whisper-small", "phoasr-whisper-small"), default="whisper-small")
+    parser.add_argument("--dual-transcript", action="store_true",
+                        help="evaluate paired PhoASR public and fine-tuned transcripts from existing validation runs")
+    parser.add_argument("--dual-public", default="phoasr-small-baseline-val309")
+    parser.add_argument("--dual-ft", default="phoasr-lifemate-ft-v1-val309")
     parser.add_argument("--split-dir", default="data/splits")
     parser.add_argument("--output-root", default="outputs/eval")
     parser.add_argument("--experiment-name", help="override the default output experiment directory")
@@ -70,27 +76,51 @@ def main() -> int:
                         help="number of retrieved examples used to vote for candidate tools")
     parser.add_argument("--max-candidate-tools", type=int, default=MAX_CANDIDATE_TOOLS)
     args = parser.parse_args()
-    if (args.limit is not None and args.limit < 1) or args.offset < 0 or args.top_k < 1 or args.max_candidate_tools < 1:
-        parser.error("limit, top-k, candidate count, and offset must be positive (offset may be zero)")
+    if ((args.limit is not None and args.limit < 1) or args.offset < 0 or args.top_k < 1
+            or args.max_candidate_tools < 1 or args.max_steps < 1):
+        parser.error("limit, top-k, candidate count, max steps, and offset must be positive (offset may be zero)")
     seed_everything()
     root = find_data_root(args.data_root)
     items = list(load_jsonl(root / "train" / "train.jsonl"))
     by_id = {item["id"]: item for item in items}
     split_dir = Path(args.split_dir)
     val_ids = json.loads((split_dir / "val_ids.json").read_text(encoding="utf-8"))
-    ids = val_ids[args.offset: args.offset + args.limit if args.limit is not None else None]
+    if args.sample_ids_file:
+        if args.limit is not None or args.offset:
+            parser.error("--sample-ids-file cannot be combined with --limit/--offset")
+        ids = json.loads(Path(args.sample_ids_file).read_text(encoding="utf-8"))
+        unknown = sorted(set(ids) - set(val_ids))
+        if unknown:
+            parser.error(f"sample-ids-file contains IDs outside the fixed validation split: {unknown[:5]}")
+        if len(ids) != len(set(ids)):
+            parser.error("sample-ids-file contains duplicate IDs")
+    else:
+        ids = val_ids[args.offset: args.offset + args.limit if args.limit is not None else None]
     if not ids:
         raise SystemExit("No validation samples selected")
+    paired_transcripts = {}
+    if args.dual_transcript:
+        if args.mode != "baseline":
+            parser.error("--dual-transcript requires baseline mode")
+        def read_predictions(name):
+            path = Path(args.output_root) / name / "predictions.jsonl"
+            return {r["id"]: r for r in (json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip())}
+        public_rows, ft_rows = read_predictions(args.dual_public), read_predictions(args.dual_ft)
+        missing = [sid for sid in ids if sid not in public_rows or sid not in ft_rows]
+        if missing:
+            raise SystemExit(f"Missing paired ASR predictions for {len(missing)} validation IDs")
+        paired_transcripts = {sid: "<DUAL_TRANSCRIPT>\nTranscript A:\n" + (public_rows[sid].get("asr_text") or "") +
+                                  "\n\nTranscript B:\n" + (ft_rows[sid].get("asr_text") or "") for sid in ids}
     retrieval_on = args.mode in {"retrieval", "soft-retrieval", "curated-fewshot"}
     asr = PhoASRModel() if args.asr == "phoasr-whisper-small" else ASRModel()
-    pipeline = LifeMatePipeline(root, "train", asr=asr, retrieval_assisted=retrieval_on,
+    pipeline = LifeMatePipeline(root, "train", asr=asr, max_steps=args.max_steps, retrieval_assisted=retrieval_on,
                                 retrieval_top_k=args.top_k,
                                 retrieval_max_candidate_tools=args.max_candidate_tools,
                                 soft_retrieval=args.mode == "soft-retrieval",
                                 curated_fewshot=args.mode == "curated-fewshot")
     rows = []
     output_root = Path(args.output_root)
-    experiment = args.experiment_name or ({"phoasr-whisper-small": "phoasr-small-baseline-val309"}.get(args.asr) if args.asr != "whisper-small" and args.mode == "baseline" else None) or {"baseline": "baseline-v1-val309", "oracle": "oracle-asr-v1-val309",
+    experiment = args.experiment_name or ("phoasr-dual-transcript-v1-val309" if args.dual_transcript else None) or ({"phoasr-whisper-small": "phoasr-small-baseline-val309"}.get(args.asr) if args.asr != "whisper-small" and args.mode == "baseline" else None) or {"baseline": "baseline-v1-val309", "oracle": "oracle-asr-v1-val309",
                                           "retrieval": "retrieval-v1-val309", "soft-retrieval": "soft-retrieval-v1-val309",
                                           "curated-fewshot": "curated-fewshot-v1-val309"}[args.mode]
     outdir = output_root / experiment
@@ -102,7 +132,7 @@ def main() -> int:
         expected = item.get("label", {}).get("tool_calls", [])
         transcript = item.get("audio_text", "") if args.mode == "oracle" else None
         try:
-            result = pipeline.run(item, transcript_override=transcript)
+            result = pipeline.run(item, transcript_override=paired_transcripts.get(sample_id, transcript))
             pred = result["tool_calls"]
             ps, gs = call_set(pred), call_set(expected)
             tp = len(ps & gs)
@@ -146,7 +176,9 @@ def main() -> int:
                                  row.get("asr_text", ""), item.get("audio_text", ""), oracle_correct.get(row["id"], False))
             row["error_type"] = typ
             error_counts[typ] += 1
-    report = {"mode": args.mode, "asr": args.asr, "split": "train", "validation_samples": len(ids), **metrics(rows),
+    report = {"mode": args.mode, "asr": "phoasr-public+lifemate-ft" if args.dual_transcript else args.asr,
+              "max_steps": args.max_steps,
+              "dual_transcript": args.dual_transcript, "split": "train", "validation_samples": len(ids), **metrics(rows),
               "error_counts": {t: error_counts[t] for t in ERROR_TYPES},
               "error_percent_of_incorrect": {t: error_counts[t] / sum(error_counts.values()) if sum(error_counts.values()) else 0 for t in ERROR_TYPES},
               "metric_note": "composite_proxy_mean = mean((per-sample tool-call F1 + exact labeled final-state match)/2); official scorer formula not available in the local kit",

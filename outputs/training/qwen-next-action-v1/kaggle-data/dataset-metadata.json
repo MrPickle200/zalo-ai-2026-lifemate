@@ -1,0 +1,14 @@
+{
+  "title": "LifeMate Qwen next-action trajectory SFT v1",
+  "id": "daoviet/lifemate-qwen-next-action-v1",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "keywords": [
+    "lifemate",
+    "sft",
+    "qwen"
+  ]
+}

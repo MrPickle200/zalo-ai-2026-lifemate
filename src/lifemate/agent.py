@@ -12,9 +12,13 @@ from .schemas import parse_action, validate_action
 class Agent:
     """Small, greedy local causal LLM for structured tool actions."""
 
-    def __init__(self, model_path: str | Path | None = None, max_new_tokens: int = 128, context_limit: int = 6144):
+    def __init__(self, model_path: str | Path | None = None, adapter_path: str | Path | None = None,
+                 max_new_tokens: int = 128, context_limit: int | None = None):
         self.model_path = Path(model_path or os.environ.get("LIFEMATE_LLM_MODEL", "models/Qwen3-4B-Instruct-2507")).expanduser()
+        adapter = adapter_path or os.environ.get("LIFEMATE_LLM_ADAPTER")
+        self.adapter_path = Path(adapter).expanduser() if adapter else None
         self.max_new_tokens = max_new_tokens
+        context_limit = context_limit if context_limit is not None else int(os.environ.get("LIFEMATE_LLM_CONTEXT_LIMIT", "6144"))
         self.context_limit = min(context_limit, 16384)
         self.tokenizer = None
         self.model = None
@@ -47,6 +51,15 @@ class Agent:
                 device_map="auto" if torch.cuda.is_available() else None,
                 max_memory=max_memory,
             )
+            if self.adapter_path is not None:
+                if not self.adapter_path.is_dir():
+                    raise FileNotFoundError(f"LoRA adapter directory not found: {self.adapter_path}")
+                try:
+                    from peft import PeftModel
+                except ImportError as exc:
+                    raise RuntimeError("Loading a LoRA adapter requires peft") from exc
+                self.model = PeftModel.from_pretrained(self.model, str(self.adapter_path),
+                                                       is_trainable=False, local_files_only=True)
             n_params = sum(p.numel() for p in self.model.parameters())
             if n_params >= 5_000_000_000:
                 self.model = None
@@ -125,11 +138,17 @@ class Agent:
 
     def next_action(self, transcript: str, context: dict, history: list, available_tools: list[str], observations: list,
                     candidate_tools: list[str] | None = None, few_shot_examples: list[dict] | None = None,
-                    missing_info_demos: list[dict] | None = None, missing_info_rule: bool = False):
+                    missing_info_demos: list[dict] | None = None, missing_info_rule: bool = False,
+                    forced_tool_name: str | None = None):
         allowed = set(available_tools)
         selected_tools = [name for name in candidate_tools if name in allowed] if candidate_tools is not None else available_tools
+        if forced_tool_name is not None:
+            if forced_tool_name not in allowed:
+                raise ValueError(f"forced diagnostic tool {forced_tool_name!r} is not installed for this sample")
+            selected_tools = [forced_tool_name]
         model_allowed = set(selected_tools)
         tool_specs = self._tool_specs(selected_tools, self.catalog)
+        dual_transcript = transcript.startswith("<DUAL_TRANSCRIPT>\n")
         system = (
             "Bạn là agent LifeMate tiếng Việt. Dùng transcript cuối cùng, context, history và tool schema để thực hiện yêu cầu. "
             "Chỉ gọi tool đã cài và có trong schema. Không bịa dữ liệu; thiếu thông tin thiết yếu thì gọi sys.ask_missing_info. "
@@ -138,6 +157,16 @@ class Agent:
             "Sau khi hoàn tất, trả action stop. Mỗi lần chỉ trả đúng một JSON object, không giải thích. "
             'Ví dụ: {"action":"tool_call","tool":"app.tool","arguments":{}} hoặc {"action":"stop"}. /no_think'
         )
+        if forced_tool_name is not None:
+            system += (f" Lượt diagnostic đầu tiên đã cố định tool là {forced_tool_name}. "
+                       "Bắt buộc trả action tool_call với đúng tool này, tự tạo arguments chỉ từ transcript, context, "
+                       "history và schema; không dùng arguments từ nhãn và không trả stop.")
+        if dual_transcript:
+            system += (
+                " Transcript A và B là hai nhận dạng của cùng một câu nói. Hãy suy ra yêu cầu từ thông tin nhất quán giữa hai bản. "
+                "Nếu khác nhau ở chi tiết quan trọng, không tự bịa hoặc tự chọn một giá trị thiếu căn cứ; "
+                "dựa trên yêu cầu hiện tại và tool schema để quyết định tool call."
+            )
         if missing_info_rule:
             system += (
                 " Nếu đã xác định được tool phù hợp nhưng thiếu required argument và không thể suy ra an toàn từ context/history, "
@@ -172,8 +201,10 @@ class Agent:
         try:
             action = parse_action(raw)
             valid, error = validate_action(action, self.catalog, model_allowed)
-            if valid:
+            if valid and not (forced_tool_name is not None and action.get("action") == "stop"):
                 return action
+            if valid:
+                error = f"diagnostic requires a tool_call to {forced_tool_name}"
         except (ValueError, TypeError) as exc:
             error = str(exc)
         # A single bounded repair attempt; never repair semantic argument values in code.
@@ -182,7 +213,8 @@ class Agent:
         try:
             action = parse_action(self._generate(messages))
             valid, _ = validate_action(action, self.catalog, model_allowed)
-            return action if valid else {"action": "stop"}
+            valid_forced = forced_tool_name is None or action.get("action") == "tool_call"
+            return action if valid and valid_forced else {"action": "stop"}
         except (ValueError, TypeError):
             return {"action": "stop"}
 

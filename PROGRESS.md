@@ -12,3 +12,6 @@
 | soft-retrieval-v1 | TF-IDF top-3 demos + full tool schemas; 634-row submission | proxy 0.2558; tool-call F1 0.2435; state match 0.2977 | 7.51 |
 | phoasr-small-baseline-v1 | PhoASR-whisper-small + baseline Qwen3-4B, full tool set, no retrieval; 634-row submission candidate validated | proxy 0.2286; tool-call F1 0.1693; state match 0.2751; WER 0.2804 | 9.79 |
 | phoasr-lifemate-ft-v1 | PhoASR-whisper-small LifeMate fine-tune + baseline Qwen3-4B, full tool set, no retrieval; 634-row public candidate validated | proxy 0.2222; tool-call F1 0.1634; state match 0.2686; WER 0.2757; CER 0.1966 | 9.78 |
+| phoasr-hybrid-v1 | PhoASR public + LifeMate FT dual-transcript prompt + baseline Qwen3-4B, full tool set, no retrieval | proxy 0.2064; tool-call F1 0.1509; state match 0.2718 | not submitted |
+| qwen-lora-v1-phoasr | PhoASR public + Qwen3-4B LoRA SFT trên LifeMate | dataset audited; training not run (PEFT backend unavailable) | - |
+| iterative-agent-architecture-audit-v1-val30 | PhoASR public + Qwen3-4B iterative ToolEnv, 30 complex held-out samples; compared caps 5/6/7 | cap5 proxy 0.0518 / F1 0.1073 / state 0.00; cap6 0.0512 / 0.1058 / 0.00; cap7 0.0512 / 0.1053 / 0.00 | - |
