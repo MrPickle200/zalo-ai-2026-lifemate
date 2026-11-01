@@ -1,0 +1,12 @@
+{
+  "version": "asr_nbest_v1",
+  "samples": 100,
+  "transcript_cache": "transcripts.jsonl",
+  "generation_config": "generation_config.json",
+  "analysis": "wer_analysis.json",
+  "duplicate_sample_ids": 0,
+  "sample_ids_match_requested_order": true,
+  "audio_mapping_verified_by_sha256": true,
+  "runtime_failures": 0,
+  "checks": "Production greedy equals canonical PhoASR cached transcript; original text preserved without post-normalization"
+}

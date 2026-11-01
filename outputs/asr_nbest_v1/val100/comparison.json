@@ -1,0 +1,30 @@
+{
+  "tool_call_f1": 0.1657142857142857,
+  "state_match": 0.31,
+  "proxy": 0.24639285714285714,
+  "first_tool_accuracy": 0.45,
+  "first_full_call_accuracy": 0.08,
+  "exact_trajectory": 0.08,
+  "runtime_failures": 0,
+  "average_trajectory_length": 2.14,
+  "average_latency_seconds": 10.315327936999948,
+  "wer_oracle_paired": {
+    "improved": 2,
+    "worsened": 2,
+    "unchanged": 96
+  },
+  "auto_consensus_paired": {
+    "improved": 1,
+    "worsened": 2,
+    "unchanged": 97
+  },
+  "baseline_transcript_exact_match_count": 100,
+  "asr_quality": {
+    "production_wer": 0.3637638678419053,
+    "oracle_wer": 0.3364437028422225,
+    "production_cer": 0.2491978494176675,
+    "oracle_cer": 0.22790071437434992,
+    "average_wer": 0.3597329420342835,
+    "average_cer": 0.24552644444257032
+  }
+}

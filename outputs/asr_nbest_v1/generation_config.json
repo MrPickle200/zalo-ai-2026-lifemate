@@ -1,0 +1,43 @@
+{
+  "model": "models\\pho-asr-whisper-small",
+  "model_config": "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\models\\pho-asr-whisper-small\\config.json",
+  "sample_ids_file": "outputs\\eval\\agent-architecture-audit-v1-val309\\sample_ids.json",
+  "sample_ids_sha256": "38fa74b479290ad95d667d84593a4693f535df14e03ef4758d9513f1d0b2a60a",
+  "seed": 17,
+  "sampling_seed_per_sample": "global seeded torch RNG in fixed sample/config order",
+  "processor": "PhoASR local AutoProcessor; Vietnamese 16 kHz mono",
+  "configs": [
+    {
+      "name": "production_greedy",
+      "num_beams": 1,
+      "do_sample": false
+    },
+    {
+      "name": "beam_3",
+      "num_beams": 3,
+      "do_sample": false
+    },
+    {
+      "name": "beam_5",
+      "num_beams": 5,
+      "do_sample": false
+    },
+    {
+      "name": "sample_t0.2",
+      "num_beams": 1,
+      "do_sample": true,
+      "temperature": 0.2,
+      "top_p": 0.9
+    },
+    {
+      "name": "sample_t0.35",
+      "num_beams": 1,
+      "do_sample": true,
+      "temperature": 0.35,
+      "top_p": 0.9
+    }
+  ],
+  "score_note": "PhoASR generation wrapper does not expose calibrated confidence; all confidence fields are null",
+  "production_decode": "language=vi, task=transcribe, do_sample=False, num_beams=1, return_timestamps=False",
+  "cache_sha256": "e30318a5005bef151bc4aac8bfddfd797ace0075b1b9a0cb20243717aba4d196"
+}

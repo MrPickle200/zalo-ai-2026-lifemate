@@ -1,0 +1,68 @@
+{
+  "experiment": "PhoASR N-best diagnostic — 100 new fixed validation samples",
+  "selection": "First 100 IDs in fixed val_ids order after excluding the previously evaluated hard-30 IDs",
+  "samples": 100,
+  "candidate_generation": {
+    "candidates_per_sample": 5,
+    "configs": ["production_greedy", "beam_3", "beam_5", "sample_t0.2", "sample_t0.35"],
+    "duplicate_candidate_rate": 0.61,
+    "empty_transcripts": 0,
+    "runtime_failures": 0,
+    "generation_runtime_seconds": 1007.98
+  },
+  "asr": {
+    "production_wer": 0.363764,
+    "oracle_wer": 0.336444,
+    "mean_candidate_wer": 0.359733,
+    "production_cer": 0.249198,
+    "oracle_cer": 0.227901,
+    "mean_candidate_cer": 0.245526,
+    "samples_improved": 29,
+    "samples_unchanged": 71,
+    "samples_worsened": 0
+  },
+  "downstream": {
+    "current_1best": {
+      "btc_formula_score": 6.107143,
+      "tool_call_f1": 0.165714,
+      "state_match": 0.31,
+      "proxy": 0.246393,
+      "first_tool_accuracy": 0.45,
+      "first_full_call_accuracy": 0.08,
+      "exact_trajectory": 0.08,
+      "runtime_failures": 0,
+      "average_trajectory_length": 2.14,
+      "average_latency_seconds": 10.3153
+    },
+    "wer_oracle": {
+      "btc_formula_score": 7.273810,
+      "tool_call_f1": 0.167147,
+      "state_match": 0.32,
+      "proxy": 0.256726,
+      "first_tool_accuracy": 0.45,
+      "first_full_call_accuracy": 0.09,
+      "exact_trajectory": 0.09,
+      "runtime_failures": 0,
+      "average_trajectory_length": 2.03,
+      "average_latency_seconds": 7.296
+    },
+    "downstream_oracle": {"status": "not_run"},
+    "auto_consensus": {
+      "btc_formula_score": 7.273810,
+      "tool_call_f1": 0.160458,
+      "state_match": 0.32,
+      "proxy": 0.254226,
+      "first_tool_accuracy": 0.42,
+      "first_full_call_accuracy": 0.09,
+      "exact_trajectory": 0.09,
+      "runtime_failures": 0,
+      "average_trajectory_length": 2.04,
+      "average_latency_seconds": 7.0913
+    }
+  },
+  "paired_proxy_outcomes_vs_current_1best": {
+    "wer_oracle": {"improved": 2, "worsened": 2, "unchanged": 96},
+    "auto_consensus": {"improved": 1, "worsened": 2, "unchanged": 97}
+  },
+  "downstream_oracle_note": "Not run because scoring every candidate entails multiple ToolEnv trajectories per sample, conflicting with the exact-one-ToolEnv competition requirement."
+}

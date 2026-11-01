@@ -1,0 +1,261 @@
+{
+  "samples": 30,
+  "average_candidates_per_sample": 5.0,
+  "min_candidates_per_sample": 5,
+  "max_candidates_per_sample": 5,
+  "duplicate_transcript_rate": 0.5666666666666667,
+  "empty_transcripts": 0,
+  "runtime_failures": 0,
+  "generation_runtime_seconds": 423.663714100001,
+  "wer_cer": {
+    "production_wer": 0.30480397953797855,
+    "oracle_wer": 0.28900322042648824,
+    "production_cer": 0.17782339255400242,
+    "oracle_cer": 0.16524290500885297,
+    "average_wer": 0.3032127338523616,
+    "average_cer": 0.17538952072930816
+  },
+  "per_sample": {
+    "train_1265": {
+      "production_wer": 0.37037037037037035,
+      "oracle_wer": 0.37037037037037035,
+      "production_cer": 0.21176470588235294,
+      "oracle_cer": 0.2,
+      "average_wer": 0.37037037037037035,
+      "average_cer": 0.20470588235294115
+    },
+    "train_0571": {
+      "production_wer": 0.4375,
+      "oracle_wer": 0.4375,
+      "production_cer": 0.18181818181818182,
+      "oracle_cer": 0.12121212121212122,
+      "average_wer": 0.4375,
+      "average_cer": 0.15757575757575756
+    },
+    "train_0065": {
+      "production_wer": 0.2631578947368421,
+      "oracle_wer": 0.2631578947368421,
+      "production_cer": 0.15873015873015872,
+      "oracle_cer": 0.1111111111111111,
+      "average_wer": 0.2631578947368421,
+      "average_cer": 0.13968253968253969
+    },
+    "train_0172": {
+      "production_wer": 0.2222222222222222,
+      "oracle_wer": 0.2222222222222222,
+      "production_cer": 0.13114754098360656,
+      "oracle_cer": 0.13114754098360656,
+      "average_wer": 0.22222222222222224,
+      "average_cer": 0.13114754098360656
+    },
+    "train_0205": {
+      "production_wer": 0.3333333333333333,
+      "oracle_wer": 0.2857142857142857,
+      "production_cer": 0.2,
+      "oracle_cer": 0.17142857142857143,
+      "average_wer": 0.3238095238095238,
+      "average_cer": 0.18571428571428572
+    },
+    "train_0282": {
+      "production_wer": 0.4,
+      "oracle_wer": 0.35,
+      "production_cer": 0.2835820895522388,
+      "oracle_cer": 0.26865671641791045,
+      "average_wer": 0.38,
+      "average_cer": 0.28059701492537314
+    },
+    "train_0090": {
+      "production_wer": 0.32142857142857145,
+      "oracle_wer": 0.25,
+      "production_cer": 0.22580645161290322,
+      "oracle_cer": 0.1827956989247312,
+      "average_wer": 0.2785714285714286,
+      "average_cer": 0.2
+    },
+    "train_0094": {
+      "production_wer": 0.24,
+      "oracle_wer": 0.24,
+      "production_cer": 0.12941176470588237,
+      "oracle_cer": 0.12941176470588237,
+      "average_wer": 0.24,
+      "average_cer": 0.12941176470588237
+    },
+    "train_0107": {
+      "production_wer": 0.23333333333333334,
+      "oracle_wer": 0.23333333333333334,
+      "production_cer": 0.13861386138613863,
+      "oracle_cer": 0.12871287128712872,
+      "average_wer": 0.23333333333333334,
+      "average_cer": 0.13663366336633664
+    },
+    "train_0141": {
+      "production_wer": 0.4,
+      "oracle_wer": 0.37142857142857144,
+      "production_cer": 0.23684210526315788,
+      "oracle_cer": 0.22807017543859648,
+      "average_wer": 0.3942857142857143,
+      "average_cer": 0.2350877192982456
+    },
+    "train_1284": {
+      "production_wer": 0.42424242424242425,
+      "oracle_wer": 0.42424242424242425,
+      "production_cer": 0.23008849557522124,
+      "oracle_cer": 0.22123893805309736,
+      "average_wer": 0.4242424242424242,
+      "average_cer": 0.22654867256637168
+    },
+    "train_0156": {
+      "production_wer": 0.35714285714285715,
+      "oracle_wer": 0.35714285714285715,
+      "production_cer": 0.23157894736842105,
+      "oracle_cer": 0.23157894736842105,
+      "average_wer": 0.37857142857142856,
+      "average_cer": 0.2442105263157895
+    },
+    "train_0194": {
+      "production_wer": 0.5172413793103449,
+      "oracle_wer": 0.4827586206896552,
+      "production_cer": 0.28865979381443296,
+      "oracle_cer": 0.27835051546391754,
+      "average_wer": 0.5103448275862069,
+      "average_cer": 0.2865979381443299
+    },
+    "train_0201": {
+      "production_wer": 0.35714285714285715,
+      "oracle_wer": 0.35714285714285715,
+      "production_cer": 0.15463917525773196,
+      "oracle_cer": 0.15463917525773196,
+      "average_wer": 0.35714285714285715,
+      "average_cer": 0.16082474226804125
+    },
+    "train_0772": {
+      "production_wer": 0.5,
+      "oracle_wer": 0.4782608695652174,
+      "production_cer": 0.2948717948717949,
+      "oracle_cer": 0.28846153846153844,
+      "average_wer": 0.5,
+      "average_cer": 0.3
+    },
+    "train_0204": {
+      "production_wer": 0.3333333333333333,
+      "oracle_wer": 0.3333333333333333,
+      "production_cer": 0.27586206896551724,
+      "oracle_cer": 0.2413793103448276,
+      "average_wer": 0.3333333333333333,
+      "average_cer": 0.2689655172413793
+    },
+    "train_0325": {
+      "production_wer": 0.02857142857142857,
+      "oracle_wer": 0.02857142857142857,
+      "production_cer": 0.00909090909090909,
+      "oracle_cer": 0.00909090909090909,
+      "average_wer": 0.02857142857142857,
+      "average_cer": 0.00909090909090909
+    },
+    "train_0776": {
+      "production_wer": 0.3617021276595745,
+      "oracle_wer": 0.3191489361702128,
+      "production_cer": 0.2896551724137931,
+      "oracle_cer": 0.2689655172413793,
+      "average_wer": 0.3531914893617022,
+      "average_cer": 0.28551724137931034
+    },
+    "train_0249": {
+      "production_wer": 0.37037037037037035,
+      "oracle_wer": 0.37037037037037035,
+      "production_cer": 0.2222222222222222,
+      "oracle_cer": 0.2222222222222222,
+      "average_wer": 0.37037037037037035,
+      "average_cer": 0.22222222222222224
+    },
+    "train_0259": {
+      "production_wer": 0.29411764705882354,
+      "oracle_wer": 0.29411764705882354,
+      "production_cer": 0.16153846153846155,
+      "oracle_cer": 0.16153846153846155,
+      "average_wer": 0.3,
+      "average_cer": 0.16461538461538464
+    },
+    "train_0267": {
+      "production_wer": 0.11764705882352941,
+      "oracle_wer": 0.11764705882352941,
+      "production_cer": 0.10606060606060606,
+      "oracle_cer": 0.10606060606060606,
+      "average_wer": 0.1411764705882353,
+      "average_cer": 0.12121212121212122
+    },
+    "train_0274": {
+      "production_wer": 0.08571428571428572,
+      "oracle_wer": 0.05714285714285714,
+      "production_cer": 0.05185185185185185,
+      "oracle_cer": 0.02962962962962963,
+      "average_wer": 0.08,
+      "average_cer": 0.04444444444444444
+    },
+    "train_0292": {
+      "production_wer": 0.23333333333333334,
+      "oracle_wer": 0.23333333333333334,
+      "production_cer": 0.07692307692307693,
+      "oracle_cer": 0.07692307692307693,
+      "average_wer": 0.24,
+      "average_cer": 0.07884615384615386
+    },
+    "train_0323": {
+      "production_wer": 0.17647058823529413,
+      "oracle_wer": 0.14705882352941177,
+      "production_cer": 0.08396946564885496,
+      "oracle_cer": 0.07633587786259542,
+      "average_wer": 0.17058823529411765,
+      "average_cer": 0.08244274809160305
+    },
+    "train_0368": {
+      "production_wer": 0.4,
+      "oracle_wer": 0.4,
+      "production_cer": 0.2608695652173913,
+      "oracle_cer": 0.2608695652173913,
+      "average_wer": 0.4,
+      "average_cer": 0.2608695652173913
+    },
+    "train_0412": {
+      "production_wer": 0.375,
+      "oracle_wer": 0.375,
+      "production_cer": 0.25287356321839083,
+      "oracle_cer": 0.25287356321839083,
+      "average_wer": 0.375,
+      "average_cer": 0.25287356321839083
+    },
+    "train_0975": {
+      "production_wer": 0.23333333333333334,
+      "oracle_wer": 0.2,
+      "production_cer": 0.0891089108910891,
+      "oracle_cer": 0.07920792079207921,
+      "average_wer": 0.2066666666666667,
+      "average_cer": 0.08118811881188119
+    },
+    "train_0398": {
+      "production_wer": 0.12903225806451613,
+      "oracle_wer": 0.0967741935483871,
+      "production_cer": 0.0660377358490566,
+      "oracle_cer": 0.0660377358490566,
+      "average_wer": 0.12258064516129033,
+      "average_cer": 0.0660377358490566
+    },
+    "train_1200": {
+      "production_wer": 0.3783783783783784,
+      "oracle_wer": 0.32432432432432434,
+      "production_cer": 0.15873015873015872,
+      "oracle_cer": 0.12698412698412698,
+      "average_wer": 0.35135135135135137,
+      "average_cer": 0.14285714285714285
+    },
+    "train_0328": {
+      "production_wer": 0.25,
+      "oracle_wer": 0.25,
+      "production_cer": 0.1323529411764706,
+      "oracle_cer": 0.1323529411764706,
+      "average_wer": 0.31,
+      "average_cer": 0.16176470588235295
+    }
+  },
+  "failures": []
+}

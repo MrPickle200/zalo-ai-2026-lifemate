@@ -1,0 +1,14 @@
+{
+  "tool_call_f1": 0.008620689655172414,
+  "state_match": 0.0,
+  "proxy": 0.004310344827586207,
+  "trajectory_exact": 0.0,
+  "first_full_call_accuracy": 0.0,
+  "first_tool_accuracy": 0.1724137931034483,
+  "model": "gemma4:e4b",
+  "samples": 30,
+  "runtime_failures": 1,
+  "malformed_outputs": 0,
+  "average_trajectory_length": 0.5862068965517241,
+  "predictions_file": "predictions.jsonl"
+}

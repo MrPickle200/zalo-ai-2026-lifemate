@@ -420,3 +420,21 @@
 - `scripts/analyze_qwen_next_action.py`
 - `src/lifemate/agent.py`
 - `outputs/training/qwen-next-action-v1/`
+
+## PhoASR N-best hard-30 diagnostic (2026-11-01)
+
+- Added `scripts/build_phoasr_nbest_cache.py`; generated five candidates/sample for the existing fixed hard-30 IDs: production greedy, beam 3, beam 5, and temperature sampling at 0.2/0.35. Cache contains original text, decode config, rank, null confidence fields, audio ref/hash, gold text for diagnostics, manifest and generation config.
+- Generation ran on local RTX 4050 in 423.7s. All 30 IDs produced five candidates; no empty transcripts or runtime failures; duplicate transcript rate 56.7%. Production greedy matched the canonical PhoASR cache for all samples. Initial attempt to compute transition log probabilities triggered a CUDA assertion; removed the unsupported confidence calculation and left scores null.
+- Added `scripts/run_nbest_downstream_eval.py` for cached current, WER-oracle and consensus-medoid transcript modes. Completed WER-oracle and automatic consensus runs on all 30 samples, each using one existing ToolEnv per sample, fixed Qwen/Ollama configuration, production prompt/schema/parser, and five-turn cap. Both had zero runtime failures. Full downstream-oracle scoring was not run because testing each alternative would require multiple ToolEnv trajectories per sample, conflicting with the competition's exactly-one-ToolEnv rule.
+- ASR WER/CER current: 0.3048/0.1778; N-best oracle: 0.2890/0.1652 (minimum per-sample WER and CER separately). WER oracle improved 12, tied 18, worsened zero. WER-oracle downstream F1/proxy rose 0.1073→0.1441 / 0.0518→0.0672, but state match and first full-call accuracy remained 0/30. Consensus medoid produced WER 0.2986 and proxy 0.0518, no meaningful downstream gain.
+- Artifacts: `outputs/asr_nbest_v1/` and `outputs/asr_nbest_v1/hard30/summary.md`. No production behavior or submission artifacts changed.
+- Paired WER-oracle downstream outcomes: 6 improved, 5 worsened, 19 tied. Semantic differences include recovering “khóa lại” on a garage-door request; names, payment intent, and conditional/negation phrases remain fragile.
+
+## PhoASR N-best expansion — 100 additional fixed validation IDs (2026-11-01)
+
+- Selected the first 100 IDs from the existing fixed validation order after excluding the prior hard-30. This was deterministic and independent of ASR/downstream results. Generated 500 alternatives with the same five decode configs; no empty text or generation failures; 61% within-sample duplicate candidate rate; 1,008s on RTX 4050.
+- Production vs candidate oracle WER/CER: 0.3638/0.2492 vs 0.3364/0.2279. WER oracle improved 29 samples, tied 71, worsened zero.
+- Replayed 100 WER-oracle and 100 automatic consensus trajectories with the existing Qwen/Ollama settings, prompt, schemas, parser, ToolEnv and five-turn cap; zero runtime failures. Baseline 1-best metrics were paired from the existing PhoASR val309 run; all 100 stored transcripts exactly match the generated production candidates.
+- Current 1-best: F1 0.1657, state 0.31, proxy 0.2464. WER oracle: 0.1671/0.32/0.2567. Consensus: 0.1605/0.32/0.2542. Paired proxy outcomes vs baseline were WER oracle 2 up/2 down/96 tied, consensus 1 up/2 down/97 tied.
+- Full result: `outputs/asr_nbest_v1/val100/summary.md`. Downstream oracle over every alternative remains unrun under the exactly-one-ToolEnv-per-sample constraint. No submission or production behavior changed.
+- Recomputed with the BTC screenshot formula and gold hashes replayed through ToolEnv: score estimate 6.1071 current, 7.2738 WER oracle, 7.2738 consensus (0–100 scale). Only 10–11 samples receive nonzero scores because of the hash and matched-call gates. Matching used exact name+arguments with multiplicity; per-sample details are in `btc_formula_analysis.json`.

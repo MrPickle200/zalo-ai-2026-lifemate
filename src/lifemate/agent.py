@@ -45,12 +45,33 @@ class Agent:
                 max_memory = {0: f"{gpu_budget}GiB", "cpu": "24GiB"}
             else:
                 max_memory = None
-            self.model = AutoModelForCausalLM.from_pretrained(
-                str(self.model_path), local_files_only=True, trust_remote_code=False,
-                torch_dtype="auto", low_cpu_mem_usage=True,
-                device_map="auto" if torch.cuda.is_available() else None,
-                max_memory=max_memory,
-            )
+            if self.adapter_path is not None and torch.cuda.is_available():
+                try:
+                    from transformers import BitsAndBytesConfig
+                except ImportError as exc:
+                    raise RuntimeError("Loading a QLoRA adapter on CUDA requires bitsandbytes") from exc
+                compute_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+                quantization = BitsAndBytesConfig(
+                    load_in_4bit=True,
+                    bnb_4bit_quant_type="nf4",
+                    bnb_4bit_use_double_quant=True,
+                    bnb_4bit_compute_dtype=compute_dtype,
+                )
+                # The adapter was trained against a 4-bit NF4 base. Keeping the
+                # complete quantized base on CUDA also avoids PEFT hooks crossing
+                # CPU/GPU offload boundaries on small local cards.
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    str(self.model_path), local_files_only=True, trust_remote_code=False,
+                    quantization_config=quantization, torch_dtype="auto",
+                    low_cpu_mem_usage=True, device_map={"": 0},
+                )
+            else:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    str(self.model_path), local_files_only=True, trust_remote_code=False,
+                    torch_dtype="auto", low_cpu_mem_usage=True,
+                    device_map="auto" if torch.cuda.is_available() else None,
+                    max_memory=max_memory,
+                )
             if self.adapter_path is not None:
                 if not self.adapter_path.is_dir():
                     raise FileNotFoundError(f"LoRA adapter directory not found: {self.adapter_path}")

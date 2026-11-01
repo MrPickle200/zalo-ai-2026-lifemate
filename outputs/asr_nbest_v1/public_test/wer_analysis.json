@@ -1,0 +1,13 @@
+{
+  "samples": 634,
+  "average_candidates_per_sample": 5.0,
+  "min_candidates_per_sample": 5,
+  "max_candidates_per_sample": 5,
+  "duplicate_transcript_rate": 0.5593059936908518,
+  "empty_transcripts": 0,
+  "runtime_failures": 0,
+  "generation_runtime_seconds": 5730.089619300003,
+  "wer_cer": null,
+  "per_sample": {},
+  "failures": []
+}

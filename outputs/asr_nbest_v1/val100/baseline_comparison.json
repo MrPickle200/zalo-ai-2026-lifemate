@@ -1,0 +1,18 @@
+{
+  "baseline": {
+    "tool_call_f1": 0.1657142857142857,
+    "state_match": 0.31,
+    "proxy": 0.24639285714285714,
+    "first_tool_accuracy": 0.45,
+    "first_full_call_accuracy": 0.08,
+    "exact_trajectory": 0.08,
+    "runtime_failures": 0,
+    "average_trajectory_length": 2.14,
+    "average_latency_seconds": 10.315327936999948
+  },
+  "wer_oracle_paired_proxy": {
+    "improved": 2,
+    "worsened": 2,
+    "unchanged": 96
+  }
+}

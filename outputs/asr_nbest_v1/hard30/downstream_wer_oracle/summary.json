@@ -1,0 +1,18 @@
+{
+  "mode": "wer_oracle",
+  "samples": 30,
+  "runtime_failures": 0,
+  "wer": 0.28900322042648824,
+  "cer": 0.16574041744666393,
+  "tool_call_f1": 0.14414414414414414,
+  "state_match": 0.0,
+  "proxy": 0.06716931216931217,
+  "first_tool_accuracy": 0.23333333333333334,
+  "first_full_call_accuracy": 0.0,
+  "exact_trajectory": 0.0,
+  "malformed_count": 0,
+  "average_trajectory_length": 3.566666666666667,
+  "average_latency_seconds": 11.912646966666337,
+  "selection": "minimum gold WER, then CER, then rank",
+  "predictions": "predictions.jsonl"
+}

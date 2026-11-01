@@ -1,0 +1,11 @@
+{
+  "artifact": "submission_auto_consensus_val100.jsonl",
+  "split": "fixed train-only validation subset",
+  "samples": 100,
+  "selection": "auto_consensus medoid over cached PhoASR candidates; no gold text used for selection",
+  "cache": "transcripts.jsonl",
+  "prediction_source": "downstream_auto_consensus/predictions.jsonl",
+  "submission_schema": "id, tool_calls, state_hash",
+  "schema_errors": 0,
+  "note": "Diagnostic-format 100-row validation artifact; not a full public-test submission."
+}

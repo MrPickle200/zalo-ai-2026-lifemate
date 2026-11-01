@@ -1,0 +1,66 @@
+{
+  "experiment": "PhoASR N-best diagnostic — fixed hard-30",
+  "samples": 30,
+  "candidate_generation": {
+    "candidates_per_sample": 5,
+    "decode_configs": ["production_greedy", "beam_3", "beam_5", "sample_t0.2", "sample_t0.35"],
+    "duplicate_transcript_rate": 0.5666666667,
+    "empty_transcripts": 0,
+    "runtime_failures": 0,
+    "generation_runtime_seconds": 423.6637
+  },
+  "modes": {
+    "current_1best": {
+      "wer": 0.304804,
+      "cer": 0.177823,
+      "tool_call_f1": 0.107317,
+      "state_match": 0.0,
+      "proxy": 0.051786,
+      "first_tool_accuracy": 0.2,
+      "first_full_call_accuracy": 0.0,
+      "exact_trajectory": 0.0,
+      "malformed_count": 0,
+      "average_trajectory_length": 3.1333,
+      "runtime_failures": 0
+    },
+    "wer_oracle": {
+      "wer": 0.289003,
+      "cer": 0.165740,
+      "tool_call_f1": 0.144144,
+      "state_match": 0.0,
+      "proxy": 0.067169,
+      "first_tool_accuracy": 0.233333,
+      "first_full_call_accuracy": 0.0,
+      "exact_trajectory": 0.0,
+      "malformed_count": 0,
+      "average_trajectory_length": 3.5667,
+      "runtime_failures": 0
+    },
+    "downstream_oracle": {"status": "not_run"},
+    "auto_consensus": {
+      "wer": 0.298558,
+      "cer": 0.173736,
+      "tool_call_f1": 0.111628,
+      "state_match": 0.0,
+      "proxy": 0.051759,
+      "first_tool_accuracy": 0.2,
+      "first_full_call_accuracy": 0.0,
+      "exact_trajectory": 0.0,
+      "malformed_count": 0,
+      "average_trajectory_length": 3.3333,
+      "runtime_failures": 0
+    }
+  },
+  "oracle_counts": {"improved": 12, "unchanged": 18, "worsened": 0},
+  "wer_oracle_paired_proxy_outcomes": {"improved": 6, "worsened": 5, "unchanged": 19},
+  "gains": {
+    "oracle_wer_absolute": 0.015801,
+    "oracle_wer_relative": 0.0518,
+    "oracle_cer_absolute": 0.012580,
+      "average_candidate_wer": 0.303213,
+    "wer_oracle_tool_f1_delta": 0.036827,
+    "wer_oracle_proxy_delta": 0.015384,
+    "auto_consensus_proxy_delta": -0.000026
+  },
+  "downstream_oracle_note": "Not run because it requires multiple ToolEnv trajectories per sample, conflicting with the competition requirement of exactly one ToolEnv per sample. Completed modes used one ToolEnv per sample."
+}

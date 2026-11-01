@@ -1,0 +1,18 @@
+{
+  "mode": "auto_consensus",
+  "samples": 30,
+  "runtime_failures": 0,
+  "wer": 0.2985577332917323,
+  "cer": 0.1737360212682362,
+  "tool_call_f1": 0.11162790697674418,
+  "state_match": 0.0,
+  "proxy": 0.05175925925925926,
+  "first_tool_accuracy": 0.2,
+  "first_full_call_accuracy": 0.0,
+  "exact_trajectory": 0.0,
+  "malformed_count": 0,
+  "average_trajectory_length": 3.3333333333333335,
+  "average_latency_seconds": 11.734258659999917,
+  "selection": "candidate medoid minimizing average pairwise token WER",
+  "predictions": "predictions.jsonl"
+}
