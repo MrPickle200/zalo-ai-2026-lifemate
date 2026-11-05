@@ -1,0 +1,30 @@
+{
+  "phoasr_prediction_file": "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\outputs\\eval\\phoasr-lifemate-domain-v1-val309\\predictions.jsonl",
+  "paired_samples": 309,
+  "phoasr": {
+    "samples": 309,
+    "corpus_wer": 0.25755565384048357,
+    "corpus_cer": 0.18382990372769997,
+    "macro_utterance_wer": 0.26263231671976156,
+    "normalized_exact_match_rate": 0.032362459546925564,
+    "mean_inference_seconds": 1.2762402970873692,
+    "median_inference_seconds": 1.1904748000001746,
+    "p95_inference_seconds": 2.1650425999996514,
+    "mean_real_time_factor": 0.18862326648836542
+  },
+  "quan_transcribe": {
+    "samples": 309,
+    "corpus_wer": 0.16305469556243551,
+    "corpus_cer": 0.12980791166674271,
+    "macro_utterance_wer": 0.16478671441961945,
+    "normalized_exact_match_rate": 0.11003236245954692,
+    "mean_inference_seconds": 0.2923010181229733,
+    "median_inference_seconds": 0.2855987000002642,
+    "p95_inference_seconds": 0.34717879999971046,
+    "mean_real_time_factor": 0.0468017866101377
+  },
+  "quan_per_sample_wer_wins": 224,
+  "phoasr_per_sample_wer_wins": 45,
+  "ties": 40,
+  "mean_paired_utterance_wer_delta_quan_minus_phoasr": -0.0978456023001421
+}

@@ -1,0 +1,35 @@
+{
+  "cohort": "same fixed train-only val309",
+  "official_scoring": "BTC sample formula; exact tool name and arguments, duplicate call multiplicity; score is zero if final state hash differs from replayed gold or no calls match",
+  "fine_tuned": {
+    "experiment": "qwen-next-action-lora-v1 on Kaggle Tesla T4",
+    "official_score_0_100": 2.319309600862999,
+    "hash_match_samples": 65,
+    "matched_calls_total": 25,
+    "submitted_calls_total": 84,
+    "gold_calls_total": 734,
+    "aggregate_exact_call_f1_diagnostic": 0.06112469437652812,
+    "proxy_score_mean_diagnostic": 0.1634843581445523,
+    "average_latency_seconds_t4": 52.25224964863753,
+    "runtime_failures": 0,
+    "max_latency_seconds_t4": 126.13488500600033,
+    "samples_over_30_seconds_on_t4": 220,
+    "harness_elapsed_seconds": 16158.9
+  },
+  "baseline": {
+    "experiment": "PhoASR public + base Qwen baseline",
+    "official_score_0_100": 4.914470642625982,
+    "hash_match_samples": 72,
+    "matched_calls_total": 100,
+    "submitted_calls_total": 692,
+    "gold_calls_total": 734,
+    "aggregate_exact_call_f1_diagnostic": 0.14025245441795234,
+    "proxy_score_mean_diagnostic": 0.22864848204654029,
+    "runtime_failures": 0
+  },
+  "score_delta_ft_minus_baseline": -2.5951610417629833,
+  "relative_change_percent": -52.806522420821565,
+  "latency_comparison_note": "Do not compare latency directly: fine-tuned run measured on Kaggle T4; baseline summary was produced on the local RTX 4050.",
+  "gold_replay_failures": 0,
+  "gold_replay_state_matches_label": 309
+}

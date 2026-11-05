@@ -18,10 +18,15 @@ When implementation ideas are needed, consult relevant GitHub repositories and K
 ## Project structure
 - `configs/`: baseline configuration.
 - `src/lifemate/`: ASR, agent, validation, ToolEnv loop, and pipeline.
-- `scripts/`: sample runner, local evaluation, dataset inspection, and submission writer.
+- `exp/<experiment>/scripts/`: scripts used by that experiment. Do not add experiment scripts to a project-wide `scripts/` directory.
+- `exp/<experiment>/output/`: predictions, summaries, checkpoints, logs, and other generated experiment artifacts.
+- `exp/<experiment>/README.md`: concise experiment note with purpose, script entry points, important settings, and artifact locations.
+- `exp/paired-analysis/<comparison>/`: cross-experiment comparisons, each with its own `output/` and `README.md`.
+- Put shared pipeline and submission utilities under `exp/lifemate-pipeline/scripts/`; keep experiment-specific helpers with their experiment.
 - `cache/transcripts/`: reusable transcripts keyed by audio content.
-- `outputs/eval/` and `outputs/submissions/`: generated local artifacts (ignored by git).
-- Organize `outputs/eval/` artifacts into one directory per experiment (for example, `baseline-v1-val309/` or `oracle-asr-v1-val309/`), keeping that experiment's predictions and summary together. Put cross-experiment comparisons in `outputs/eval/paired-analysis/`; don't leave experiment result files loose in the `outputs/eval/` root.
+- `outputs/`: submission files only, including any matching prediction sidecars and manifests. Do not store evaluation results, checkpoints, logs, or experiment notes here.
+- `models/`: shared downloaded pretrained weights; experiment-trained checkpoints belong under that experiment's `exp/<experiment>/output/`.
+- Keep `exp/` experiment directories self-contained: place the scripts, outputs, and notes for an experiment together. Use a clear stable experiment name and avoid loose artifacts directly under `exp/`.
 - `tests/`: focused regression checks.
 - `train+public_test/`: competition data and official `zaic_tools` packages; do not inspect or read any `*_environment/` file directly. Use ToolEnv only.
 

@@ -1,0 +1,313 @@
+{
+  "experiment": "session4-prompt-ab",
+  "split": "fixed train-only val309",
+  "cohort_size": 60,
+  "cohort_ids_file": "exp/session4-prompt-ab/output/cohort_ids.json",
+  "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+  "scoring": "BTC formula with gold trajectory replayed through official ToolEnv using exp/btc-scoring/scripts/score_btc.py score_sample; sample score is zero unless state hash matches and at least one call matches",
+  "branches": {
+    "old_qwen3_baseline": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 7.48015873015873,
+      "hash_match_samples": 15,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 23,
+      "unmatched_submitted_calls_total": 102,
+      "gold_calls_total": 145,
+      "aggregate_exact_call_f1_diagnostic": 0.15699658703071673,
+      "local_diagnostics": {
+        "tool_call_f1": 0.20264317180616745,
+        "state_match_rate": 0.26666666666666666,
+        "composite_proxy_mean": 0.2279563492063492,
+        "average_latency_seconds": 10.329782836666709,
+        "runtime_failures": 0
+      }
+    },
+    "qwen3_vi": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 2.7777777777777777,
+      "hash_match_samples": 13,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 25,
+      "unmatched_submitted_calls_total": 139,
+      "gold_calls_total": 145,
+      "aggregate_exact_call_f1_diagnostic": 0.1497005988023952,
+      "local_diagnostics": {
+        "tool_call_f1": 0.1968503937007874,
+        "state_match_rate": 0.2,
+        "composite_proxy_mean": 0.1942724867724868,
+        "average_latency_seconds": 4.509203573333351,
+        "runtime_failures": 0
+      }
+    },
+    "qwen3_en": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 4.0,
+      "hash_match_samples": 11,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 26,
+      "unmatched_submitted_calls_total": 150,
+      "gold_calls_total": 145,
+      "aggregate_exact_call_f1_diagnostic": 0.14985590778097982,
+      "local_diagnostics": {
+        "tool_call_f1": 0.1890909090909091,
+        "state_match_rate": 0.21666666666666667,
+        "composite_proxy_mean": 0.19546296296296298,
+        "average_latency_seconds": 4.850278558333328,
+        "runtime_failures": 0
+      }
+    },
+    "qwen35_vi": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 1.3888888888888888,
+      "hash_match_samples": 12,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 5,
+      "unmatched_submitted_calls_total": 6,
+      "gold_calls_total": 145,
+      "aggregate_exact_call_f1_diagnostic": 0.062111801242236024,
+      "local_diagnostics": {
+        "tool_call_f1": 0.0641025641025641,
+        "state_match_rate": 0.18333333333333332,
+        "composite_proxy_mean": 0.1436111111111111,
+        "average_latency_seconds": 2.232784956666713,
+        "runtime_failures": 0
+      }
+    },
+    "qwen35_en": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 3.1666666666666665,
+      "hash_match_samples": 14,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 9,
+      "unmatched_submitted_calls_total": 7,
+      "gold_calls_total": 145,
+      "aggregate_exact_call_f1_diagnostic": 0.10588235294117647,
+      "local_diagnostics": {
+        "tool_call_f1": 0.11180124223602485,
+        "state_match_rate": 0.2,
+        "composite_proxy_mean": 0.16543650793650794,
+        "average_latency_seconds": 2.5302126749999845,
+        "runtime_failures": 0
+      }
+    },
+    "qwen3_best_cap6": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309 cohort",
+      "cohort_size": 60,
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "official_score_0_100": 4.833333333333333,
+      "hash_match_samples": 12,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 60,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 28,
+      "unmatched_submitted_calls_total": 171,
+      "gold_calls_total": 145,
+      "gold_samples_requiring_over_5_actions": 1,
+      "predicted_samples_with_over_5_calls": 23,
+      "submitted_calls_over_gold_count_total": 87,
+      "local_diagnostics": {
+        "tool_call_f1": 0.199288256227758,
+        "state_match_rate": 0.23333333333333334,
+        "composite_proxy_mean": 0.20754208754208753,
+        "average_latency_seconds": 5.235986473333363,
+        "runtime_failures": 0
+      }
+    }
+  },
+  "paired_comparisons": {
+    "qwen3_vi_vs_old_qwen3_baseline": {
+      "mean_official_score_delta_points": -4.7023809523809526,
+      "samples_improved": 0,
+      "samples_worsened": 5,
+      "samples_tied": 55
+    },
+    "qwen3_vi_vs_qwen3_vi": {
+      "mean_official_score_delta_points": 0.0,
+      "samples_improved": 0,
+      "samples_worsened": 0,
+      "samples_tied": 60
+    },
+    "qwen3_en_vs_old_qwen3_baseline": {
+      "mean_official_score_delta_points": -3.4801587301587302,
+      "samples_improved": 1,
+      "samples_worsened": 4,
+      "samples_tied": 55
+    },
+    "qwen3_en_vs_qwen3_vi": {
+      "mean_official_score_delta_points": 1.2222222222222223,
+      "samples_improved": 2,
+      "samples_worsened": 0,
+      "samples_tied": 58
+    },
+    "qwen35_vi_vs_old_qwen3_baseline": {
+      "mean_official_score_delta_points": -6.091269841269841,
+      "samples_improved": 2,
+      "samples_worsened": 6,
+      "samples_tied": 52
+    },
+    "qwen35_vi_vs_qwen3_vi": {
+      "mean_official_score_delta_points": -1.3888888888888888,
+      "samples_improved": 2,
+      "samples_worsened": 2,
+      "samples_tied": 56
+    },
+    "qwen35_en_vs_old_qwen3_baseline": {
+      "mean_official_score_delta_points": -4.313492063492063,
+      "samples_improved": 4,
+      "samples_worsened": 6,
+      "samples_tied": 50
+    },
+    "qwen35_en_vs_qwen3_vi": {
+      "mean_official_score_delta_points": 0.3888888888888889,
+      "samples_improved": 4,
+      "samples_worsened": 2,
+      "samples_tied": 54
+    },
+    "qwen3_best_cap6_vs_qwen3_en_cap5": {
+      "mean_official_score_delta_points": 0.8333333333333334,
+      "samples_improved": 1,
+      "samples_worsened": 0,
+      "samples_tied": 59,
+      "cap5_official_score": 4.0,
+      "cap6_official_score": 4.833333333333333,
+      "gold_samples_requiring_over_5_actions": 1,
+      "predicted_samples_with_over_5_calls": 23,
+      "submitted_calls_over_gold_count_total": 87
+    }
+  },
+  "transcript_identity": {
+    "all_current_runs_match_old_baseline_transcript": true,
+    "old_baseline_prediction_path": "exp/phoasr-small-baseline-val309/output/predictions.jsonl"
+  },
+  "full_val309": {
+    "split": "fixed train-only val309",
+    "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+    "scoring": "exp/btc-scoring/scripts/score_btc.py; gold trajectories replayed through ToolEnv; score zero when hash mismatches or no exact call matches",
+    "baseline_reference": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309",
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "validation_samples": 309,
+      "official_score_0_100": 4.914470642625982,
+      "hash_match_samples": 72,
+      "hash_match_rate": 0.23300970873786409,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 309,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 100,
+      "submitted_calls_total": 692,
+      "gold_calls_total": 734,
+      "aggregate_exact_call_precision": 0.14450867052023122,
+      "aggregate_exact_call_recall": 0.1362397820163488,
+      "aggregate_exact_call_f1_diagnostic": 0.14025245441795234,
+      "proxy_score_mean_diagnostic": 0.22864848204654029
+    },
+    "branches": {
+      "cap5": {
+        "official_score_0_100": 3.086762212975805,
+        "vs_baseline_delta_points": -1.827708429650177,
+        "hash_match_samples": 64,
+        "matched_calls": 109,
+        "submitted_calls": 845,
+        "unmatched_submitted_calls": 736,
+        "schema_rejected_calls": 0,
+        "gold_replay_failures": 0,
+        "aggregate_exact_call_f1_diagnostic": 0.13806206459784673,
+        "proxy_score_mean_diagnostic": 0.21719448297118202,
+        "local_tool_call_f1": 0.16305160807778613,
+        "local_state_match_rate": 0.2768729641693811,
+        "local_proxy_mean": 0.21860943074298125,
+        "runtime_failures": 2,
+        "latency_seconds": {
+          "predicted_samples_over_5_calls": 0,
+          "gold_samples_requiring_over_5_actions": 1,
+          "submitted_calls_over_gold_count": 295,
+          "mean_latency_seconds": 4.974702416286625,
+          "p95_latency_seconds": 8.274716699999772,
+          "max_latency_seconds": 10.947652199999538,
+          "latency_samples": 307
+        }
+      },
+      "cap6": {
+        "official_score_0_100": 3.17023681101351,
+        "vs_baseline_delta_points": -1.7442338316124721,
+        "hash_match_samples": 64,
+        "matched_calls": 114,
+        "submitted_calls": 932,
+        "unmatched_submitted_calls": 818,
+        "schema_rejected_calls": 0,
+        "gold_replay_failures": 0,
+        "aggregate_exact_call_f1_diagnostic": 0.13685474189675872,
+        "proxy_score_mean_diagnostic": 0.22023494305047703,
+        "local_tool_call_f1": 0.16789396170839468,
+        "local_state_match_rate": 0.28013029315960913,
+        "local_proxy_mean": 0.22166969837979608,
+        "runtime_failures": 2,
+        "latency_seconds": {
+          "predicted_samples_over_5_calls": 87,
+          "gold_samples_requiring_over_5_actions": 1,
+          "submitted_calls_over_gold_count": 381,
+          "mean_latency_seconds": 5.216868129641699,
+          "p95_latency_seconds": 9.26505989999987,
+          "max_latency_seconds": 12.009696999999505,
+          "latency_samples": 307
+        }
+      }
+    },
+    "paired_cap6_vs_cap5": {
+      "mean_official_score_delta_points": 0.08347459803770475,
+      "samples_improved": 1,
+      "samples_worsened": 6,
+      "samples_tied": 302,
+      "hash_match_sample_delta": 0,
+      "matched_calls_delta": 5,
+      "submitted_calls_delta": 87,
+      "gold_calls_more_than_5": 1
+    },
+    "runtime_failures": {
+      "cap5": {
+        "count": 2,
+        "samples": [
+          "train_1431",
+          "train_1725"
+        ],
+        "reason": "request exceeded fixed Ollama context 8192; 8537 and 8265 tokens respectively"
+      },
+      "cap6": {
+        "count": 2,
+        "samples": [
+          "train_1431",
+          "train_1725"
+        ],
+        "reason": "request exceeded fixed Ollama context 8192; 8537 and 8265 tokens respectively"
+      }
+    }
+  }
+}

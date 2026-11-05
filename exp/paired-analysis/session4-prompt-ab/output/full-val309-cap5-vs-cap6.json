@@ -1,0 +1,118 @@
+{
+  "split": "fixed train-only val309",
+  "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+  "scoring": "exp/btc-scoring/scripts/score_btc.py; gold trajectories replayed through ToolEnv; score zero when hash mismatches or no exact call matches",
+  "baseline_reference": {
+    "metric": "BTC official sample score",
+    "split": "fixed train-only val309",
+    "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+    "validation_samples": 309,
+    "official_score_0_100": 4.914470642625982,
+    "hash_match_samples": 72,
+    "hash_match_rate": 0.23300970873786409,
+    "gold_replay_failures": 0,
+    "gold_replay_state_matches_label": 309,
+    "schema_rejected_submitted_calls": 0,
+    "matched_calls_total": 100,
+    "submitted_calls_total": 692,
+    "gold_calls_total": 734,
+    "aggregate_exact_call_precision": 0.14450867052023122,
+    "aggregate_exact_call_recall": 0.1362397820163488,
+    "aggregate_exact_call_f1_diagnostic": 0.14025245441795234,
+    "proxy_score_mean_diagnostic": 0.22864848204654029
+  },
+  "branches": {
+    "cap5": {
+      "official_score_0_100": 3.086762212975805,
+      "vs_baseline_delta_points": -1.827708429650177,
+      "hash_match_samples": 64,
+      "matched_calls": 109,
+      "submitted_calls": 845,
+      "unmatched_submitted_calls": 736,
+      "schema_rejected_calls": 0,
+      "gold_replay_failures": 0,
+      "aggregate_exact_call_f1_diagnostic": 0.13806206459784673,
+      "proxy_score_mean_diagnostic": 0.21719448297118202,
+      "local_tool_call_f1": 0.16305160807778613,
+      "local_state_match_rate": 0.2768729641693811,
+      "local_proxy_mean": 0.21860943074298125,
+      "runtime_failures": 2,
+      "latency_seconds": {
+        "predicted_samples_over_5_calls": 0,
+        "gold_samples_requiring_over_5_actions": 1,
+        "submitted_calls_over_gold_count": 295,
+        "mean_latency_seconds": 4.974702416286625,
+        "p95_latency_seconds": 8.274716699999772,
+        "max_latency_seconds": 10.947652199999538,
+        "latency_samples": 307
+      }
+    },
+    "cap6": {
+      "official_score_0_100": 3.17023681101351,
+      "vs_baseline_delta_points": -1.7442338316124721,
+      "hash_match_samples": 64,
+      "matched_calls": 114,
+      "submitted_calls": 932,
+      "unmatched_submitted_calls": 818,
+      "schema_rejected_calls": 0,
+      "gold_replay_failures": 0,
+      "aggregate_exact_call_f1_diagnostic": 0.13685474189675872,
+      "proxy_score_mean_diagnostic": 0.22023494305047703,
+      "local_tool_call_f1": 0.16789396170839468,
+      "local_state_match_rate": 0.28013029315960913,
+      "local_proxy_mean": 0.22166969837979608,
+      "runtime_failures": 2,
+      "latency_seconds": {
+        "predicted_samples_over_5_calls": 87,
+        "gold_samples_requiring_over_5_actions": 1,
+        "submitted_calls_over_gold_count": 381,
+        "mean_latency_seconds": 5.216868129641699,
+        "p95_latency_seconds": 9.26505989999987,
+        "max_latency_seconds": 12.009696999999505,
+        "latency_samples": 307
+      }
+    }
+  },
+  "paired_cap6_vs_cap5": {
+    "mean_official_score_delta_points": 0.08347459803770475,
+    "samples_improved": 1,
+    "samples_worsened": 6,
+    "samples_tied": 302,
+    "hash_match_sample_delta": 0,
+    "matched_calls_delta": 5,
+    "submitted_calls_delta": 87,
+    "gold_calls_more_than_5": 1
+  },
+  "runtime_failures": {
+    "cap5": {
+      "count": 2,
+      "samples": [
+        "train_1431",
+        "train_1725"
+      ],
+      "reason": "request exceeded fixed Ollama context 8192; 8537 and 8265 tokens respectively"
+    },
+    "cap6": {
+      "count": 2,
+      "samples": [
+        "train_1431",
+        "train_1725"
+      ],
+      "reason": "request exceeded fixed Ollama context 8192; 8537 and 8265 tokens respectively"
+    }
+  },
+  "paired_vs_old_baseline": {
+    "cap5": {
+      "mean_official_score_delta_points": -1.8277084296501773,
+      "samples_improved": 11,
+      "samples_worsened": 16,
+      "samples_tied": 282
+    },
+    "cap6": {
+      "mean_official_score_delta_points": -1.7442338316124724,
+      "samples_improved": 11,
+      "samples_worsened": 18,
+      "samples_tied": 280
+    }
+  }
+}

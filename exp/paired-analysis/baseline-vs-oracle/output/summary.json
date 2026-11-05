@@ -1,0 +1,54 @@
+{
+  "before": "baseline-v1",
+  "after": "oracle-asr-v1",
+  "samples": 309,
+  "before_proxy_mean": 0.19187085837571274,
+  "after_proxy_mean": 0.29198515436379513,
+  "proxy_gain": 0.10011429598808239,
+  "before_tool_call_f1": 0.1154562383612663,
+  "after_tool_call_f1": 0.2429335370511841,
+  "before_mean_sample_tool_call_f1": 0.13455077824009862,
+  "after_mean_sample_tool_call_f1": 0.2538732213489495,
+  "before_final_state_match": 0.24919093851132687,
+  "after_final_state_match": 0.3300970873786408,
+  "paired_improved": 101,
+  "paired_worsened": 27,
+  "paired_tied": 181,
+  "before_error_counts": {
+    "ASR_SLOT_ERROR": 16,
+    "WRONG_TOOL": 204,
+    "WRONG_ARGUMENT": 13,
+    "PLANNING_ERROR": 0,
+    "MISSING_INFO_ERROR": 51,
+    "OUT_OF_SCOPE_ERROR": 6,
+    "OTHER": 0
+  },
+  "after_error_counts": {
+    "ASR_SLOT_ERROR": 0,
+    "WRONG_TOOL": 0,
+    "WRONG_ARGUMENT": 0,
+    "PLANNING_ERROR": 0,
+    "MISSING_INFO_ERROR": 0,
+    "OUT_OF_SCOPE_ERROR": 0,
+    "OTHER": 0
+  },
+  "before_error_percent_of_incorrect": {
+    "ASR_SLOT_ERROR": 0.05517241379310345,
+    "WRONG_TOOL": 0.7034482758620689,
+    "WRONG_ARGUMENT": 0.04482758620689655,
+    "PLANNING_ERROR": 0.0,
+    "MISSING_INFO_ERROR": 0.17586206896551723,
+    "OUT_OF_SCOPE_ERROR": 0.020689655172413793,
+    "OTHER": 0.0
+  },
+  "after_error_percent_of_incorrect": {
+    "ASR_SLOT_ERROR": 0.0,
+    "WRONG_TOOL": 0.0,
+    "WRONG_ARGUMENT": 0.0,
+    "PLANNING_ERROR": 0.0,
+    "MISSING_INFO_ERROR": 0.0,
+    "OUT_OF_SCOPE_ERROR": 0.0,
+    "OTHER": 0.0
+  },
+  "metric_note": "Local proxy: per-sample mean of tool-call F1 and labeled final-state exact match; official combined formula is unavailable."
+}

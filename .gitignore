@@ -10,8 +10,14 @@ train+public_test/
 
 # Runtime artifacts
 cache/transcripts/
-outputs/eval/
-outputs/submissions/
+outputs/
+exp/*/output/
+!exp/phoasr-nbest-v1/output/
+!exp/model-comparison/output/
+!exp/model-comparison-rerun-utf8/output/
+!exp/qwen-next-action-v1/output/
+!exp/tool-router-v1/output/
+exp/tool-router-v1/output/training-data/model*/model.safetensors
 .tmp/
 *.log
 

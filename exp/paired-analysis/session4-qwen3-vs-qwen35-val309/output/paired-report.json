@@ -1,0 +1,175 @@
+{
+  "experiment": "Qwen3 vs Qwen3.5 full val309",
+  "split": "fixed train-only val309",
+  "cohort_size": 309,
+  "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+  "scoring": "BTC official sample formula via exp/btc-scoring/scripts/score_btc.py; every gold trajectory replayed through ToolEnv; zero if final-state hash differs or no exact call matches",
+  "controlled_settings": {
+    "asr": "PhoASR public",
+    "prompt_version": "observation-grounded-v2",
+    "prompt_language": "en",
+    "max_steps": 5,
+    "temperature": 0,
+    "think": false,
+    "json_mode": true,
+    "ollama_context": 8192,
+    "toolenv_per_sample": 1
+  },
+  "model_configurations": {
+    "qwen3": {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "prompt_language": "en",
+      "quantization": "Q4_K_M",
+      "toolenv_per_sample": 1,
+      "think": false,
+      "cohort": "fixed train-only val309, 309 IDs",
+      "ollama_version": "0.40.13",
+      "temperature": 0,
+      "json_mode": true,
+      "asr": "PhoASR public",
+      "prompt_version": "observation-grounded-v2",
+      "ollama_context": 8192,
+      "max_steps": 5,
+      "ollama_ps": {
+        "size": "3.9 GB",
+        "processor": "100% GPU",
+        "context": 8192
+      },
+      "vram_snapshot": "3810 MiB / 6141 MiB, GPU utilization 100%"
+    },
+    "qwen35": {
+      "model": "qwen3.5:4b-q4_K_M",
+      "prompt_language": "en",
+      "quantization": "Q4_K_M",
+      "toolenv_per_sample": 1,
+      "think": false,
+      "cohort": "fixed train-only val309, 309 IDs",
+      "ollama_version": "0.40.13",
+      "temperature": 0,
+      "json_mode": true,
+      "asr": "PhoASR public",
+      "prompt_version": "observation-grounded-v2",
+      "ollama_context": 8192,
+      "max_steps": 5,
+      "ollama_ps": {
+        "size": "3.4 GB",
+        "processor": "100% GPU",
+        "context": 8192
+      },
+      "vram_snapshot": "3972 MiB / 6141 MiB, GPU utilization 78%"
+    }
+  },
+  "branches": {
+    "qwen3": {
+      "model": "qwen3:4b-instruct-2507-q4_K_M",
+      "official": {
+        "metric": "BTC official sample score",
+        "split": "fixed train-only val309",
+        "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+        "validation_samples": 309,
+        "official_score_0_100": 3.086762212975805,
+        "hash_match_samples": 64,
+        "hash_match_rate": 0.20711974110032363,
+        "gold_replay_failures": 0,
+        "gold_replay_state_matches_label": 309,
+        "schema_rejected_submitted_calls": 0,
+        "matched_calls_total": 109,
+        "submitted_calls_total": 845,
+        "gold_calls_total": 734,
+        "aggregate_exact_call_precision": 0.1289940828402367,
+        "aggregate_exact_call_recall": 0.14850136239782016,
+        "aggregate_exact_call_f1_diagnostic": 0.13806206459784673,
+        "proxy_score_mean_diagnostic": 0.21719448297118202
+      },
+      "local_diagnostics": {
+        "tool_call_f1": 0.16305160807778613,
+        "state_match_rate": 0.2768729641693811,
+        "composite_proxy_mean": 0.21860943074298125,
+        "average_latency_seconds": 4.963804670684059,
+        "runtime_failures": 2
+      },
+      "ollama_ps": {
+        "size": "3.9 GB",
+        "processor": "100% GPU",
+        "context": 8192
+      },
+      "vram_snapshot": "3810 MiB / 6141 MiB, GPU utilization 100%"
+    },
+    "qwen35": {
+      "model": "qwen3.5:4b-q4_K_M",
+      "official": {
+        "metric": "BTC official sample score",
+        "split": "fixed train-only val309",
+        "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+        "validation_samples": 309,
+        "official_score_0_100": 1.3915857605177993,
+        "hash_match_samples": 74,
+        "hash_match_rate": 0.23948220064724918,
+        "gold_replay_failures": 0,
+        "gold_replay_state_matches_label": 309,
+        "schema_rejected_submitted_calls": 0,
+        "matched_calls_total": 38,
+        "submitted_calls_total": 82,
+        "gold_calls_total": 734,
+        "aggregate_exact_call_precision": 0.4634146341463415,
+        "aggregate_exact_call_recall": 0.051771117166212535,
+        "aggregate_exact_call_f1_diagnostic": 0.09313725490196079,
+        "proxy_score_mean_diagnostic": 0.17518107566651256
+      },
+      "local_diagnostics": {
+        "tool_call_f1": 0.09325153374233129,
+        "state_match_rate": 0.22330097087378642,
+        "composite_proxy_mean": 0.17518107566651256,
+        "average_latency_seconds": 2.4456307689319896,
+        "runtime_failures": 0
+      },
+      "ollama_ps": {
+        "size": "3.4 GB",
+        "processor": "100% GPU",
+        "context": 8192
+      },
+      "vram_snapshot": "3972 MiB / 6141 MiB, GPU utilization 78%"
+    }
+  },
+  "paired": {
+    "model_with_higher_sample_score": "qwen3",
+    "mean_btc_score_delta_points": 1.695176452458006,
+    "samples_qwen3_higher": 17,
+    "samples_qwen35_higher": 7,
+    "samples_tied": 285,
+    "hash_match_delta_qwen3_minus_qwen35": -10,
+    "matched_call_delta_qwen3_minus_qwen35": 71,
+    "submitted_call_delta_qwen3_minus_qwen35": 763,
+    "transcripts_identical_on_common_successful_rows": true,
+    "common_successful_transcripts": 307
+  },
+  "runtime": {
+    "qwen3": {
+      "mean_seconds": 4.963804670684059,
+      "p95_seconds": 8.380904999999984,
+      "max_seconds": 10.878181100000802,
+      "completed_samples": 307,
+      "runtime_failures": 2
+    },
+    "qwen35": {
+      "mean_seconds": 2.4456307689319896,
+      "p95_seconds": 4.592758900000263,
+      "max_seconds": 13.259194000000207,
+      "completed_samples": 309,
+      "runtime_failures": 0
+    }
+  },
+  "runtime_failure_details": {
+    "qwen3": [
+      {
+        "id": "train_1431",
+        "error": "RuntimeError: Ollama request failed for qwen3:4b-instruct-2507-q4_K_M: HTTP Error 400: Bad Request: {\"error\":\"request (8537 tokens) exceeds the available context size (8192 tokens), try increasing it\"}"
+      },
+      {
+        "id": "train_1725",
+        "error": "RuntimeError: Ollama request failed for qwen3:4b-instruct-2507-q4_K_M: HTTP Error 400: Bad Request: {\"error\":\"request (8265 tokens) exceeds the available context size (8192 tokens), try increasing it\"}"
+      }
+    ],
+    "qwen35": []
+  }
+}

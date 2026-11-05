@@ -47,6 +47,8 @@ class LifeMatePipeline:
         if forced_first_tool_name is not None and calls_to_inject:
             raise ValueError("Only one first-action diagnostic intervention may be used")
         started = time.perf_counter()
+        if hasattr(self.agent, "native_history"):
+            self.agent.native_history = []
         env = create_tool_env(self.split, item["id"], self.data_root)
         if transcript_override is None:
             asr_text = self.asr.transcribe(str(resolve_audio(self.data_root, self.split_dir, item, item["audio"])))
@@ -97,21 +99,35 @@ class LifeMatePipeline:
                                             missing_info_demos=missing_info_demos,
                                             missing_info_rule=self.retriever is not None or self.curated_fewshot,
                                             forced_tool_name=forced_first_tool_name if step == 0 else None)
-            actions.append(action)
+            # Keep internal Ollama assistant messages in the agent history only; prediction
+            # artifacts retain the chosen action and bounded diagnostics, not chain-of-thought.
+            actions.append({key: value for key, value in action.items() if key != "_native_message"})
             if action.get("action") == "stop":
                 break
             tool = action["tool"]
             args = action.get("arguments", {})
             # Validate before execution using ToolEnv's authoritative schema.
             result = env.validate(tool, args)
+            if not result.get("ok") and getattr(self.agent, "ollama_native_tools", False):
+                repair = self.agent.repair_native_toolenv_rejection(action, result)
+                actions.append({key: value for key, value in repair.items() if key != "_native_message"})
+                if repair.get("action") == "tool_call":
+                    action = repair
+                    tool = action["tool"]
+                    args = action.get("arguments", {})
+                    result = env.validate(tool, args)
+                else:
+                    break
             if not result.get("ok"):
                 observations.append({"tool": tool, "arguments": args, "result": result})
                 # One schema repair is handled by the agent; if it nevertheless emits an invalid call,
                 # record the attempted call through ToolEnv and stop instead of looping.
                 env.call(tool, args)
+                self.agent.record_tool_result(action, result)
                 break
             observation = env.call(tool, args)
             observations.append({"tool": tool, "arguments": args, "result": observation})
+            self.agent.record_tool_result(action, observation)
         calls = env.get_tool_calls()
         return {"id": item["id"], "asr_text": asr_text, "input_transcript": transcript,
                 "model_output": actions, "observations": observations,

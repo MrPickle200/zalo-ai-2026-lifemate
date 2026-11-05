@@ -1,0 +1,1813 @@
+{
+  "cohort": "fixed train-only val309",
+  "matching": "exact tool name and arguments; duplicate calls by multiplicity; BTC hash gate",
+  "bootstrap": {
+    "method": "paired sample bootstrap with replacement",
+    "replicates": 10000,
+    "seed": 20261102
+  },
+  "branches": {
+    "A": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309",
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "validation_samples": 309,
+      "official_score_0_100": 1.3915857605177993,
+      "btc_formula_score_before_runtime_gate_diagnostic_0_100": 1.3915857605177993,
+      "hash_match_samples": 74,
+      "hash_match_rate": 0.23948220064724918,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 309,
+      "runtime_failures": 0,
+      "samples_over_30s": 0,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 38,
+      "submitted_calls_total": 82,
+      "gold_calls_total": 734,
+      "aggregate_exact_call_precision": 0.4634146341463415,
+      "aggregate_exact_call_recall": 0.051771117166212535,
+      "aggregate_exact_call_f1_diagnostic": 0.09313725490196079,
+      "proxy_score_mean_diagnostic": 0.17518107566651256,
+      "predicted_final_state_matches_label": 69
+    },
+    "B": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309",
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "validation_samples": 309,
+      "official_score_0_100": 6.348435814455232,
+      "btc_formula_score_before_runtime_gate_diagnostic_0_100": 6.477885652642934,
+      "hash_match_samples": 83,
+      "hash_match_rate": 0.2686084142394822,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 309,
+      "runtime_failures": 0,
+      "samples_over_30s": 2,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 81,
+      "submitted_calls_total": 311,
+      "gold_calls_total": 734,
+      "aggregate_exact_call_precision": 0.2604501607717042,
+      "aggregate_exact_call_recall": 0.11035422343324251,
+      "aggregate_exact_call_f1_diagnostic": 0.15502392344497606,
+      "proxy_score_mean_diagnostic": 0.21371691954216226,
+      "predicted_final_state_matches_label": 86
+    },
+    "C": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309",
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "validation_samples": 309,
+      "official_score_0_100": 5.6094929881337645,
+      "btc_formula_score_before_runtime_gate_diagnostic_0_100": 9.207890275851442,
+      "hash_match_samples": 91,
+      "hash_match_rate": 0.29449838187702265,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 309,
+      "runtime_failures": 0,
+      "samples_over_30s": 140,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 157,
+      "submitted_calls_total": 386,
+      "gold_calls_total": 734,
+      "aggregate_exact_call_precision": 0.4067357512953368,
+      "aggregate_exact_call_recall": 0.21389645776566757,
+      "aggregate_exact_call_f1_diagnostic": 0.28035714285714286,
+      "proxy_score_mean_diagnostic": 0.2807584630400164,
+      "predicted_final_state_matches_label": 90
+    },
+    "D": {
+      "metric": "BTC official sample score",
+      "split": "fixed train-only val309",
+      "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+      "validation_samples": 309,
+      "official_score_0_100": 7.216828478964401,
+      "btc_formula_score_before_runtime_gate_diagnostic_0_100": 7.432578209277238,
+      "hash_match_samples": 86,
+      "hash_match_rate": 0.2783171521035599,
+      "gold_replay_failures": 0,
+      "gold_replay_state_matches_label": 309,
+      "runtime_failures": 0,
+      "samples_over_30s": 12,
+      "schema_rejected_submitted_calls": 0,
+      "matched_calls_total": 76,
+      "submitted_calls_total": 248,
+      "gold_calls_total": 734,
+      "aggregate_exact_call_precision": 0.3064516129032258,
+      "aggregate_exact_call_recall": 0.10354223433242507,
+      "aggregate_exact_call_f1_diagnostic": 0.15478615071283097,
+      "proxy_score_mean_diagnostic": 0.22252144655057274,
+      "predicted_final_state_matches_label": 83
+    }
+  },
+  "paired_differences": {
+    "B_minus_A_native_no_think": {
+      "mean_points": 4.956850053937433,
+      "ci95_points": [
+        2.815533980582524,
+        7.394956850053937
+      ],
+      "samples_positive": 26,
+      "samples_negative": 4,
+      "samples_tied": 279
+    },
+    "C_minus_A_thinking_json": {
+      "mean_points": 4.217907227615965,
+      "ci95_points": [
+        2.0064724919093853,
+        6.677454153182308
+      ],
+      "samples_positive": 18,
+      "samples_negative": 4,
+      "samples_tied": 287
+    },
+    "D_minus_C_native_think": {
+      "mean_points": 1.6073354908306365,
+      "ci95_points": [
+        -0.8093311758360299,
+        4.088727076591151
+      ],
+      "samples_positive": 18,
+      "samples_negative": 9,
+      "samples_tied": 282
+    },
+    "D_minus_B_thinking_native": {
+      "mean_points": 0.8683926645091692,
+      "ci95_points": [
+        -1.5264293419633226,
+        3.34964940668824
+      ],
+      "samples_positive": 15,
+      "samples_negative": 11,
+      "samples_tied": 283
+    },
+    "interaction_(D-C)-(B-A)": {
+      "mean_points": -3.349514563106796,
+      "ci95_points": [
+        -6.521035598705501,
+        -0.2696871628910463
+      ],
+      "samples_positive": 15,
+      "samples_negative": 28,
+      "samples_tied": 266
+    }
+  },
+  "historical_references": {
+    "Qwen3 same prompt": 3.0868,
+    "PhoASR/Qwen3 prior baseline": 4.9145
+  },
+  "smoke_12_diagnostics": {
+    "A": {
+      "variant": "A",
+      "cohort": "smoke",
+      "samples": 12,
+      "runtime_failures": 0,
+      "mean_latency_seconds": 2.2635920833329997,
+      "p95_latency_seconds": 3.0098180000022694,
+      "max_latency_seconds": 3.0098180000022694,
+      "over_30s": 0,
+      "turns": 14,
+      "prompt_eval_tokens": 52893,
+      "eval_tokens": 125,
+      "context_failures": 0,
+      "schema_repair_turns": 0,
+      "schema_rejections": 0,
+      "parse_schema_failures": 0,
+      "stop_early_samples": 10,
+      "mean_action_calls_per_sample": 0.16666666666666666,
+      "native_overcalls": 0,
+      "schema_extension_count": 0,
+      "gpu_after": "3965, 6141, 100",
+      "note": "BTC scorer is run separately after each full 309-ID branch."
+    },
+    "B": {
+      "variant": "B",
+      "cohort": "smoke",
+      "samples": 12,
+      "runtime_failures": 0,
+      "mean_latency_seconds": 8.854457000000366,
+      "p95_latency_seconds": 25.091011399999843,
+      "max_latency_seconds": 25.091011399999843,
+      "over_30s": 0,
+      "turns": 25,
+      "prompt_eval_tokens": 153645,
+      "eval_tokens": 3167,
+      "context_failures": 0,
+      "schema_repair_turns": 1,
+      "schema_rejections": 0,
+      "parse_schema_failures": 0,
+      "stop_early_samples": 6,
+      "mean_action_calls_per_sample": 1.1666666666666667,
+      "native_overcalls": 0,
+      "schema_extension_count": 624,
+      "gpu_after": "3965, 6141, 86",
+      "note": "BTC scorer is run separately after each full 309-ID branch."
+    },
+    "C": {
+      "variant": "C",
+      "cohort": "smoke",
+      "samples": 12,
+      "runtime_failures": 0,
+      "mean_latency_seconds": 25.570629333333574,
+      "p95_latency_seconds": 51.29413680000289,
+      "max_latency_seconds": 51.29413680000289,
+      "over_30s": 3,
+      "turns": 22,
+      "prompt_eval_tokens": 74202,
+      "eval_tokens": 6372,
+      "context_failures": 0,
+      "schema_repair_turns": 7,
+      "schema_rejections": 0,
+      "parse_schema_failures": 0,
+      "stop_early_samples": 6,
+      "mean_action_calls_per_sample": 0.8333333333333334,
+      "native_overcalls": 0,
+      "schema_extension_count": 0,
+      "gpu_after": "3965, 6141, 84",
+      "note": "BTC scorer is run separately after each full 309-ID branch."
+    },
+    "D": {
+      "variant": "D",
+      "cohort": "smoke",
+      "samples": 12,
+      "runtime_failures": 0,
+      "mean_latency_seconds": 13.653121924999747,
+      "p95_latency_seconds": 30.875976700001047,
+      "max_latency_seconds": 30.875976700001047,
+      "over_30s": 1,
+      "turns": 19,
+      "prompt_eval_tokens": 115077,
+      "eval_tokens": 6034,
+      "context_failures": 0,
+      "schema_repair_turns": 0,
+      "schema_rejections": 0,
+      "parse_schema_failures": 0,
+      "stop_early_samples": 8,
+      "mean_action_calls_per_sample": 0.5833333333333334,
+      "native_overcalls": 2,
+      "schema_extension_count": 493,
+      "gpu_after": "3971, 6141, 86",
+      "note": "BTC scorer is run separately after each full 309-ID branch."
+    }
+  },
+  "full_val309_variants_missing": [],
+  "subgroups": {
+    "gold_calls=2;ask_missing_info=false": {
+      "n": 66,
+      "mean_official_score_points": {
+        "A": 0.7575757575757576,
+        "B": 9.14141414141414,
+        "C": 6.0606060606060606,
+        "D": 5.0
+      }
+    },
+    "gold_calls=1;ask_missing_info=true": {
+      "n": 11,
+      "mean_official_score_points": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0
+      }
+    },
+    "gold_calls=1;ask_missing_info=false": {
+      "n": 60,
+      "mean_official_score_points": {
+        "A": 4.0,
+        "B": 16.944444444444443,
+        "C": 21.11111111111111,
+        "D": 27.22222222222222
+      }
+    },
+    "gold_calls=3+;ask_missing_info=false": {
+      "n": 113,
+      "mean_official_score_points": {
+        "A": 0.0,
+        "B": 2.1386430678466075,
+        "C": 0.5899705014749262,
+        "D": 1.0324483775811208
+      }
+    },
+    "gold_calls=0;ask_missing_info=false": {
+      "n": 23,
+      "mean_official_score_points": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0
+      }
+    },
+    "gold_calls=3+;ask_missing_info=true": {
+      "n": 26,
+      "mean_official_score_points": {
+        "A": 5.384615384615384,
+        "B": 1.9230769230769231,
+        "C": 0.0,
+        "D": 3.8461538461538463
+      }
+    },
+    "gold_calls=2;ask_missing_info=true": {
+      "n": 10,
+      "mean_official_score_points": {
+        "A": 0.0,
+        "B": 5.0,
+        "C": 0.0,
+        "D": 5.0
+      }
+    },
+    "marginal_gold_trajectory_length": {
+      "2": {
+        "n": 76,
+        "mean_official_score_points": {
+          "A": 0.6578947368421052,
+          "B": 8.596491228070176,
+          "C": 5.263157894736842,
+          "D": 5.0
+        }
+      },
+      "1": {
+        "n": 71,
+        "mean_official_score_points": {
+          "A": 3.3802816901408446,
+          "B": 14.319248826291078,
+          "C": 17.84037558685446,
+          "D": 23.004694835680752
+        }
+      },
+      "3+": {
+        "n": 139,
+        "mean_official_score_points": {
+          "A": 1.0071942446043165,
+          "B": 2.0983213429256593,
+          "C": 0.4796163069544364,
+          "D": 1.5587529976019183
+        }
+      },
+      "0": {
+        "n": 23,
+        "mean_official_score_points": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0
+        }
+      }
+    },
+    "marginal_ask_missing_info": {
+      "false": {
+        "n": 262,
+        "mean_official_score_points": {
+          "A": 1.1068702290076335,
+          "B": 7.1055979643765905,
+          "C": 6.615776081424936,
+          "D": 7.938931297709923
+        }
+      },
+      "true": {
+        "n": 47,
+        "mean_official_score_points": {
+          "A": 2.978723404255319,
+          "B": 2.127659574468085,
+          "C": 0.0,
+          "D": 3.1914893617021276
+        }
+      }
+    }
+  },
+  "paired_disagreement_examples": [
+    {
+      "id": "train_0215",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 100.0,
+        "D": 0.0
+      },
+      "transcript": "Mai mà mưa thì vì lịch đá bóng sáng mai rồi gọi báo cho Lan. Không mưa thì thôi ạ\".",
+      "gold_calls": [
+        {
+          "name": "weather.get_forecast",
+          "arguments": {
+            "date": "2026-11-18"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "weather.get_forecast",
+              "arguments": {
+                "date": "2026-11-18"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "weather.get_forecast",
+              "arguments": {
+                "date": "2026-11-18"
+              },
+              "result": {
+                "ok": true,
+                "forecast": [
+                  {
+                    "location": "Hà Nội",
+                    "date": "2026-11-18",
+                    "condition": "nhiều mây",
+                    "rain": false,
+                    "temp_min": 25,
+                    "temp_max": 30
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [],
+          "observations": []
+        }
+      }
+    },
+    {
+      "id": "train_0443",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 100.0
+      },
+      "transcript": "Lại bật cái đèn vào đây",
+      "gold_calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "light_living",
+            "power": "on"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "B": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              }
+            },
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              }
+            },
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              }
+            },
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            },
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            },
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            },
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 80
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on"
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần phòng khách",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 80
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0451",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 100.0,
+        "C": 66.66666666666666,
+        "D": 100.0
+      },
+      "transcript": "Vâng, thể gọi luôn số đỏ cho em đi.",
+      "gold_calls": [
+        {
+          "name": "phone.call",
+          "arguments": {
+            "phone_number": "09875551235"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "09875551235",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "contacts.search",
+              "arguments": {
+                "query": "Hùng"
+              }
+            },
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "contacts.search",
+              "arguments": {
+                "query": "Hùng"
+              },
+              "result": {
+                "ok": true,
+                "contacts": [
+                  {
+                    "id": "c_06",
+                    "name": "Hùng",
+                    "relation": "anh họ",
+                    "phone": "09132468700"
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "09875551235",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "09875551235"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "09875551235",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0502",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 100.0
+      },
+      "transcript": "Gọi giúp tôi tổng đài hỗ trợ số một, chín không không một, hai, ba, bốn ấy.",
+      "gold_calls": [
+        {
+          "name": "phone.call",
+          "arguments": {
+            "phone_number": "19001234"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "1900123456"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "1900123456"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "1900123456",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "1901234"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "1901234"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "1901234",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "phone.call",
+              "arguments": {
+                "phone_number": "19001234"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "phone.call",
+              "arguments": {
+                "phone_number": "19001234"
+              },
+              "result": {
+                "ok": true,
+                "call": {
+                  "id": "call_01",
+                  "contact_id": null,
+                  "phone_number": "19001234",
+                  "status": "dialing"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0527",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 100.0,
+        "D": 100.0
+      },
+      "transcript": "Ừ thế, đóng luôn khoản đấy giúp chị trừ và tiền lương trong tài khoản đấy.",
+      "gold_calls": [
+        {
+          "name": "bill_payment.pay",
+          "arguments": {
+            "bill_id": "bill_05",
+            "source": "bank"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "ewallet.get_balance",
+              "arguments": {}
+            },
+            {
+              "name": "notes.create",
+              "arguments": {
+                "title": "Ghi chú thanh toán học phí tháng 10",
+                "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó."
+              }
+            },
+            {
+              "name": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              }
+            },
+            {
+              "name": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              }
+            },
+            {
+              "name": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "ewallet.get_balance",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "balance": 1250000
+              }
+            },
+            {
+              "tool": "notes.create",
+              "arguments": {
+                "title": "Ghi chú thanh toán học phí tháng 10",
+                "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó."
+              },
+              "result": {
+                "ok": true,
+                "id": "note_05",
+                "item": {
+                  "id": "note_05",
+                  "title": "Ghi chú thanh toán học phí tháng 10",
+                  "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó."
+                }
+              }
+            },
+            {
+              "tool": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "note_05",
+                  "title": "Ghi chú thanh toán học phí tháng 10",
+                  "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+                }
+              }
+            },
+            {
+              "tool": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "note_05",
+                  "title": "Ghi chú thanh toán học phí tháng 10",
+                  "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+                }
+              }
+            },
+            {
+              "tool": "notes.append",
+              "arguments": {
+                "note_id": "note_05",
+                "content": "Đề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "note_05",
+                  "title": "Ghi chú thanh toán học phí tháng 10",
+                  "content": "Học phí tháng 10 Trường Tiểu học Kim Đồng: 3.500.000đ, hạn đóng 30/9/2026\nSố dư ví hiện tại: 1.250.000đ\nCần thêm: 2.250.000đ từ tài khoản ngân hàng\n\nLưu ý: Hiện chưa có công cụ chuyển tiền từ ngân hàng sang ví, chỉ có thể thanh toán bằng số dư trong ví hoặc nếu đã nạp đủ tiền vào ví trước đó.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví.\nĐề xuất: \n1. Nếu chị đã nạp đủ tiền vào ví trước đó, tôi có thể thanh toán học phí ngay (3.500.000đ)\n2. Hoặc nếu chưa đủ tiền trong ví, cần nạp thêm tiền vào ví trước khi thanh toán\n\nHiện tại chỉ có thể chuyển tiền giữa các ví hoặc nạp điện thoại, không có công cụ chuyển từ ngân hàng sang ví."
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "bill_payment.pay",
+              "arguments": {
+                "bill_id": "bill_05",
+                "source": "bank"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "bill_payment.pay",
+              "arguments": {
+                "bill_id": "bill_05",
+                "source": "bank"
+              },
+              "result": {
+                "ok": true,
+                "bill": {
+                  "id": "bill_05",
+                  "type": "tuition",
+                  "provider": "Trường Tiểu học Kim Đồng",
+                  "name": "Học phí tháng 10",
+                  "amount": 3500000,
+                  "due_date": "2026-09-30",
+                  "paid": true,
+                  "paid_with": "bank"
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "bill_payment.pay",
+              "arguments": {
+                "bill_id": "bill_05",
+                "source": "bank"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "bill_payment.pay",
+              "arguments": {
+                "bill_id": "bill_05",
+                "source": "bank"
+              },
+              "result": {
+                "ok": true,
+                "bill": {
+                  "id": "bill_05",
+                  "type": "tuition",
+                  "provider": "Trường Tiểu học Kim Đồng",
+                  "name": "Học phí tháng 10",
+                  "amount": 3500000,
+                  "due_date": "2026-09-30",
+                  "paid": true,
+                  "paid_with": "bank"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0559",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 100.0,
+        "D": 0.0
+      },
+      "transcript": "Ừ, bạn nên giúp chị đi em.",
+      "gold_calls": [
+        {
+          "name": "smart_home.light_set",
+          "arguments": {
+            "device_id": "light_living",
+            "power": "on"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 100
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on",
+                "brightness": 100
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 100
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "smart_home.light_set",
+              "arguments": {
+                "device_id": "light_living",
+                "power": "on"
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "light_living",
+                  "name": "đèn trần",
+                  "type": "light",
+                  "room": "phòng khách",
+                  "floor": 1,
+                  "state": {
+                    "power": "on",
+                    "brightness": 100
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [],
+          "observations": []
+        }
+      }
+    },
+    {
+      "id": "train_0623",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 100.0,
+        "C": 0.0,
+        "D": 0.0
+      },
+      "transcript": "Ừ, thêm đúng loại đó vào danh sách đi trẻ em hai hộp nha.",
+      "gold_calls": [
+        {
+          "name": "shopping_list.add",
+          "arguments": {
+            "name": "sữa yến mạch không đường Oat Farm",
+            "quantity": 2
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "shopping_list.add",
+              "arguments": {
+                "name": "sữa yến mạch không đường Oat Farm",
+                "quantity": 2
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "shopping_list.add",
+              "arguments": {
+                "name": "sữa yến mạch không đường Oat Farm",
+                "quantity": 2
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "item_03",
+                  "checked": false,
+                  "name": "sữa yến mạch không đường Oat Farm",
+                  "quantity": 2
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "shopping_list.add",
+              "arguments": {
+                "name": "Sữa yến mạch không đường Oat Farm cho trẻ em",
+                "quantity": 2
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "shopping_list.add",
+              "arguments": {
+                "name": "Sữa yến mạch không đường Oat Farm cho trẻ em",
+                "quantity": 2
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "item_03",
+                  "checked": false,
+                  "name": "Sữa yến mạch không đường Oat Farm cho trẻ em",
+                  "quantity": 2
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "shopping_list.get",
+              "arguments": {}
+            },
+            {
+              "name": "shopping_list.add",
+              "arguments": {
+                "name": "sữa yến mạch Oat Farm không đường cho trẻ em",
+                "quantity": 2
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "shopping_list.get",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "items": [
+                  {
+                    "id": "item_01",
+                    "name": "rau muống",
+                    "quantity": 1,
+                    "checked": false
+                  },
+                  {
+                    "id": "item_02",
+                    "name": "bánh mì sandwich",
+                    "quantity": 1,
+                    "checked": false
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "shopping_list.add",
+              "arguments": {
+                "name": "sữa yến mạch Oat Farm không đường cho trẻ em",
+                "quantity": 2
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "item_03",
+                  "checked": false,
+                  "name": "sữa yến mạch Oat Farm không đường cho trẻ em",
+                  "quantity": 2
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0624",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 100.0,
+        "D": 0.0
+      },
+      "transcript": "Em chuẩn bị đến đấy, sang cho Hà luôn đi.",
+      "gold_calls": [
+        {
+          "name": "household_chores.assign",
+          "arguments": {
+            "chore_id": "chore_05",
+            "assignee": "Hà"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "household_chores.assign",
+              "arguments": {
+                "chore_id": "chore_05",
+                "assignee": "Hà"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "household_chores.assign",
+              "arguments": {
+                "chore_id": "chore_05",
+                "assignee": "Hà"
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "chore_05",
+                  "name": "Rửa bát tối thứ sáu",
+                  "assignee": "Hà",
+                  "done": false
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [],
+          "observations": []
+        }
+      }
+    },
+    {
+      "id": "train_0711",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 100.0
+      },
+      "transcript": "Thấy cho thật đó và danh sách chờ phát chíp em nhà.",
+      "gold_calls": [
+        {
+          "name": "podcast_radio.queue",
+          "arguments": {
+            "episode_id": "ep_09"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "podcast_radio.play",
+              "arguments": {
+                "episode_id": "ep_09"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "podcast_radio.play",
+              "arguments": {
+                "episode_id": "ep_09"
+              },
+              "result": {
+                "ok": true,
+                "now_playing": {
+                  "episode_id": "ep_09",
+                  "show_id": "show_04",
+                  "status": "playing"
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "podcast_radio.queue",
+              "arguments": {
+                "episode_id": "ep_09"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "podcast_radio.queue",
+              "arguments": {
+                "episode_id": "ep_09"
+              },
+              "result": {
+                "ok": true,
+                "queue": [
+                  "ep_09"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0713",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 100.0,
+        "C": 100.0,
+        "D": 100.0
+      },
+      "transcript": "Rồi mở bàn nói cho chị nghe đi em.",
+      "gold_calls": [
+        {
+          "name": "music.play",
+          "arguments": {
+            "track_id": "trk_07"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              },
+              "result": {
+                "ok": true,
+                "now_playing": {
+                  "track_id": "trk_07",
+                  "title": "Nhịp thở chậm",
+                  "status": "playing"
+                }
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              },
+              "result": {
+                "ok": true,
+                "now_playing": {
+                  "track_id": "trk_07",
+                  "title": "Nhịp thở chậm",
+                  "status": "playing"
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "music.play",
+              "arguments": {
+                "track_id": "trk_07"
+              },
+              "result": {
+                "ok": true,
+                "now_playing": {
+                  "track_id": "trk_07",
+                  "title": "Nhịp thở chậm",
+                  "status": "playing"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_0753",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 100.0,
+        "D": 0.0
+      },
+      "transcript": "Thờ chốt vậy thì gói nó luôn cho anh.",
+      "gold_calls": [
+        {
+          "name": "subscriptions.cancel",
+          "arguments": {
+            "subscription_id": "sub_07"
+          }
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "subscriptions.cancel",
+              "arguments": {
+                "subscription_id": "sub_07"
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "subscriptions.cancel",
+              "arguments": {
+                "subscription_id": "sub_07"
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "sub_07",
+                  "name": "Lưu trữ bổ sung Nhóm Plus 1TB",
+                  "price": 150000,
+                  "next_billing": "2026-10-20",
+                  "status": "cancelled",
+                  "cycle": "monthly"
+                }
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "subscriptions.cancel",
+              "arguments": {
+                "subscription_id": "sub_07"
+              }
+            },
+            {
+              "name": "chat_ott.send_message",
+              "arguments": {
+                "chat_id": "chat_01",
+                "content": "Đã hủy gói Lưu trữ bổ sung Nhóm Plus 1TB thành công. Gói chính WorkSuite 365 Business Standard vẫn được giữ nguyên."
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "subscriptions.cancel",
+              "arguments": {
+                "subscription_id": "sub_07"
+              },
+              "result": {
+                "ok": true,
+                "item": {
+                  "id": "sub_07",
+                  "name": "Lưu trữ bổ sung Nhóm Plus 1TB",
+                  "price": 150000,
+                  "next_billing": "2026-10-20",
+                  "status": "cancelled",
+                  "cycle": "monthly"
+                }
+              }
+            },
+            {
+              "tool": "chat_ott.send_message",
+              "arguments": {
+                "chat_id": "chat_01",
+                "content": "Đã hủy gói Lưu trữ bổ sung Nhóm Plus 1TB thành công. Gói chính WorkSuite 365 Business Standard vẫn được giữ nguyên."
+              },
+              "result": {
+                "ok": true,
+                "message": {
+                  "from": "me",
+                  "content": "Đã hủy gói Lưu trữ bổ sung Nhóm Plus 1TB thành công. Gói chính WorkSuite 365 Business Standard vẫn được giữ nguyên."
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "train_1036",
+      "score_range_points": 100.0,
+      "scores": {
+        "A": 0.0,
+        "B": 50.0,
+        "C": 100.0,
+        "D": 100.0
+      },
+      "transcript": "Dừng con đói bớt khúc bụi lại cho anh, nó kêu to quá, anh đang gọi điện.",
+      "gold_calls": [
+        {
+          "name": "robot_vacuum.stop",
+          "arguments": {}
+        }
+      ],
+      "branches": {
+        "A": {
+          "tool_calls": [],
+          "observations": []
+        },
+        "B": {
+          "tool_calls": [
+            {
+              "name": "robot_vacuum.stop",
+              "arguments": {}
+            },
+            {
+              "name": "phone.recent_calls",
+              "arguments": {}
+            },
+            {
+              "name": "sys.ask_missing_info",
+              "arguments": {
+                "tool_name": "phone.call",
+                "params": [
+                  "contact_id",
+                  "phone_number"
+                ]
+              }
+            }
+          ],
+          "observations": [
+            {
+              "tool": "robot_vacuum.stop",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "status": "docked",
+                "was": "cleaning"
+              }
+            },
+            {
+              "tool": "phone.recent_calls",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "calls": []
+              }
+            },
+            {
+              "tool": "sys.ask_missing_info",
+              "arguments": {
+                "tool_name": "phone.call",
+                "params": [
+                  "contact_id",
+                  "phone_number"
+                ]
+              },
+              "result": {
+                "ok": true,
+                "waiting_for_user": true
+              }
+            }
+          ]
+        },
+        "C": {
+          "tool_calls": [
+            {
+              "name": "robot_vacuum.stop",
+              "arguments": {}
+            }
+          ],
+          "observations": [
+            {
+              "tool": "robot_vacuum.stop",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "status": "docked",
+                "was": "cleaning"
+              }
+            }
+          ]
+        },
+        "D": {
+          "tool_calls": [
+            {
+              "name": "robot_vacuum.stop",
+              "arguments": {}
+            }
+          ],
+          "observations": [
+            {
+              "tool": "robot_vacuum.stop",
+              "arguments": {},
+              "result": {
+                "ok": true,
+                "status": "docked",
+                "was": "cleaning"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "conclusion_threshold": {
+    "go_minimum_gain_points": 0.5,
+    "requires_95pct_ci_excluding_zero": true,
+    "must_not_increase_schema_context_runtime_errors": true,
+    "production_default_changed": false,
+    "full_factorial_interaction_estimable": true
+  }
+}

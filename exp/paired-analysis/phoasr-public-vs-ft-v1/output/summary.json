@@ -1,0 +1,252 @@
+{
+  "samples": 309,
+  "runtime_failures": 0,
+  "asr": {
+    "phoasr_public": {
+      "wer": 0.28040689960194604,
+      "cer": 0.2012592964365561
+    },
+    "phoasr_lifemate_ft": {
+      "wer": 0.2756892230576441,
+      "cer": 0.1965597481407127
+    }
+  },
+  "downstream": {
+    "proxy": {
+      "phoasr_public": 0.22864848204654029,
+      "phoasr_ft": 0.2221695690142292,
+      "ft_gain": -0.006478913032311073,
+      "remaining_oracle_gap": 0.06983043098577077,
+      "oracle_gap_closed_fraction_of_public_gap": -0.10226926270449772,
+      "direction": "worsened"
+    },
+    "tool_f1": {
+      "phoasr_public": 0.1693480101608806,
+      "phoasr_ft": 0.1634372367312553,
+      "ft_gain": -0.005910773429625316,
+      "remaining_oracle_gap": 0.07946276326874471,
+      "oracle_gap_closed_fraction_of_public_gap": -0.08036184258990106,
+      "direction": "worsened"
+    },
+    "state_match": {
+      "phoasr_public": 0.2750809061488673,
+      "phoasr_ft": 0.2686084142394822,
+      "ft_gain": -0.006472491909385147,
+      "remaining_oracle_gap": 0.06149158576051783,
+      "oracle_gap_closed_fraction_of_public_gap": -0.1176408307795476,
+      "direction": "worsened"
+    }
+  },
+  "paired_sample_scores": {
+    "improved": 9,
+    "worsened": 12,
+    "unchanged": 288
+  },
+  "public_runtime": {
+    "mean_seconds": 11.169948588996794,
+    "ft_mean_seconds": 11.688390487702232
+  },
+  "wer_improved_examples": [
+    {
+      "id": "train_0647",
+      "reference": "Ừ, em lưu tóm tắt bài đó vào ghi chú, đặt tên là Vườn cộng đồng cho chị, nhớ ghi cả tên bài vào nha.",
+      "phoasr_public": "Liêu tóm tắt bài đó, anh kia chú đặt tên là Viền Cồng Đồng nha chị, nhờ cái cả tên bài vào nhà.",
+      "phoasr_ft": "Liêu tóm tắt bài đó, em ghi chú đặt tên là Viêng cộng đồng nha chị, nhớ kỹ càng tên bài vào nhà.",
+      "public_utterance_wer": 0.6,
+      "ft_utterance_wer": 0.36,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0244",
+      "reference": "Báo thức sáu giờ rưỡi sáng mai nhé, với lại chuyển ví cho Minh chút tiền giùm tôi.",
+      "phoasr_public": "A Thức Sáu Giờ Rủi Sáng Mai Nha Quay Lại Chuyển Ví Cho Mình Trúc Tiền Giúp Tôi",
+      "phoasr_ft": "Ba thức sáu giờ rưỡi sáng mai nhé, với lại chuyển ví cho Minh Trúc tiền giúp tôi.",
+      "public_utterance_wer": 0.3888888888888889,
+      "ft_utterance_wer": 0.16666666666666666,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0373",
+      "reference": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, quạt thì đừng bật, với bật điều hoà phòng khách 26 độ nhé.",
+      "phoasr_public": "Bật đèn phòng khách lên nhưng để mờ ba mươi phần trăm thôi quẹt khi đụng bẩn với mặt điều trong phòng khách hai mươi sáu độ nhé.",
+      "phoasr_ft": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi quẹt khi đụng bẩn với mặt điều trong phòng khách 26 độ nhé.",
+      "public_utterance_wer": 0.44,
+      "ft_utterance_wer": 0.24,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0055",
+      "reference": "Tắt hết đèn tầng 2, trừ phòng nào đang bật điều hoà thì để nguyên nhé.",
+      "phoasr_public": "Ta thắp đèn tháng Hai, chi phòng nào đang bật điều thì để nguyên nhé.",
+      "phoasr_ft": "Tắt hết đèn tầng hai, chuyên phòng nào đang bật điều thì để nguyên nhé.",
+      "public_utterance_wer": 0.375,
+      "ft_utterance_wer": 0.1875,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_1002",
+      "reference": "Chiều ni anh có họp online không? Có thì bật đèn phòng làm việc, à thôi, bật quạt phòng đó thôi.",
+      "phoasr_public": "Chiều nay anh có học bổng hay không? Có đi học bằng đơn phần học vẹt tay, bật cuộc học bằng đất thôi.",
+      "phoasr_ft": "Chiều nay anh có học bổng hay không? Có đi học bằng đèn phòng bằng dép? Tôi bật gọt phòng đất thôi.",
+      "public_utterance_wer": 0.7619047619047619,
+      "ft_utterance_wer": 0.6190476190476191,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0140",
+      "reference": "Bật đèn phòng khách 30 phần trăm thôi nhé, quạt thì đừng bật, rồi bật điều hoà phòng khách 26 độ cho chị.",
+      "phoasr_public": "Bật đèn phòng khách ba mươi phần trăm thôi nhé. Goách thì đừng bật rồi bật điều phòng khách hai mươi sáu độ ra rỉ.",
+      "phoasr_ft": "Bật đèn phòng khách 30% thôi nhé. Goách thì đừng bật rồi bật điều phòng khách 26 độ ra rỉ.",
+      "public_utterance_wer": 0.391304347826087,
+      "ft_utterance_wer": 0.2608695652173913,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_1588",
+      "reference": "Ghi vô tủ thực phẩm giùm anh, bánh dừa đoàn Phuket gửi nhà ăn hết bốn gói rồi.",
+      "phoasr_public": "Khi cô thu thư phần xong ăn, bánh dừa cho Phương kẹt, gửi cho anh ít bún gỏi rầy.",
+      "phoasr_ft": "Khi cô thu thư phần xong, anh bán dừa cho Phương kẹt gửi cho anh, ết bốn gỗ rồi.",
+      "public_utterance_wer": 0.8888888888888888,
+      "ft_utterance_wer": 0.7777777777777778,
+      "public_score": 0.5,
+      "ft_score": 0.5
+    },
+    {
+      "id": "train_0621",
+      "reference": "Ừ, giờ tạo cái nhắc đó cho tôi luôn đi.",
+      "phoasr_public": "Ừ, giờ tạo ca nhắc đó cho tôi luôn đi.",
+      "phoasr_ft": "Ừ, giờ tạo cái nhắc đó cho tôi luôn đi.",
+      "public_utterance_wer": 0.1,
+      "ft_utterance_wer": 0.0,
+      "public_score": 1.0,
+      "ft_score": 0.5
+    },
+    {
+      "id": "train_0275",
+      "reference": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, quạt đừng bật nhé, rồi bật điều hoà phòng khách 26 độ.",
+      "phoasr_public": "Bật đèn phòng khách lên nhưng để mờ 30% thôi, hoạt đừng bật nhé rồi bật điều phòng khách 26 độ.",
+      "phoasr_ft": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, hoạt đừng bật nhé rồi bật điều phòng khách 26 độ.",
+      "public_utterance_wer": 0.16666666666666666,
+      "ft_utterance_wer": 0.08333333333333333,
+      "public_score": 0.16666666666666666,
+      "ft_score": 0.16666666666666666
+    },
+    {
+      "id": "train_0052",
+      "reference": "Đặt báo thức 6 rưỡi sáng mai và gọi cho Minh giúp tôi.",
+      "phoasr_public": "Đặt báo thức sau rưỡi sáng máy và ròi cho mình, giúp tôi",
+      "phoasr_ft": "Đặt báo thức sau rưỡi sáng mai và ròi cho mình, giúp tôi",
+      "public_utterance_wer": 0.3076923076923077,
+      "ft_utterance_wer": 0.23076923076923078,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0994",
+      "reference": "Khuya rồi, con robot ồn quá, dừng hắn lại đi. Tắt đèn trên lầu luôn... ờ mà thôi, ba còn thức, tắt đèn dưới nhà thôi nghe.",
+      "phoasr_public": "Khuya rồi con robot ồn quá dừng hắn lại đi tắt đèn trên lầu luôn mà thôi ba còn thức tắt đèn dưới nhà thôi nhé.",
+      "phoasr_ft": "Khuya rồi con robot ồn quá dừng hắn lại đi tắt đèn trên lầu luôn ờ mà thôi ba còn thức tắt đèn dưới nhà thôi nghe.",
+      "public_utterance_wer": 0.07407407407407407,
+      "ft_utterance_wer": 0.0,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0840",
+      "reference": "Chị Ngân bên pháp lý ấy. Gọi chị ấy trước đi, rồi soạn nháp nhắc lại chuyện tài liệu NDA hai bên đã thống nhất hôm trước nhé.",
+      "phoasr_public": "Chị ngăn anh pháp lý, gọi chị ái trước rồi soạn nhốt, nhắc là trình tài liệu NDA. Giao banh giao thông nhắc hôm trước nhé.",
+      "phoasr_ft": "Chị ngăn anh pháp lý, gọi chị ái trước rồi soạn nhốt, nhắc là trình tài liệu NDA, ra bên đã thấm nhắc hôm trước nhé.",
+      "public_utterance_wer": 0.4642857142857143,
+      "ft_utterance_wer": 0.39285714285714285,
+      "public_score": 0.2,
+      "ft_score": 0.2
+    },
+    {
+      "id": "train_0212",
+      "reference": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế, đặt giùm tôi, ai trong nhóm Gia đình cũng một phần, trừ tôi ra nghen.",
+      "phoasr_public": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế đặt chừng tôi A trong nhóm gia đình cũng một phần chứ tôi vang nhang.",
+      "phoasr_ft": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế đặt giùm tôi ở trong nhóm gia đình cũng một phần trừ tôi vang nhang.",
+      "public_utterance_wer": 0.17857142857142858,
+      "ft_utterance_wer": 0.10714285714285714,
+      "public_score": 0.28571428571428575,
+      "ft_score": 0.28571428571428575
+    },
+    {
+      "id": "train_0623",
+      "reference": "Ừ, thêm đúng loại đó vào danh sách đi chợ cho em, hai hộp nha.",
+      "phoasr_public": "Ừ, thêm đúng loại đó vào danh sách đi trẻ em hai hộp nha.",
+      "phoasr_ft": "Ừ, thêm đúng loại đó vào danh sách đi trộm cho em hai hộp nha.",
+      "public_utterance_wer": 0.13333333333333333,
+      "ft_utterance_wer": 0.06666666666666667,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0883",
+      "reference": "Ờ, ghi số đó vào cái ghi chú theo dõi điện tháng này giùm anh nha.",
+      "phoasr_public": "Việc số đó vào cái ghi chú theo dõi định thế này dùm anh nha.",
+      "phoasr_ft": "Việc số đó vào cái ghi chú theo dõi định thế này giùm anh nha.",
+      "public_utterance_wer": 0.3125,
+      "ft_utterance_wer": 0.25,
+      "public_score": 0.2,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0166",
+      "reference": "Gọi cho Lan đi ạ, với lại đặt báo thức sáu giờ sáng mai cho em nữa.",
+      "phoasr_public": "Gọi cho Lenin với đọc quá sức, sáu giờ sáng mai cho em nữa.",
+      "phoasr_ft": "Gọi cho Lenin với đặt quá sức, sáu giờ sáng mai cho em nữa.",
+      "public_utterance_wer": 0.4117647058823529,
+      "ft_utterance_wer": 0.35294117647058826,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_1200",
+      "reference": "Sáng nay tôi đi bộ từ nhà ra bến Ninh Kiều chụp hình đó, đường đi mất nhiêu phút thì ghi bấy nhiêu phút học vô khoá chụp hình, chưa đăng ký khoá thì đăng ký luôn.",
+      "phoasr_public": "Sáng nay tôi đi bộ từ nhà ra đến bến Ninh Kiều chụp hình đó. Đường đi mất nhiều phút thì gây mấy nhiều phút. Học khoa chụp hình chưa đăng ký. thì đăng ký luôn.",
+      "phoasr_ft": "Sáng nay tôi đi bộ từ nhà ra đến bến Ninh Kiều, chụp hình đó. Đường đi mất nhiều phút thì gây mấy nhiều phút. Học khoá chụp hình chưa đăng ký, khoá thì đăng ký luôn.",
+      "public_utterance_wer": 0.21621621621621623,
+      "ft_utterance_wer": 0.16216216216216217,
+      "public_score": 0.3333333333333333,
+      "ft_score": 0.3333333333333333
+    },
+    {
+      "id": "train_0202",
+      "reference": "Tắt hết đèn tầng hai đi, phòng nào đang bật điều hoà thì cứ để đèn nguyên đó nha.",
+      "phoasr_public": "Tiếp tục bạn tìm hiểu đề. Bạn nào đọc bài đi hoa thì chia sẻ đề ngoài lắm nha.",
+      "phoasr_ft": "Tiếp tục bạn tìm hiểu đề. Bạn nào đọc bài đi hoa thì chia sẻ đề nguyên đề nha.",
+      "public_utterance_wer": 0.8421052631578947,
+      "ft_utterance_wer": 0.7894736842105263,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_0282",
+      "reference": "Mai mà mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Minh, không mưa thì thôi nhé.",
+      "phoasr_public": "Mai mà mưa thì hãy lạnh đa bóng sáng mai rồi đừng có báo cho mình, có mưa thì thôi nghe.",
+      "phoasr_ft": "Mai mà mưa thì hãy lạnh đa bóng sáng mai rồi đừng lo báo cho mình, không mưa thì thôi nghe.",
+      "public_utterance_wer": 0.4,
+      "ft_utterance_wer": 0.35,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    },
+    {
+      "id": "train_1183",
+      "reference": "Đặt cơm tấm… à thôi khỏi, anh xuống Góc Phố 24h. Đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "phoasr_public": "Cơm tám à, thôi khỏi anh xuống góc phố. Hai mươi bốn giờ đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "phoasr_ft": "Cơm tám à, thôi khỏi anh, xuống góc phố hai mươi bốn, đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "public_utterance_wer": 0.2857142857142857,
+      "ft_utterance_wer": 0.23809523809523808,
+      "public_score": 0.0,
+      "ft_score": 0.0
+    }
+  ],
+  "metric_note": "WER uses Vietnamese whitespace tokenization after lowercase/punctuation removal; CER removes whitespace. Downstream comparison is paired on common validation IDs."
+}

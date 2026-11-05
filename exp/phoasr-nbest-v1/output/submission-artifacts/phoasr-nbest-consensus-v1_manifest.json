@@ -1,0 +1,18 @@
+{
+  "split": "public_test",
+  "rows": 634,
+  "submission": "outputs\\submissions\\phoasr-nbest-consensus-v1.jsonl",
+  "diagnostics": "outputs\\submissions\\phoasr-nbest-consensus-v1_predictions.jsonl",
+  "transcripts": "outputs\\asr_nbest_v1\\public_test\\transcripts.jsonl",
+  "transcript_cache_sha256": "6df0726d8ee6d6c3f45fc265ed493650f795f1baed5c56f921772c14a50497d4",
+  "selector": "consensus medoid minimizing average pairwise token WER",
+  "gold_used_for_selection": false,
+  "asr": "PhoASR public N-best cache",
+  "llm_model": "models/Qwen3-4B-Instruct-2507",
+  "adapter": null,
+  "llm_backend": "ollama",
+  "ollama_context": 8192,
+  "max_steps": 5,
+  "elapsed_seconds_this_run": 1699.2361429999996,
+  "note": "Full public-test submission; each sample used one ToolEnv."
+}

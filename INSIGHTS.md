@@ -1,5 +1,33 @@
 # Insights
 
+## Qwen3.5 thinking/tool-protocol experiment (complete 2026-11-03)
+
+- Full fixed train-only val309 BTC scores (official after local 30s runtime gate; pre-mask diagnostic in parentheses): A no-think JSON **1.3916 (1.3916)**; B no-think native tools **6.3484 (6.4779)**; C thinking JSON **5.6095 (9.2079)**; D thinking native tools **7.2168 (7.4326)**. Calls matched by exact tool name and arguments, duplicates by multiplicity, with gold-state hash gate and ToolEnv replay.
+- Paired bootstrap (10,000 samples, seed 20261102): B−A **+4.96** points (95% CI 2.82 to 7.39); C−A **+4.22** (2.01 to 6.68); D−C **+1.61** (−0.81 to 4.09); D−B **+0.87** (−1.53 to 3.35); interaction (D−C)−(B−A) **−3.35** (−6.52 to −0.27). Native protocol improved the no-thinking branch over JSON; evidence for an additional thinking gain with native tools is inconclusive. The negative interaction suggests a smaller protocol gain with thinking enabled.
+- Runtime mask used local RTX 4050 measurements, not an A30 benchmark. Samples over 30 seconds: A 0, B 2, C 140, D 12. Pre-mask values are diagnostics; A30 may reduce runtime masking, but its effect was not measured. All four gold replays matched the 309 labels, with zero replay failures. C mean/p95/max latency: 31.87/63.11/87.20s; D: 15.14/28.11/52.66s. C recorded 171 failed parse/schema repairs; D recorded one and 22 unexecuted extra native calls.
+- Do not change production defaults based on this local cohort alone. No submission was created and Public LB was not used. Full predictions, diagnostics, BTC details, configs, and paired report are under `exp/qwen35-thinking-tool-protocol-val309/output/` and `exp/paired-analysis/qwen35-thinking-tool-protocol-val309/output/paired-bootstrap-report.json`.
+
+## Session 4 prompt and cap A/B (2026-11-02)
+
+- On the fixed train-only 60-ID val309 cohort, observation-grounded-v2 did not improve over the prior Qwen3 prediction reference: BTC was 7.4802/100 old vs 2.7778 Qwen3-Vietnamese and 4.0000 Qwen3-English. Both Qwen3.5 branches were lower (1.3889 Vietnamese, 3.1667 English). These are official BTC scores using exact name+arguments with duplicate multiplicity and gold-state hash replay through ToolEnv; the local proxy remains a separate diagnostic.
+- English was the strongest prompt language in this pilot for Qwen3 and Qwen3.5, but neither model/prompt branch exceeded the old reference. Qwen3.5 is NO-GO for the next full confirmation.
+- On full fixed val309, Qwen3-English prompt v2 scored 3.0868 at cap 5 and 3.1702 at cap 6, both below the existing 4.9145 baseline. Cap 6's +0.0835 BTC points came with 87 extra submitted calls, 82 more unmatched calls, no additional hash-matched samples, and 87/309 predictions exceeding five calls while only one gold sample needs over five actions. The score gain is too small to justify changing the default; cap 6 is only a follow-up candidate.
+- Both full runs had the same two context-overflow failures (8,537 and 8,265 tokens vs the fixed 8,192 context). Context was kept fixed; those samples remain score zero. Artifacts and detailed paired analysis are under `exp/session4-prompt-ab/output/` and `exp/paired-analysis/session4-prompt-ab/output/`.
+
+## Qwen3 vs Qwen3.5 full val309 comparison (2026-11-02)
+
+- Held PhoASR, prompt-v2 English, cap 5, context 8192, deterministic JSON decoding, and the full fixed train-only val309 cohort constant. Official BTC was 3.0868 for Qwen3 and 1.3916 for Qwen3.5; paired scores favored Qwen3 on 17 samples, Qwen3.5 on 7, with 285 ties. Neither exceeded the 4.9145 baseline.
+- Qwen3.5 matched more final-state hashes (74 vs 64) and ran faster (2.45s vs 4.96s mean), but produced only 38 exact calls vs Qwen3's 109. Its low call recall explains why more hash matches did not yield a higher BTC score. Qwen3 had two fixed-context overflows; Qwen3.5 had none.
+- Keep Qwen3 as the stronger tested model by BTC; do not change the production default based on this comparison. Full predictions and paired scoring are in `exp/session4-qwen3-vs-qwen35-val309/output/` and `exp/paired-analysis/session4-qwen3-vs-qwen35-val309/output/paired-report.json`.
+
+## BamiBERT tool-router experiment (2026-11-02)
+
+- Routing did not become easier in this setup: BamiBERT predicted STOP for every fixed val309 timestep at both 512 and 1024 tokens. Top-1 was 29.63%, exactly the STOP share; non-STOP, first-action, second-action, and later-action accuracy were all 0%. The result is a clear NO-GO for continuing this decomposed policy as implemented.
+- Errors were not concentrated on one tool: all tool classes collapsed to STOP. Most frequent were contacts.search (56), sys.ask_missing_info (47), smart_home.light_set (45), smart_home.get_status (31), and reminders.create (26).
+- STOP is the source of the apparent top-1 score, with recall 1.0 but precision 0.296. Class weighting did not correct the collapse. Increasing input length reduced truncation from 93.7% to 63.1% but did not change predictions, so truncation alone does not explain the failure.
+- Qwen's aligned next-tool accuracy was 29.4% on first tools, 9.8% on second tools, and 5.2% on later tools (excluding STOP targets). BamiBERT failed to improve any tool-routing step; this also does not support the idea that a small classifier resolves the downstream continuation weakness.
+- The experiment used gold ToolEnv observations and arguments only in previous observations; no target arguments entered the classifier label or future context. STOP imbalance was present, but the collapse across every tool means more argument-generation work is not justified by these results.
+
 ## Qwen next-action trajectory dataset (2026-10-31)
 
 - Replayed all 1,236 fixed train trajectories through one fresh official ToolEnv each and generated 4,043 timestep examples. Mean gold trajectory length was 2.271 tool actions (maximum six); each successful sample has one STOP target, and 170 targets call `sys.ask_missing_info`.
@@ -30,7 +58,7 @@
 
 - Kept the baseline Qwen3-4B Q4_K_M agent, prompt, full tool schemas, ToolEnv, evaluator, and fixed 309-ID split. Only replaced Whisper Small with the official Qualcomm-AI-Research PhoASR-whisper-small checkpoint; retrieval and all demo/shortlist modes were off.
 - Checkpoint: `Qualcomm-AI-Research/PhoASR-whisper-small` (Whisper Small fine-tune, 0.2B parameters), released under BSD-3-Clause-Clear and Qualcomm Responsible AI License. Used local Transformers inference on CUDA with deterministic greedy decoding; no CTranslate2 conversion.
-- Corpus WER improved from 0.5108 to 0.2804 and CER from 0.3657 to 0.2013. PhoASR still made errors with numerals, names, and place names, but reduced Whisper repetition failures substantially. Examples are in `outputs/eval/paired-analysis/baseline-vs-phoasr-small-baseline/asr-analysis.json`.
+- Corpus WER improved from 0.5108 to 0.2804 and CER from 0.3657 to 0.2013. PhoASR still made errors with numerals, names, and place names, but reduced Whisper repetition failures substantially. Examples are in `exp/paired-analysis/baseline-vs-phoasr-small-baseline/output/asr-analysis.json`.
 - Downstream proxy improved from 0.1919 to 0.2286, tool-call F1 from 0.1155 to 0.1693, and final-state match from 0.2492 to 0.2751. Paired counts: 55 improved, 24 worsened, 230 unchanged. PhoASR closed 36.7% of the oracle proxy gap, 42.3% of tool-F1 gap, and 32.0% of state-match gap.
 - Full validation had zero runtime failures; mean latency was 11.17s and one sample exceeded 30s (max 34.08s) on the local RTX 4050. This is a runtime risk to recheck on A30. Public inference hit two Ollama runner resource failures, resumed from the ordered prefix each time, and completed. The 634-row candidate passed the official schema/order validator. User-reported Public LB: 9.79.
 
@@ -119,3 +147,11 @@
 - Downstream 1-best vs WER oracle: tool-call F1 0.1657→0.1671, final-state 0.31→0.32, proxy 0.2464→0.2567. Paired proxy changed on only four samples (2 improved, 2 worsened); 96 tied. Consensus proxy was 0.2542, with F1 below baseline (0.1605) and the same 0.32 state match.
 - This broader result confirms PhoASR's candidate set contains useful lexical alternatives, but even gold WER ranking brings little downstream improvement. Consensus remains non-beneficial. The evidence favors focusing on Qwen policy and argument grounding; an ASR reranker is not a priority.
 - Applying the supplied BTC scoring formula directly on the same 100 samples gives mean final scores of 6.107 current, 7.274 WER oracle, and 7.274 consensus (0–100 scale). The gain is concentrated in two samples, with 98 unchanged; hash match and at least one exact matched call are both required for a positive per-sample score.
+
+## Track C PhoASR FT vs QUAN FT pilot (2026-11-04)
+
+- On the same fixed stratified pilot60, QUAN FT + KenLM beam32 reduced corpus WER/CER from 0.2597/0.1945 to 0.1786/0.1522. BTC formula score before runtime mask rose from 10.000 to 15.730/100, but paired bootstrap difference +5.730 points had a wide 95% CI [−1.444, +13.405]; 8 improved, 4 worsened and 48 tied.
+- The pilot meets the point-estimate threshold, but not the CI criterion. QUAN had slightly fewer >30s samples (28 vs 33), with similar mean latency (~32.35s); parse/schema repair failures (32 vs 33), runtime exceptions (0/0) and ToolEnv schema rejections (0/0) were comparable. This does not establish a reliable downstream gain or full-val effect.
+- ASR metrics do not fully determine downstream behavior: a large WER/CER improvement coincided with only eight BTC improvements and four regressions. Inspect per-sample number/unit, time, negation, entity, tool-name/argument, early-stop and over-call fields in `exp/qwen35-track-c-quan-vs-phoasr-val309/output/pilot60/paired-analysis.json` before a larger run. Keep the default transcript unchanged until a larger paired evaluation resolves the uncertainty.
+- Full val309 was not run because the pre-run Track C estimate exceeded four hours (about 5.47h for two branches). These are pilot-only results, not Public LB or A30 runtime estimates.
+- Concrete paired cases include `train_1144`, where QUAN's currency/amount transcript accompanied the two gold `exchange_rate.convert` calls while PhoASR led to five `exchange_rate.get_rate` calls, and `train_0241`, where QUAN produced the gold weather/calendar/cancel sequence while PhoASR created a calendar event. `train_0013` regressed when QUAN produced extra contacts/SMS calls beyond the gold weather call. Treat these as observed paired examples; the transcripts alone do not establish causality.

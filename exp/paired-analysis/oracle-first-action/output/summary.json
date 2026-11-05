@@ -1,0 +1,81 @@
+{
+  "baseline": {
+    "first_action_accuracy": 0.0,
+    "tool_call_f1": 0.1073170731707317,
+    "final_state_match_rate": 0.0,
+    "trajectory_exact_rate": 0.0,
+    "proxy_mean": 0.05178571428571429
+  },
+  "oracle_tool_name": {
+    "experiment": "oracle-first-tool-name-30",
+    "intervention": "Force the gold first tool name; Qwen generates its arguments, then all later turns use baseline policy.",
+    "samples": 30,
+    "runtime_failures": 0,
+    "max_steps": 5,
+    "tool_call_f1": 0.13043478260869565,
+    "final_state_match_rate": 0.0,
+    "proxy_mean": 0.059616402116402116,
+    "first_tool_name_correct_count": 30,
+    "first_full_call_correct_count": 3,
+    "trajectory_exact_count": 0,
+    "average_latency_seconds": 11.369697833333278,
+    "predictions_file": "predictions.jsonl"
+  },
+  "oracle_full_first_call": {
+    "experiment": "oracle-first-full-call-30",
+    "intervention": "Execute the exact gold first call; all later turns use baseline policy.",
+    "samples": 30,
+    "runtime_failures": 0,
+    "max_steps": 5,
+    "tool_call_f1": 0.34309623430962344,
+    "final_state_match_rate": 0.0,
+    "proxy_mean": 0.17185185185185187,
+    "first_tool_name_correct_count": 30,
+    "first_full_call_correct_count": 30,
+    "trajectory_exact_count": 0,
+    "average_latency_seconds": 10.961900850000136,
+    "predictions_file": "predictions.jsonl"
+  },
+  "oracle_first_two_calls": {
+    "experiment": "oracle-first-two-calls-30",
+    "intervention": "Execute the exact gold first two calls; all later turns use baseline policy.",
+    "samples": 30,
+    "runtime_failures": 0,
+    "max_steps": 5,
+    "tool_call_f1": 0.5190839694656488,
+    "final_state_match_rate": 0.03333333333333333,
+    "proxy_mean": 0.2783333333333333,
+    "first_tool_name_correct_count": 30,
+    "first_full_call_correct_count": 30,
+    "trajectory_exact_count": 0,
+    "average_latency_seconds": 10.583748986666645,
+    "predictions_file": "predictions.jsonl"
+  },
+  "metric_deltas": {
+    "oracle_full_first_call_minus_tool_name": {
+      "tool_call_f1": 0.2126614517009278,
+      "final_state_match_rate": 0.0,
+      "proxy_mean": 0.11223544973544974
+    },
+    "oracle_first_two_calls_minus_full_first_call": {
+      "tool_call_f1": 0.1759877351560254,
+      "final_state_match_rate": 0.03333333333333333,
+      "proxy_mean": 0.10648148148148145
+    }
+  },
+  "paired_proxy_outcomes_vs_baseline": {
+    "tool_name": {
+      "improved": 5,
+      "unchanged": 19,
+      "worsened": 6
+    },
+    "full_call": {
+      "improved": 27,
+      "worsened": 3
+    },
+    "two_calls": {
+      "improved": 29,
+      "worsened": 1
+    }
+  }
+}

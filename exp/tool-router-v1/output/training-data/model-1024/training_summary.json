@@ -1,0 +1,46 @@
+{
+  "model": "Qualcomm-AI-Research/BamiBERT",
+  "revision": "57bc1340debbe4e348ec549047a763caebe4a977",
+  "parameters": 103064980,
+  "train_examples": 4043,
+  "val_examples": 1043,
+  "max_length": 1024,
+  "batch_size": 8,
+  "learning_rate": 2e-05,
+  "class_weighting": "inverse square-root frequency, normalized over observed classes",
+  "epochs_completed": 3,
+  "best_val_accuracy": 0.2962607861936721,
+  "truncation_rate": 0.6311443177349587,
+  "tokenizer_class": "TokenizersBackend",
+  "tokenizer_config": {
+    "bos_token": "<s>",
+    "eos_token": "</s>",
+    "unk_token": "<unk>",
+    "sep_token": "</s>",
+    "pad_token": "<pad>",
+    "cls_token": "<s>",
+    "mask_token": "<mask>",
+    "backend": "tokenizers"
+  },
+  "seed": 20261102,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 4.82742638079074,
+      "val_accuracy": 0.2962607861936721
+    },
+    {
+      "epoch": 2,
+      "train_loss": 4.719505423142505,
+      "val_accuracy": 0.2962607861936721
+    },
+    {
+      "epoch": 3,
+      "train_loss": 4.6621856774266055,
+      "val_accuracy": 0.2962607861936721
+    }
+  ],
+  "train_seconds": 930.493070602417,
+  "peak_vram_bytes": 5011504640,
+  "checkpoint": "outputs\\training\\tool-router-v1\\model-1024"
+}

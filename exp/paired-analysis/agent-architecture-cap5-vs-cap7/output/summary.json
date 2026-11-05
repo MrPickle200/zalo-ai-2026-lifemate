@@ -1,0 +1,544 @@
+{
+  "experiment": "agent-architecture-audit-v1-iterative-cap7-val30",
+  "samples": 30,
+  "baseline_cap": 5,
+  "baseline_tool_call_f1": 0.1073170731707317,
+  "baseline_state_match_rate": 0.0,
+  "baseline_composite_proxy_mean": 0.05178571428571429,
+  "baseline_average_latency_seconds": 14.99652607333337,
+  "baseline_first_action_exact_count": 0,
+  "baseline_full_trajectory_exact_count": 0,
+  "iterative_cap_runs": {
+    "cap6": {
+      "tool_call_f1": 0.10576923076923077,
+      "state_match_rate": 0.0,
+      "composite_proxy_mean": 0.051190476190476196,
+      "first_action_exact_count": 0,
+      "full_trajectory_exact_count": 0,
+      "paired_proxy_outcomes_vs_cap5": {
+        "unchanged": 29,
+        "worsened": 1
+      },
+      "predicted_call_count_distribution": {
+        "0": 6,
+        "1": 2,
+        "2": 4,
+        "3": 1,
+        "4": 4,
+        "5": 3,
+        "6": 10
+      },
+      "runs_using_all_cap_turns": 13,
+      "average_latency_seconds": 12.403782126666707
+    },
+    "cap7": {
+      "tool_call_f1": 0.10526315789473684,
+      "state_match_rate": 0.0,
+      "composite_proxy_mean": 0.051190476190476196,
+      "first_action_exact_count": 0,
+      "full_trajectory_exact_count": 0,
+      "paired_proxy_outcomes_vs_cap5": {
+        "unchanged": 29,
+        "worsened": 1
+      },
+      "predicted_call_count_distribution": {
+        "0": 6,
+        "1": 2,
+        "2": 4,
+        "3": 1,
+        "4": 4,
+        "5": 3,
+        "6": 1,
+        "7": 9
+      },
+      "runs_using_all_cap_turns": 10,
+      "average_latency_seconds": 13.461466250000074
+    }
+  },
+  "per_sample_deltas": {
+    "cap6": [
+      {
+        "id": "train_1265",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0571",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0065",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0172",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0205",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0282",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0090",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0094",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0107",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0141",
+        "old_score": 0.11111111111111112,
+        "new_score": 0.11111111111111112,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_1284",
+        "old_score": 0.16666666666666669,
+        "new_score": 0.16666666666666669,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0156",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0194",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0201",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0772",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0204",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0325",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.125,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": -0.017857142857142877
+      },
+      {
+        "id": "train_0776",
+        "old_score": 0.125,
+        "new_score": 0.125,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0249",
+        "old_score": 0.16666666666666669,
+        "new_score": 0.16666666666666669,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0259",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.14285714285714288,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0267",
+        "old_score": 0.22222222222222224,
+        "new_score": 0.22222222222222224,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0274",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0292",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0323",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0368",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0412",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0975",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0398",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.14285714285714288,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_1200",
+        "old_score": 0.3333333333333333,
+        "new_score": 0.3333333333333333,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0328",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      }
+    ],
+    "cap7": [
+      {
+        "id": "train_1265",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0571",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0065",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0172",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0205",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0282",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0090",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0094",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0107",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0141",
+        "old_score": 0.11111111111111112,
+        "new_score": 0.11111111111111112,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_1284",
+        "old_score": 0.16666666666666669,
+        "new_score": 0.16666666666666669,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0156",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0194",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0201",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0772",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0204",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0325",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.125,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": -0.017857142857142877
+      },
+      {
+        "id": "train_0776",
+        "old_score": 0.125,
+        "new_score": 0.125,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0249",
+        "old_score": 0.16666666666666669,
+        "new_score": 0.16666666666666669,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0259",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.14285714285714288,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0267",
+        "old_score": 0.22222222222222224,
+        "new_score": 0.22222222222222224,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0274",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0292",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0323",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0368",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0412",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0975",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0398",
+        "old_score": 0.14285714285714288,
+        "new_score": 0.14285714285714288,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_1200",
+        "old_score": 0.3333333333333333,
+        "new_score": 0.3333333333333333,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      },
+      {
+        "id": "train_0328",
+        "old_score": 0.0,
+        "new_score": 0.0,
+        "old_state_match": false,
+        "new_state_match": false,
+        "delta": 0.0
+      }
+    ]
+  }
+}

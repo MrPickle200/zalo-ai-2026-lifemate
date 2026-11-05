@@ -1,0 +1,2234 @@
+{
+  "dataset": "validation IDs",
+  "sample_ids_file": "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\data\\splits\\val_ids.json",
+  "samples": 309,
+  "phoasr": {
+    "samples": 309,
+    "corpus_wer": 0.28040689960194604,
+    "corpus_cer": 0.2012592964365561,
+    "macro_utterance_wer": 0.28801872724714717,
+    "normalized_exact_match_rate": 0.016181229773462782,
+    "mean_inference_seconds": 0.9107196993527779,
+    "median_inference_seconds": 0.8810370000001058,
+    "p95_inference_seconds": 1.4681618000004164,
+    "mean_real_time_factor": 0.13545095278095728
+  },
+  "quan_transcribe_kenlm_beam": {
+    "samples": 309,
+    "corpus_wer": 0.25755565384048357,
+    "corpus_cer": 0.18382990372769997,
+    "macro_utterance_wer": 0.26263231671976156,
+    "normalized_exact_match_rate": 0.032362459546925564,
+    "mean_inference_seconds": 1.2762402970873692,
+    "median_inference_seconds": 1.1904748000001746,
+    "p95_inference_seconds": 2.1650425999996514,
+    "mean_real_time_factor": 0.18862326648836542
+  },
+  "per_utterance_wer_wins": {
+    "quan": 140,
+    "phoasr": 79,
+    "tie": 90
+  },
+  "mean_paired_utterance_wer_delta_quan_minus_phoasr": -0.025386410527385616,
+  "normalization": "lowercase and punctuation removed; WER uses Vietnamese whitespace tokens; CER removes whitespace",
+  "decoder": {
+    "phoasr": "greedy, num_beams=1",
+    "quan_transcribe": "KenLM CTC beam search, width=32, alpha=0.3, beta=1.0"
+  },
+  "latency_note": "Both were measured sequentially on one RTX 4050 Laptop GPU; per-sample timing includes audio decoding/resampling and excludes model load.",
+  "normalization_caveat": "No digit-to-Vietnamese-number-word conversion is applied. QUAN emits numbers as words, so formatting differences can count as WER/CER errors.",
+  "transcript_disagreements": [
+    {
+      "id": "train_1144",
+      "reference": "Tính hộ tôi tám mươi nghìn yên, với ba trăm ơ-rô... ấy nhầm, ba trăm đô Mỹ, ra tiền Việt là bao nhiêu.",
+      "phoasr": "Tính hộ tôi tám mươi nghìn yên với ba trăm euro. Anh nhận ba trăm đô Mỹ ra tiền biệt bao nhiêu?",
+      "quan": "Tính hộ tôi tám mươi nghìn yên với ba trăm euro, ấy nhận ba trăm đô Mỹ, lấy tiền biệt bao nhiêu?",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_1741",
+      "reference": "Cái kiện hàng chiều nay giao ấy, hẹn lại bảy rưỡi tối giúp cô nhé, giờ đó cô mới ở nhà.",
+      "phoasr": "Cái kỹ năng chiều nay giao ấy hẹn lại bảy rưỡi tuổi giúp cô nhé, giờ đó cô mới ở nhà.",
+      "quan": "Cái kiện hàng chiều nay giao ấy hẹn lại bảy rưỡi tối giúp cô nhé, giờ đó cô mới ở nhà.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_0559",
+      "reference": "Ừ bật lên giúp chị đi em.",
+      "phoasr": "Ừ, bạn nên giúp chị đi em.",
+      "quan": "Ừ, bật lên giúp chị đi em.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_0004",
+      "reference": "Trợ lý ơi, giảm độ sáng đèn phòng ngủ nhỏ xuống còn một nửa nhé.",
+      "phoasr": "Trợ lý ơi, giảm đột sáng đèn phòng ngủ nhỏ xuống còn một nửa nhé!",
+      "quan": "Trợ lý ơi, giảm đồ sáng đèn phòng ngủ nhỏ xuống còn một nửa nhé.",
+      "phoasr_wer": 0.06666666666666667,
+      "quan_wer": 0.06666666666666667
+    },
+    {
+      "id": "train_0568",
+      "reference": "Trả giùm em tiền điện tháng chín đi, trừ thẳng vô ví điện tử nha.",
+      "phoasr": "Trả giùm em tiền điện tháng Chín đi trừ thẳng vô ví điện tử nha.",
+      "quan": "Trả giùm em chình điện tháng 9 đi, trừ thẳng vô ví điện tử nhé.",
+      "phoasr_wer": 0.0,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0013",
+      "reference": "Nếu mai mưa thì dời đá bóng sáng mai muộn 1 tiếng, nhắn SMS cho Lan báo giờ mới, không mưa thì thôi.",
+      "phoasr": "Nếu mai mưa thì giờ đã bỗng sánh mai muộn một kiếm nhánh SMS cho lan báo giờ mới, không mưa thì thôi.",
+      "quan": "Nếu mai mưa thì giờ đá bóng sáng mai muộn một tiếng, nhắn SMS cho Lan, báo giờ mới, không mưa thì thôi.",
+      "phoasr_wer": 0.30434782608695654,
+      "quan_wer": 0.08695652173913043
+    },
+    {
+      "id": "train_0571",
+      "reference": "Trợ lý ơi xem giúp em cảnh báo ở gara báo gì với, nếu cửa gara còn đang mở thì khóa lại luôn, rồi nhắn anh Sơn là gara khóa rồi ạ.",
+      "phoasr": "Trợ lí ơi, xem giúp em cảnh báo ở ga ra, báo gì với nếu cửa ga ra còn đang mở thì lại luôn rồi. Nhẫn anh Sơn là ga ra đó ạ.",
+      "quan": "Trợ lý ơi, xem giúp em cảnh báo ở gara báo gì với, nếu cửa gara còn đang mở thì khoá lại luôn, rồi nhắn anh Sơn là gara khoá rồi ạ.",
+      "phoasr_wer": 0.3125,
+      "quan_wer": 0.0625
+    },
+    {
+      "id": "train_1161",
+      "reference": "Thứ bảy ni cô rảnh, con hồi âm email hội dưỡng sinh là cô đi được hỉ.",
+      "phoasr": "Thứ bảy, ni cô rảnh. Con hòi âm email họ dưỡng sinh là cô đi được khỉ.",
+      "quan": "Thứ bảy, Ni cô rẩn, con Hoài Anh email hỏi Dưỡng Sinh là cô đi được hỉ.",
+      "phoasr_wer": 0.17647058823529413,
+      "quan_wer": 0.23529411764705882
+    },
+    {
+      "id": "train_1171",
+      "reference": "Đắt quá mà đi có mấy bữa, gói mô gia hạn vô thứ Sáu tới thì hủy giùm em.",
+      "phoasr": "Đắt quá mà đi có mấy bữa gói mô gia hạn qua thứ sáu tới thì hãy giùm em.",
+      "quan": "Đắt quá mà đi có mấy bữa gói mua gia hạn mua thứ sáu tới thì hãy giùm em.",
+      "phoasr_wer": 0.10526315789473684,
+      "quan_wer": 0.15789473684210525
+    },
+    {
+      "id": "train_1173",
+      "reference": "Hết tập này mở list nhạc chạy xe lẹ, à thôi khỏi mở, list đó có bài nào trùng với list chill tối hông?",
+      "phoasr": "Hết tập này mở một lít nhà trọ chuyển lên xe lẹ thôi không? Ở dưới đó có vài bạn nào chung với list yếu tố không?",
+      "quan": "Hết tập này mở một lít nhà trị xe lẹ thôi không? Ở dưới đó có vài bạn hãy chuẩn với list yếu tố hông.",
+      "phoasr_wer": 0.6666666666666666,
+      "quan_wer": 0.5833333333333334
+    },
+    {
+      "id": "train_0595",
+      "reference": "Ờ thôi lấy RV183 đi em, bay sớm cho kịp chiều làm việc.",
+      "phoasr": "Ở thoi, lấy giờ V183 Real, bay sớm, chế kiệm chiều, giờ chiều làm việc.",
+      "quan": "Ở thoi lấy giờ V183 thì em bay sớm cho chị chịu, giờ chịu làm việc.",
+      "phoasr_wer": 0.6923076923076923,
+      "quan_wer": 0.6923076923076923
+    },
+    {
+      "id": "train_0594",
+      "reference": "Bỏ cái gói Không Quảng Cáo ấy, nghe có quảng cáo cũng được.",
+      "phoasr": "Bạn Tiên nói xong bạn cá lấy, nghe có bạn cá cũng được.",
+      "quan": "Bạn Tiên nói xong bằng cái ấy, nghe có bằng cái cũng được.",
+      "phoasr_wer": 0.6923076923076923,
+      "quan_wer": 0.6153846153846154
+    },
+    {
+      "id": "train_0037",
+      "reference": "Nếu mai mưa thì huỷ giúp tôi lịch đi chơi công viên sáng mai nhé.",
+      "phoasr": "Nếu mai ngơ thì nghỉ giấc tôi đẹp đi chơi công viên, sáng mai ngớ",
+      "quan": "Nếu mà ngờ thì là ý giúp tôi đặt đi chơi công viên sáng mai ngứa.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.4
+    },
+    {
+      "id": "train_0038",
+      "reference": "Em ơi, đừng tắt đèn bếp nhé, cứ để đó.",
+      "phoasr": "Em ơi đừng lắp bếp nhé, cứ để đó",
+      "quan": "Em ơi đừng lắc bếp nhé, cứ để đó.",
+      "phoasr_wer": 0.2,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0602",
+      "reference": "Sắp hết tuần rồi, chúc cậu cuối tuần thật vui nha!",
+      "phoasr": "Sắp xếp tuồng rồi, chúc cậu phúc tuồng thật vui nha.",
+      "quan": "Sắp hết tuần rồi, chúc cậu cuối tuần thật vui nha.",
+      "phoasr_wer": 0.36363636363636365,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_0042",
+      "reference": "Đặt báo thức 6 rưỡi sáng mai với gọi cho Minh giúp tôi nhé.",
+      "phoasr": "Đặt báo trước sau buổi sáng mai với gọi cho mình giúp tôi nhé.",
+      "quan": "Đặt báo trước sau đổi sáng mai, với gọi cho mình giúp tôi nhé.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0052",
+      "reference": "Đặt báo thức 6 rưỡi sáng mai và gọi cho Minh giúp tôi.",
+      "phoasr": "Đặt báo thức sau rưỡi sáng máy và ròi cho mình, giúp tôi",
+      "quan": "Đặt báo thức sáu rưỡi sáng mai và dòi cho mình giúp tối.",
+      "phoasr_wer": 0.3076923076923077,
+      "quan_wer": 0.3076923076923077
+    },
+    {
+      "id": "train_0103",
+      "reference": "Đặt báo thức 6 rưỡi sáng mai, rồi gọi cho Minh giúp tôi nhé.",
+      "phoasr": "Đặt báo Đức' sáu giờ là xong, ai lại gọi mình giúp tôi nhé'",
+      "quan": "Đặt báo Đức 6 lữa ngày gọi giúp tôi nhé.",
+      "phoasr_wer": 0.6428571428571429,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0345",
+      "reference": "Đặt báo thức 6 rưỡi sáng mai, rồi gọi điện cho Minh giúp tôi.",
+      "phoasr": "Tận báo thức sáu giờ sáng mai rồi gọi điện cho Minh giúp tôi.",
+      "quan": "Tận báo thức sáu giờ sáng mai rồi gọi điện cho Minh giúp thôi.",
+      "phoasr_wer": 0.21428571428571427,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_1184",
+      "reference": "Check ví dùm, còn trên ba triệu thì mình đi với ảnh, bật chế độ vắng nhà, không thì bật chế độ ở nhà nha.",
+      "phoasr": "Chắc bé dùng con sân ba triệu tiền mình đi với ảnh bật chế độ ván nhà, không thì bật chế độ ở nhà nha.",
+      "quan": "Chắc bí dùm còn trên 3 triệu thì mình đi với ảnh bật chế độ ván nhà, không thì bật chế độ ở nhà nha.",
+      "phoasr_wer": 0.28,
+      "quan_wer": 0.16
+    },
+    {
+      "id": "train_0043",
+      "reference": "Trợ lý ơi, đặt dùm em chiếc xe ra sân bay nha.",
+      "phoasr": "Trà Ni ơi, đặc diệp em chiếc xe ra sân bay nhé!",
+      "quan": "Chà Lý ơi, đặc diệp em chiếc xe ra sân bay nhé.",
+      "phoasr_wer": 0.4166666666666667,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1183",
+      "reference": "Đặt cơm tấm… à thôi khỏi, anh xuống Góc Phố 24h. Đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "phoasr": "Cơm tám à, thôi khỏi anh xuống góc phố. Hai mươi bốn giờ đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "quan": "Cơm tám ở thôi khỏi anh xuống góc phố 24h, đủ điểm đổi mì ly nước ngọt thì đổi luôn.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0607",
+      "reference": "Đặt mượn cho tôi cuốn Cẩm nang sơ cứu, cái bản in chữ to ấy nhé, chữ nhỏ đọc mỏi mắt lắm.",
+      "phoasr": "Đặt mận cho tôi khuyến khích. Đang sơ cứu cái bản in sĩ to ấy nhé. Sĩ nhỏ động môi mắt lắm\".",
+      "quan": "Đặt mận cho tôi khuyến khỉnh đang sơ cứu, cái bản yên chữ to ấy nhé, chữ nhỏ đọc ngồi mắt lạnh.",
+      "phoasr_wer": 0.36363636363636365,
+      "quan_wer": 0.3181818181818182
+    },
+    {
+      "id": "train_0611",
+      "reference": "Chủ nhật này em có buổi chạy địa hình trên Ba Vì đấy, anh xem giúp em hôm đấy trời có mưa không, mưa thì hủy buổi tập luôn cho em nhé.",
+      "phoasr": "Chủ nhật này em có buổi chạy địa hình trên ba vì đấy. Anh giúp em xem hôm đấy trời có mưa không. Mưa thì hãy gửi thật luôn cho em nhé.",
+      "quan": "Chủ nhật này em có buổi chạy địa hình trên ba về đấy, anh giúp em xem hôm đấy trời có mưa không, mưa thì hãy gửi thật luôn cho em nhé.",
+      "phoasr_wer": 0.15625,
+      "quan_wer": 0.1875
+    },
+    {
+      "id": "train_0055",
+      "reference": "Tắt hết đèn tầng 2, trừ phòng nào đang bật điều hoà thì để nguyên nhé.",
+      "phoasr": "Ta thắp đèn tháng Hai, chi phòng nào đang bật điều thì để nguyên nhé.",
+      "quan": "Tắt hết đèn tầng hai, chi phòng nào đang bật điều thì để nguyên nhé.",
+      "phoasr_wer": 0.375,
+      "quan_wer": 0.1875
+    },
+    {
+      "id": "train_0129",
+      "reference": "Tắt hết đèn tầng hai đi, trừ phòng nào đang bật điều hoà thì cứ để nguyên đèn nhé.",
+      "phoasr": "Tắt hết đêm thứ Hai đi, trừ phòng nào đang mất điều, chị cứ để nguyên để nhé.",
+      "quan": "Tắt hết đèn phần hai đi, trừ phòng nào đang mất tiêu hà thì cứ để nguyên đèn nhé.",
+      "phoasr_wer": 0.3157894736842105,
+      "quan_wer": 0.21052631578947367
+    },
+    {
+      "id": "train_0159",
+      "reference": "Tắt hết đèn tầng hai đi nhé, phòng nào đang bật điều hoà thì để nguyên đèn cho tôi.",
+      "phoasr": "Ta hãy đàn thứ hai đi nhé, phòng nào đám bạn vô thì để quên đàn cho tôi.",
+      "quan": "Tắt hết đèn từng hai đi nhé, phòng nào đám bệnh vô thì để quên đèn cho tôi.",
+      "phoasr_wer": 0.5263157894736842,
+      "quan_wer": 0.3157894736842105
+    },
+    {
+      "id": "train_0202",
+      "reference": "Tắt hết đèn tầng hai đi, phòng nào đang bật điều hoà thì cứ để đèn nguyên đó nha.",
+      "phoasr": "Tiếp tục bạn tìm hiểu đề. Bạn nào đọc bài đi hoa thì chia sẻ đề ngoài lắm nha.",
+      "quan": "Tế với nhà tặng hai đi phòng nào năm bạc điều thì cứ để nhà Nguyên Lán.",
+      "phoasr_wer": 0.8421052631578947,
+      "quan_wer": 0.5263157894736842
+    },
+    {
+      "id": "train_0258",
+      "reference": "Tắt hết đèn tầng hai, trừ phòng nào đang bật điều hoà thì để nguyên nhé.",
+      "phoasr": "Tắt hết đèn tầng hai, trừ Phong Nang đang bật điều thì chẳng biết nhé!",
+      "quan": "Tắt hết đèn tầng hai, trừ Phong Lan, ông bà Điện Hoài thì chẳng biết nhé.",
+      "phoasr_wer": 0.3125,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0356",
+      "reference": "Tắt hết đèn tầng hai đi, phòng nào đang bật điều hoà thì để nguyên đèn nha.",
+      "phoasr": "Tắt hết đèn từng hai D, phần nào ra mịch điều thì để nguyên tiền ra.",
+      "quan": "Tắt hết đèn từng hai đi, phòng nào ra mật điều thì để nguyên tiền ra.",
+      "phoasr_wer": 0.47058823529411764,
+      "quan_wer": 0.35294117647058826
+    },
+    {
+      "id": "train_1196",
+      "reference": "Chị kẹt họp tổ rồi. Năm giờ nhắc chị gọi Minh nhé, với xem trạm gần bể bơi có xe đạp thường không, có thì đặt cho con một chiếc.",
+      "phoasr": "Chị kia hợp t� rồi, nằm dở nhà chị vợ mình nhé. Với xem trọng rằng bể bơi có xe đạp thường không, có thì đặt cho con một chiếc.",
+      "quan": "Chị kẹp hộp tớ rồi, năm giờ nhất chị gợi mình nhé, với xem trọng rằng bế bơi có xe đạp thường không, có thì đặt cho con một chiếc.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.3
+    },
+    {
+      "id": "train_0061",
+      "reference": "Nhắc mình gọi lại cho khách lúc 9 giờ kém 15 tối mai nhé.",
+      "phoasr": "Dắt mình gọi lại cho khách lúc chín giờ kém mười lăm tối ngày nhé.",
+      "quan": "Dắt mình gọi lại cho khách lúc chín giờ, kém mười lăm tối mai nhé.",
+      "phoasr_wer": 0.35714285714285715,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0066",
+      "reference": "Nhắc mình gọi lại cho khách lúc 9 giờ kém 15 tối mai nhé.",
+      "phoasr": "Dắt mình gọi lại cho khách lúc chín giờ kém mười lăm tối nay nhé.",
+      "quan": "Dắt mình gọi lại cho khách lúc chín giờ, kém mười lăm tối mai nhé.",
+      "phoasr_wer": 0.35714285714285715,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0096",
+      "reference": "Nhắc tôi gọi lại cho khách lúc 8 giờ kém 15 tối mai nhé.",
+      "phoasr": "Ghét tôi gọi lại cho khách lúc tám giờ kém mười lăm tối mai nha",
+      "quan": "Nhắc tôi gọi lại cho khách lúc tám giờ kém mười lăm tối mai nha.",
+      "phoasr_wer": 0.35714285714285715,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0132",
+      "reference": "Nhắc em gọi lại cho khách lúc 9 giờ kém 15 tối mai nhé ạ.",
+      "phoasr": "Nhắc em gọi lại cho khách lúc chín giờ kém mười lăm tối mai nha",
+      "quan": "Nhắc em gọi lại cho khách lúc chín giờ kém mười lăm tối mai nhé.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.26666666666666666
+    },
+    {
+      "id": "train_0168",
+      "reference": "Nhắc mình gọi lại cho khách lúc 8 giờ kém 15 tối mai nhé.",
+      "phoasr": "Nhóc mình gọi lại cho khách lúc tháng trước kém mười lăm tuần nay nhé.",
+      "quan": "Nhóc mình gọi lại cho khách lúc tháng giấy kém mười lăm tuần này nhé.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0062",
+      "reference": "Nhắn qua Zalo cho Minh là đến rồi thì gọi tôi nhé.",
+      "phoasr": "Nhãn que Zalo JXM là đến rồi thì gọi tôi nhé!",
+      "quan": "Nhắn qua Zalo JXMình là đến rồi, thì gọi tôi nhé.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.16666666666666666
+    },
+    {
+      "id": "train_1200",
+      "reference": "Sáng nay tôi đi bộ từ nhà ra bến Ninh Kiều chụp hình đó, đường đi mất nhiêu phút thì ghi bấy nhiêu phút học vô khoá chụp hình, chưa đăng ký khoá thì đăng ký luôn.",
+      "phoasr": "Sáng nay tôi đi bộ từ nhà ra đến bến Ninh Kiều chụp hình đó. Đường đi mất nhiều phút thì gây mấy nhiều phút. Học khoa chụp hình chưa đăng ký. thì đăng ký luôn.",
+      "quan": "Sáng nay tôi đi bộ từ nhà ra đến bến Ninh Kiều chụp hình đó, đường đi mất nhiều phút thì gây mấy nhiều phút. Học qua khoá chụp hình, chưa đăng ký khoá thì đăng ký luôn.",
+      "phoasr_wer": 0.21621621621621623,
+      "quan_wer": 0.16216216216216217
+    },
+    {
+      "id": "train_0065",
+      "reference": "Nếu mai mưa thì huỷ lịch đá bóng sáng mai và gọi báo cho Lan, không mưa thì thôi.",
+      "phoasr": "Nếu mai mưa thì VL đã bóng sáng mai và gọi bão cho lan, không mưa thì thôi.",
+      "quan": "Nếu mai mưa thì V lịch đã bóng sáng mai và gọi báo cho Lan, không mưa thì thôi.",
+      "phoasr_wer": 0.21052631578947367,
+      "quan_wer": 0.10526315789473684
+    },
+    {
+      "id": "train_0205",
+      "reference": "Mai mà mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Minh giúp em, không mưa thì thôi.",
+      "phoasr": "Mai mà mưa thì bị dịch trái bóng sáng mai rồi. Quốc báo cho Minh giúp em không mưa thì thôi\".",
+      "quan": "Mai mà mưa thì vì dịch trái bóng sáng mai, rồi bác bảo cho Minh giúp em, không mưa thì thôi.",
+      "phoasr_wer": 0.19047619047619047,
+      "quan_wer": 0.23809523809523808
+    },
+    {
+      "id": "train_0215",
+      "reference": "Mai mà mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Lan, không mưa thì thôi ạ.",
+      "phoasr": "Mai mà mưa thì vì lịch đá bóng sáng mai rồi gọi báo cho Lan. Không mưa thì thôi ạ\".",
+      "quan": "Mai mà mưa thì vì được đá bóng. Sáng mai rồi gọi báo cho Lan, không mưa thì thôi ạ.",
+      "phoasr_wer": 0.05,
+      "quan_wer": 0.1
+    },
+    {
+      "id": "train_0282",
+      "reference": "Mai mà mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Minh, không mưa thì thôi nhé.",
+      "phoasr": "Mai mà mưa thì hãy lạnh đa bóng sáng mai rồi đừng có báo cho mình, có mưa thì thôi nghe.",
+      "quan": "Mai mà mưa thì hãy lãnh đa bóng sáng mai rồi báo cho mình. Có mưa thì thôi nghe.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.35
+    },
+    {
+      "id": "train_0328",
+      "reference": "Nếu mai mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Minh, không mưa thì thôi nhé.",
+      "phoasr": "Nếu mai mưa thì sẽ lịch tả bóng sáng mai rồi gói bào cho mình, không mưa thì thôi nhé.",
+      "quan": "Nếu mai mưa, tôi sẽ lịch táo bóng sáng mai, gọi gọi báo cho mình. Không mưa thì thôi nhé.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0423",
+      "reference": "Mai mưa thì huỷ lịch đá bóng sáng mai rồi gọi báo cho Lan, không mưa thì thôi nhé.",
+      "phoasr": "Mai mưa thì hi lịch con bé, sáng mai rồi gọi bé cho Lan, không mưa thì thôi nhé\".",
+      "quan": "Mai mưa thì huy lịch bọn đế, sáng mai rồi gọi bán cho Lan, hông mưa thì thôi nhé.",
+      "phoasr_wer": 0.21052631578947367,
+      "quan_wer": 0.2631578947368421
+    },
+    {
+      "id": "train_0621",
+      "reference": "Ừ, giờ tạo cái nhắc đó cho tôi luôn đi.",
+      "phoasr": "Ừ, giờ tạo ca nhắc đó cho tôi luôn đi.",
+      "quan": "Ừ, giờ tạo cái nhắc đó cho tôi luôn đi.",
+      "phoasr_wer": 0.1,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_0623",
+      "reference": "Ừ, thêm đúng loại đó vào danh sách đi chợ cho em, hai hộp nha.",
+      "phoasr": "Ừ, thêm đúng loại đó vào danh sách đi trẻ em hai hộp nha.",
+      "quan": "Ừ, thêm đúng lại đó vào danh sách đi trở cho em hai hộp nha.",
+      "phoasr_wer": 0.13333333333333333,
+      "quan_wer": 0.13333333333333333
+    },
+    {
+      "id": "train_0624",
+      "reference": "Ừ, em chuyển việc đấy sang cho Hà luôn đi.",
+      "phoasr": "Em chuẩn bị đến đấy, sang cho Hà luôn đi.",
+      "quan": "Em chuẩn bị đẩy sang cho Hà luôn đi.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.4
+    },
+    {
+      "id": "train_0625",
+      "reference": "Ừ thế mở luôn cái bản tôi vừa chọn đi, tôi bắt đầu viết đây.",
+      "phoasr": "Ừ thế, mở luôn cái bảng cho tôi chọn đi. Mới bắt đầu viết đây.",
+      "quan": "Ừ thế, mở luôn cái bản cho vừa gọn đi, nghe bắt đầu viết đây.",
+      "phoasr_wer": 0.26666666666666666,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_1219",
+      "reference": "Thằng Bi cần cuốn Tám mươi ngày vòng quanh thế giới, coi thư viện còn thì giữ lẹ, bị mượn rồi thì giữ cuốn khác cùng tác giả.",
+      "phoasr": "Thông tin cành quấn 80k vòng quanh thế giới, coi thư viện toàn thì giữ lại, viêm mệnh rồi thì vẫn hất lạnh với khách giả.",
+      "quan": "Thông viên cầm cuốn tám mươi ngàn vòng quanh thế giới, coi thư viện toàn thì giữ lại, giữ mạnh rồi thì giữ mấy cuốn sách giả.",
+      "phoasr_wer": 0.5714285714285714,
+      "quan_wer": 0.42857142857142855
+    },
+    {
+      "id": "train_0090",
+      "reference": "Đóng tiền mạng bằng ví điện tử giúp anh, ví không đủ thì lấy từ ngân hàng, xong nhắn SMS cho Lan báo là đã đóng rồi nha.",
+      "phoasr": "Đóng tiền mạng, bằng ví điện tử rối loe ví không đủ thì lấy tiền ngân hàng, xong nhấn SCM, Platon bảo là đã đóng rồi nha.",
+      "quan": "Đóng tiền mạng, bằng ví điện tử rối bày, ví không đủ thì lấy tiền ngân hàng, xong nhắn SMS cho Dan, báo là đã đóng rồi nha.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0647",
+      "reference": "Ừ, em lưu tóm tắt bài đó vào ghi chú, đặt tên là Vườn cộng đồng cho chị, nhớ ghi cả tên bài vào nha.",
+      "phoasr": "Liêu tóm tắt bài đó, anh kia chú đặt tên là Viền Cồng Đồng nha chị, nhờ cái cả tên bài vào nhà.",
+      "quan": "Ừ em lưu tóm tắt bài đó em ghi chú đặt tên là Vườn Cộng Đồng nha chị, nhà ghi cả tên bài vào nhà.",
+      "phoasr_wer": 0.6,
+      "quan_wer": 0.16
+    },
+    {
+      "id": "train_0094",
+      "reference": "Mai nếu mưa thì dời lịch chạy bộ sáng mai muộn hai tiếng rồi nhắn SMS cho bố báo giờ mới, không mưa thì thôi.",
+      "phoasr": "Mai nếu mưa thì rời lịch chay bộ sáng mai 1-2 tiếng rồi nhấn SMS cho bộ báo giờ mới, không mưa thì thôi.",
+      "quan": "Mai nếu mưa thì rời lịch chay bộ sáng mai, mốt hai tiếng, rồi nhắn SMS cho bố báo giờ mới, không mưa thì thôi.",
+      "phoasr_wer": 0.24,
+      "quan_wer": 0.12
+    },
+    {
+      "id": "train_0378",
+      "reference": "Ờ… mai nếu mưa thì dời lịch chạy bộ sáng mai muộn hai tiếng, rồi nhắn SMS cho Minh báo giờ mới, còn không mưa thì thôi.",
+      "phoasr": "Ờ mai nếu mưa thì giờ là chạy bộ, sáng mai mùng hai tiếng còn nhắn SMS cho mình báo giờ mới, còn không mưa thì thôi.",
+      "quan": "Ờ, mai nếu mưa thì gọi lịch chạy bộ sáng mai muộn hai tiếng, còn nhắn SMS cho mình báo giờ mới, còn không mưa thì thôi.",
+      "phoasr_wer": 0.18518518518518517,
+      "quan_wer": 0.1111111111111111
+    },
+    {
+      "id": "train_1233",
+      "reference": "Rứa là khỏi vô rồi con, huỷ lẹ giùm cô hai vé Cần Thơ đi với về nớ, rồi nhắn con Thảo là mẹ huỷ vé rồi nghe.",
+      "phoasr": "Rưới là khỏi vô rồi con quỷ. Lẹ giùm cô hai vé. Cần Thơ đi với về nớ rồi nhắn con Thảo là mẹ vé rồi nhé\".",
+      "quan": "Rứa là khỏi vô rồi con, quỷ lại giùm cô hai vé Cần Thơ đi với về nước, rồi nhắn con Thảo là mẹ quỷ vé rồi nha.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.17857142857142858
+    },
+    {
+      "id": "train_0651",
+      "reference": "Chuyển cho Hương một trăm tám mươi nghìn tiền chia bill tối qua giúp em nha.",
+      "phoasr": "Triển Xa Hương mọc xanh tám mươi ngành tiền chia buổi thối quay giúp em nha",
+      "quan": "Chuyển cho Hương một sanh tám mươi ngành tiền chia biêu tới quay giúp em nha.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.3125
+    },
+    {
+      "id": "train_0660",
+      "reference": "Khóa giùm em cái cửa kho phụ nha, rồi nhắn anh Dũng trực kho là cửa kho phụ khóa rồi đó.",
+      "phoasr": "Khoái giùm em cái cửa kho phủ nha, rồi nhắn an Dũng trực kho là cửa kho phủ rồi đó.",
+      "quan": "Khoái giùm em cái cửa kho phụ nha, và nhắn anh Dũng trực kho là cửa kho phụ khoá rồi đó.",
+      "phoasr_wer": 0.23809523809523808,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0105",
+      "reference": "Đặt cho chị ô tô 4 chỗ từ công ty đến chỗ hẹn khám răng chiều nay, đón trước giờ hẹn 30 phút, rồi nhắc chị mang laptop trước lúc xe đón 15 phút.",
+      "phoasr": "Đặt cho chị ô tô bốn chỗ từ công ty đến cho hết khẳng trắng chiều nay, đón chiếc rễ hết ba mươi phút rồi nhắc chị mang láp tốc chéc lúc toàn xe ba mươi phút.",
+      "quan": "Đặt cho chị ô tô bốn chỗ từ công ty đến cho hết khẳng răng chiều nay, đón trước giờ hết ba mươi phút, rồi nhắc chị mạng lát tốt chắc lúc toàn xe ba mươi phút.",
+      "phoasr_wer": 0.47058823529411764,
+      "quan_wer": 0.4117647058823529
+    },
+    {
+      "id": "train_0107",
+      "reference": "Trả tiền mạng bằng ví điện tử giúp chị, ví không đủ thì trừ vào ngân hàng, xong rồi nhắn SMS cho cô giáo Mai báo chị đóng rồi nhé.",
+      "phoasr": "Trả tiền Mark bằng ví điện tử giúp chị vì không đủ thì trừ vào ngân hàng xong rồi nhà Nessim S cho cô giáo Mai báo chị đóng rồi nhé.",
+      "quan": "Trả tiền mắc bằng ví điếc thử giúp chị, vì không đủ thì trừ vào ngân hàng, xong rồi nhà Nesem S cho cô giáo mai, báo chị đóng rồi nhé.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.23333333333333334
+    },
+    {
+      "id": "train_0108",
+      "reference": "Tắt hết đèn tầng hai đi, trừ phòng nào đang bật quạt thì cứ để đèn đó, rồi bật điều hoà phòng ngủ 26 độ nha.",
+      "phoasr": "Tắt hết đèn cái tầng hai đi trừ phòng múa đang mệt quá thì cứ để đèn rồi bật điều phòng ngủ hai mươi sáu độ nghe.",
+      "quan": "Tắt hết đèn cái tầng hai đi, trừ Phong Mô, đang mệt quá thì cứ để đèn đó, rồi bật điều hoà Phong ngủ hai mươi sáu đô nghe.",
+      "phoasr_wer": 0.38461538461538464,
+      "quan_wer": 0.4230769230769231
+    },
+    {
+      "id": "train_0235",
+      "reference": "Tắt hết đèn tầng 2 giúp mình, trừ phòng nào đang bật quạt thì cứ để đèn đó, rồi bật điều hoà phòng ngủ 25 độ nhé.",
+      "phoasr": "Tắt hết đèn cần hai giúp mình, trừ phần nào đang bật quạt thì cứ để đèn đó, rồi bật điều phần ngữ 25 độ nhé.",
+      "quan": "Tắt hết đèn cần hai giút mấy, trừ phần nào đang bật quạt thì cứ để đèn đó, rồi bật điều phần ngữ ở lâm đổ nhé.",
+      "phoasr_wer": 0.2222222222222222,
+      "quan_wer": 0.37037037037037035
+    },
+    {
+      "id": "train_0270",
+      "reference": "Tắt hết đèn tầng hai đi, trừ phòng nào đang bật quạt thì cứ để đèn, rồi bật điều hoà phòng ngủ 26 độ nhé.",
+      "phoasr": "Tắt nách đèn tầng hai đi, trừ phòng này đang bật quẹt thì cứ để đèn rồi bật điều phòng ngủ hai mươi sáu độ nhé.",
+      "quan": "Tắt nách đèn tầng hai đi, trừ phòng này đang bật quẹt thì cứ để điền, rồi bật điều phòng của hai mươi sáu độ nhé.",
+      "phoasr_wer": 0.28,
+      "quan_wer": 0.36
+    },
+    {
+      "id": "train_0668",
+      "reference": "Rồi, đặt cho chị một chỗ trên chuyến đó nhé.",
+      "phoasr": "Rồi đặt cho chị một chổi trên phía nó nhé.",
+      "quan": "Rồi, đặt cho chị một chỗ trên phía nó nhé.",
+      "phoasr_wer": 0.3,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0109",
+      "reference": "Mai mưa thì huỷ lịch hẹn cà phê với Minh, nhắn SMS báo anh Tuấn, không mưa thì gọi ô tô 4 chỗ từ nhà tới chỗ hẹn, đón trước nửa tiếng nha.",
+      "phoasr": "Ngày mai mà mưa thì lịch hẹn cà phê với mìn. Nhà nước SMS báo an tuyến, không mưa thì gọi ô tô bốn chỗ, từ nhà tới chỗ hẹn, đón trước nửa tiếng nghe.",
+      "quan": "Ngày mai mà mưa thì lít hạn cà phê với mình. Nhà lát xe máy báo an tuyến, không mưa thì gọi ô tô bốn chỗ, từ nhà tới chỗ hẹn, đón trước nửa tiếng nghe.",
+      "phoasr_wer": 0.30303030303030304,
+      "quan_wer": 0.42424242424242425
+    },
+    {
+      "id": "train_0112",
+      "reference": "Trả tiền mạng bằng ví điện tử giúp chị, ví không đủ thì trừ tài khoản ngân hàng nhé.",
+      "phoasr": "Giá tiền mạng bằng ví điện tử giúp chị? Ví không đủ thì trừ tài khoản ngân hàng nhé.",
+      "quan": "Giá tiền mạng bằng ví điện tử giúp chị, ví không đủ thì trừ đài khoản ngân hàng nhé.",
+      "phoasr_wer": 0.05263157894736842,
+      "quan_wer": 0.10526315789473684
+    },
+    {
+      "id": "train_0151",
+      "reference": "Trả tiền mạng bằng ví điện tử đi, ví không đủ thì trừ vào tài khoản ngân hàng nhé.",
+      "phoasr": "Trả tiền mạng mình ví điện thử đi, ví không đủ thì trừ vào tài khoản ngân hàng nhé.",
+      "quan": "Trả tiền mạng mình với điện tử đi, với không đủ thì trừ vào tài khoản ngân hàng nhé.",
+      "phoasr_wer": 0.10526315789473684,
+      "quan_wer": 0.15789473684210525
+    },
+    {
+      "id": "train_0674",
+      "reference": "Cửa phía Tây á. Khóa xong nhắn đội trực là cửa kho phía Tây khóa rồi nha.",
+      "phoasr": "Cửa phía Tây Á xong nhắn gọi trịch là cửa kho phía Tây rồi nha",
+      "quan": "Cửa phía tây á, khoá xong nhắn gọi trịch là cửa kho phía tây khoá rồi nha.",
+      "phoasr_wer": 0.23529411764705882,
+      "quan_wer": 0.23529411764705882
+    },
+    {
+      "id": "train_1255",
+      "reference": "Lưu trữ hộ anh cái mail sao kê Đại Việt Bank gửi hôm thứ bảy nhé.",
+      "phoasr": "Nu trữ hộ anh Cái Meo sao kê tại Việt tang lễ hôm thứ Bảy Nghé",
+      "quan": "Nu trử hộ anh cái meo sao kê tại Việt Tăng lễ hôm thứ Bảy Nghé.",
+      "phoasr_wer": 0.375,
+      "quan_wer": 0.4375
+    },
+    {
+      "id": "train_0122",
+      "reference": "Nếu giá vàng SJC mua vào hôm nay dưới 119 triệu thì nhắc chị 9 giờ sáng mai đi mua vàng nhé.",
+      "phoasr": "Nếu giá vàng SJC mua vô hôm ni chứa một trăm, mười chín triệu thì nhắc chị chín giờ sáng mai đi mua vàng nhé!",
+      "quan": "Nếu giá vàng lát giá xe xe mua vô hôm ni chứa ý một trăm mười chín triệu thì nhắc chị chín giờ sáng mai đi mua vàng nghe.",
+      "phoasr_wer": 0.36363636363636365,
+      "quan_wer": 0.6363636363636364
+    },
+    {
+      "id": "train_0394",
+      "reference": "Nếu giá vàng SJC mua vào hôm nay dưới 118 triệu thì nhắc tôi 9 giờ sáng mai đi mua vàng nhé.",
+      "phoasr": "Nếu giá vàng SCG mua vào hôm nay dưới một trăm, mười tám triệu, thì nhắc tôi chín giờ sáng mai đi mua vàng nhé.",
+      "quan": "Nếu giá vàng SCG mua vào hôm nay dưới 118 triệu thì nhắc tôi 9h sáng mai thì mua vàng nhé.",
+      "phoasr_wer": 0.2727272727272727,
+      "quan_wer": 0.18181818181818182
+    },
+    {
+      "id": "train_0681",
+      "reference": "Ok, giờ soạn giúp anh cái email nháp gửi ops a còng example chấm test, báo là gói đó đã hủy theo yêu cầu rồi nhé.",
+      "phoasr": "Ok, giờ soạn giúp anh ký cái nháp của BEPS anh còng, anh còng để xem bộ chấm test báo là gói data yêu cầu rồi nhé.",
+      "quan": "Ok, giờ soạn giúp anh kiếm nháp lửng vô PDS, anh còng, anh còng, thì xem bộ chấm test, báo là gói data yêu cầu rồi nhé.",
+      "phoasr_wer": 0.5384615384615384,
+      "quan_wer": 0.5769230769230769
+    },
+    {
+      "id": "train_1262",
+      "reference": "Con ơi, cô muốn tăng, à không, hạ mục tiêu đi bộ xuống bằng cái hôm cô đi sáu nghìn mấy bước, thứ ba hay thứ tư chi đó.",
+      "phoasr": "Con ơi, cô muốn thăng E không? Hẻ mục tiêu đi bộ xuống bằng cái hôm cô đi sóng nghìn mấy bước thứ ba hay thứ tư chi đó.",
+      "quan": "Con ơi, cô muốn thăng E không, hẹn mục tiêu đi bộ xuống bằng cái hôm cô đi sáu nghìn mấy bước thứ ba hai thứ tư chi đó.",
+      "phoasr_wer": 0.13793103448275862,
+      "quan_wer": 0.13793103448275862
+    },
+    {
+      "id": "train_0683",
+      "reference": "Tạo sẵn giúp tôi một phòng họp trực tuyến cho buổi hướng dẫn bà con trong tổ dân phố sắp tới nhé.",
+      "phoasr": "Tạo sẵn giúp mọi phòng họp trực tuyến cho bộ hướng dẫn bà con trong Tổ dân phố sắp tới nhé!",
+      "quan": "Đạo sẵn giúp tờ một phòng họp trực chính cho bộ hướng dân bà con trong tổ dân phố sắp tới nhé.",
+      "phoasr_wer": 0.13636363636363635,
+      "quan_wer": 0.22727272727272727
+    },
+    {
+      "id": "train_1263",
+      "reference": "Chiều ni cô ra Sao Kim Plaza mua món thứ hai trong ghi chú, con coi danh sách đi chợ có món nớ chưa, chưa có thì thêm vô cho cô.",
+      "phoasr": "Chiều ni cô ra sau kim pờ lai giam mua món thứ hai trong ghi chú, con coi danh sách đi chợ có món nớ chưa, chợ có thì thêm bầu cho cô.",
+      "quan": "Chiều ni cô ra sau kim Plaza mua món thứ hai trong ghi chú, con coi danh sách đi chợ có món nớ trưa, chợ có thì thêm bầu cho cô.",
+      "phoasr_wer": 0.1935483870967742,
+      "quan_wer": 0.12903225806451613
+    },
+    {
+      "id": "train_0127",
+      "reference": "Chiều nay tôi đi chơi công viên, em đặt ô tô bốn chỗ đón tôi ở công ty tới chỗ hẹn, trước giờ hẹn 45 phút, nhắc tôi mang laptop trước lúc xe đón 15 phút.",
+      "phoasr": "Chiều nay tôi đi chơi công viên, em đặt ô tô bốn chỗ đón tôi ở công ty tới chỗ hẹn, trước giờ hẹn bốn mươi lăm phút, nhất tôi mang laptop trước lúc xe đóng mười lăm phút.",
+      "quan": "Chiều nay tôi đi chơi công viên, em đặt ô tô bốn chỗ đón tôi ở công ty tới chố hẹn, trước giờ hẹn bốn mươi lăm phút nhớ tôi mang laptop trước lúc xe đó mười lăm phút.",
+      "phoasr_wer": 0.19444444444444445,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_0128",
+      "reference": "Mai mà mưa thì huỷ lịch đá bóng, nhắn SMS báo Minh đồng nghiệp hộ tôi, không mưa thì gọi ô tô 4 chỗ từ nhà đến chỗ hẹn đó, đón trước nửa tiếng.",
+      "phoasr": "Mai mà mưa thì lịch đá bóng, nhấn SMS béo mình đồng nghiệp hộ tôi. Không mưa thì gõ ô tô bốn chổ từ nhà đến chổ hẹn đó, đón trước nửa tiếng.",
+      "quan": "Mai mà mưa thì lịch đá bóng, nhắn SMS Béo Minh đồng nghiệp hộ tôi, không mưa thì gỡ ô tô bốn chổ từ nhà đến chỗ hết đó, đón trước nửa tiếng.",
+      "phoasr_wer": 0.23529411764705882,
+      "quan_wer": 0.17647058823529413
+    },
+    {
+      "id": "train_1265",
+      "reference": "Thôi tắt ti vi đi con. Coi đài Đà Nẵng xổ ra số mấy, rồi chuyển bà Sáu hai trăm tiền vé, con Thảo ba trăm nghe.",
+      "phoasr": "Thôi tắt ti vi đi con, coi đài Đà Nẵng số là số mấy rồi chuyện bà Sáu hai trăm tìm bé con thẹo ba trăm nha\".",
+      "quan": "Thôi tắt tivi đi con, coi đài Đà Nẵng, số lái số mấy, rồi chuyện bà Sáu, hai trăm tìm bé, con thảo ba trăm nha.",
+      "phoasr_wer": 0.25925925925925924,
+      "quan_wer": 0.2962962962962963
+    },
+    {
+      "id": "train_1270",
+      "reference": "Thôi cho con robot về đi em, bé Bống dậy rồi, đang lon ton ra bếp kìa.",
+      "phoasr": "Thôi cho con robot về đi em. Bé bóng dậy rồi. Bạn loang toang ra bíp thìa.",
+      "quan": "Thôi, cho con robot về đi em, bé bóng dậy rồi, bạn loang toang ra bíp chìa.",
+      "phoasr_wer": 0.35294117647058826,
+      "quan_wer": 0.35294117647058826
+    },
+    {
+      "id": "train_0285",
+      "reference": "Tắt đèn bếp giúp tôi, rồi nhắn tin cho Lan là tối nay ăn cơm nhà nhé.",
+      "phoasr": "Đang tìm bữa giúp tôi rồi, tháng tinh trở lại là tỏan ăn cơm nhà dễ hẹn.",
+      "quan": "Tắt đèn bếp giúp tôi, gọi sáng tinh ra đây là tao đang ăn cơm nhà nghỉ.",
+      "phoasr_wer": 0.6470588235294118,
+      "quan_wer": 0.47058823529411764
+    },
+    {
+      "id": "train_1280",
+      "reference": "Đọc dùm mình nguyên cái list đi chợ đi, à thôi khỏi, sáng mai ra chợ mình tự check.",
+      "phoasr": "Đọc dùm mình nguyên cái list đi trở đi à thôi khỏi sáng mai ra trở mình tụi trách.",
+      "quan": "Đọc giùm mình nguyên cái list đi chợ đi, à thôi khỏi, sáng mai ra chợ mình tụi giác.",
+      "phoasr_wer": 0.21052631578947367,
+      "quan_wer": 0.15789473684210525
+    },
+    {
+      "id": "train_0140",
+      "reference": "Bật đèn phòng khách 30 phần trăm thôi nhé, quạt thì đừng bật, rồi bật điều hoà phòng khách 26 độ cho chị.",
+      "phoasr": "Bật đèn phòng khách ba mươi phần trăm thôi nhé. Goách thì đừng bật rồi bật điều phòng khách hai mươi sáu độ ra rỉ.",
+      "quan": "Bật đèn phòng khách 30% thôi nhé, hoạch thì đừng bật, rồi bật điều phòng khách 26 độ ra rỉ.",
+      "phoasr_wer": 0.391304347826087,
+      "quan_wer": 0.2608695652173913
+    },
+    {
+      "id": "train_0239",
+      "reference": "Đèn phòng khách bật 40 phần trăm thôi nha, quạt đừng bật, rồi bật điều hoà phòng khách 26 độ cho chị.",
+      "phoasr": "Đèn phòng khách bật bốn mươi phần trăm thôi nha. Huệ đừng bật rồi bật điều phòng khách hai mươi sáu độ cho chị.",
+      "quan": "Điện phòng khách bật 40% thôi nha, quẹt đường bật, rồi bật điều khoảng phòng khách 26 độ cho chị.",
+      "phoasr_wer": 0.3181818181818182,
+      "quan_wer": 0.2727272727272727
+    },
+    {
+      "id": "train_0141",
+      "reference": "Em ơi, đóng tiền điện bằng ví điện tử cho tôi, ví mà không đủ thì trừ qua ngân hàng nhé, xong gửi tin nhắn SMS cho Bác Ba hàng xóm bảo tôi đóng rồi.",
+      "phoasr": "Em ơi, đóng tiền điện bằng ví game thử cho tôi. Ví mà không đổi thì chỉ qua ngân hàng nhé. Xong gửi tin nhắn S, em ép cho bác bàn. bảo tôi đóng rồi.",
+      "quan": "Em ơi, đóng tiền điện bằng ví game thử cho tôi, ví mà không đổi thì chỉ qua ngân hàng nhé, xong gửi tin nhắn S xem S trang bắp 3 hàng, bảo tôi đóng rồi.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.3142857142857143
+    },
+    {
+      "id": "train_1284",
+      "reference": "Chị vội lắm, chuyển ví trả anh Hùng mười hai nghìn yên tiền nước hoa theo giá hôm nay, đánh dấu xong việc ấy, rồi nhắn anh ấy là chị trả rồi nhé.",
+      "phoasr": "Chị vợ lắm chuyển ví trả anh hùng mười hai ngàn yên tiền Đức Khoa Thế giới hôm nay xong đánh dấu xong việc ấy rồi những anh ấy rồi chị trả rồi nha.",
+      "quan": "Chị vợ lắm chuyển ví trả anh hùng mười hai ngàn yên tiền nước hoa thơ gió hôm nay, đánh dấu xong việc ấy rồi nhắn anh ấy rồi chị trả rồi nha.",
+      "phoasr_wer": 0.30303030303030304,
+      "quan_wer": 0.18181818181818182
+    },
+    {
+      "id": "train_0701",
+      "reference": "Cho em tập Phản xạ khi sơ cứu vào danh sách nghe sau nha, với tạo giúp em việc thực hành động tác sơ cứu trong tập vừa nghe, hạn tám giờ tối chủ nhật mười một tháng mười.",
+      "phoasr": "Cho em tập phản xạ khi sơ cứu gọi danh sách nghe sau nhà mới tạo giúp em việc thực hành động tác sơ cứu trong tập vừa nghe hẹn tháng Hà thuối Chủ nhật mười một tháng Mười.",
+      "quan": "Cho em tập phản xạ khi sơ cứu gọi danh sách nghe sau nhà, mới tạo giúp em việc thực hành động tác sơ cứu trong tập vừa nghe, hẹn, thám giờ tối chủ nhật, mười một tháng mười.",
+      "phoasr_wer": 0.1794871794871795,
+      "quan_wer": 0.1282051282051282
+    },
+    {
+      "id": "train_0150",
+      "reference": "Giờ em muốn ăn bún bò giò ở quán bún bò Huế gần đây, đặt cho cả nhóm Gia đình, mỗi người một phần, không tính em nhé.",
+      "phoasr": "Giờ em muốn ăn bún bò giò Âu, em cũng mò háy gần đây đặt cho cả nhóm gia đình mỗi người một phần, không thính nem nhé.",
+      "quan": "Giờ em muốn ăn bún bò giò âu em cũng bò Huế gần đây đặt cho cả nhóm gia đình mỗi người một phần, không tháng năm nhé.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.17857142857142858
+    },
+    {
+      "id": "train_0710",
+      "reference": "Rồi, em sửa lại email trong danh bạ cho chị ấy giúp anh nhé.",
+      "phoasr": "Rồi em search lại email trong trên bạc cho chị ấy giúp anh nhé.",
+      "quan": "Rồi em search lại email trong trên bạ cho chị ấy giúp anh nhé.",
+      "phoasr_wer": 0.21428571428571427,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0711",
+      "reference": "Thế cho tập đó vào danh sách chờ phát giúp em nha.",
+      "phoasr": "Thấy cho thật đó và danh sách chờ phát chíp em nhà.",
+      "quan": "Thấy cho thật đó và danh sách chờ phát Chíp Em nha.",
+      "phoasr_wer": 0.4166666666666667,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1296",
+      "reference": "Hai cái máy kêu ồn quá, tôi đang gọi mối hổng nghe gì hết, tắt bớt một cái nha.",
+      "phoasr": "Hai cái máy kêu ồn quá, tôi đang gọi mối không uống gì hết, tắt bớt một cái nha.",
+      "quan": "Hai cái máy kêu ồn quá, tôi đang gọi mối, không muốn nghe gì hết, tắt bớt một cái nha.",
+      "phoasr_wer": 0.10526315789473684,
+      "quan_wer": 0.10526315789473684
+    },
+    {
+      "id": "train_0156",
+      "reference": "Em ơi dời lịch họp phụ huynh mai muộn thêm 45 phút, đặt báo thức trước đó một tiếng, với nhắn SMS cho bố biết giờ mới nhé.",
+      "phoasr": "Em ơi giờ lịch họp phụ huynh lai mượn thêm bốn mươi lăm phút đặt báo thức trước đó một tiếng với nhắn SS cho bố biết giờ mới hết.",
+      "quan": "Em ơi giờ lịch họp phụ huynh lại mượn thêm bốn mươi lăm phút, đặt báo thức trước đó một tiếng, vừa nhắn SMS cho bố biết giờ mới hết.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0157",
+      "reference": "Tắt hết đèn tầng 2 giúp em nhé, trừ phòng nào quạt đang chạy thì để nguyên đèn, xong bật điều hoà phòng ngủ 26 độ.",
+      "phoasr": "Tắt hết đèn tầng hai giúp em nhé, trừ phòng nào còn đang dậy thì để nguyên đèn xong bật vào hệ phòng ngủ hai mươi sáu đô.",
+      "quan": "Tắt hết đèn tầng hai giúp em nhé, trừ phòng nào còn đang dậy thì để nguyên đèn, xong bật dò hỏi phòng ngủ hai mươi sáu đô.",
+      "phoasr_wer": 0.34615384615384615,
+      "quan_wer": 0.34615384615384615
+    },
+    {
+      "id": "train_0246",
+      "reference": "Tắt hết đèn tầng 2, trừ phòng nào quạt đang chạy thì để nguyên đèn nhé, xong bật điều hoà phòng ngủ 26 độ.",
+      "phoasr": "Các bác tỉnh tặng ai trừ Phong, Hà Nguyễn, Chính trị thì để có nguyên đề nghị xong bật điều phục vụ hai mươi sáu độ.",
+      "quan": "Các bác tỉnh tặng hai trừ Phong Hà Nguyện đem trị thì để có nguyên đề nghị xong bật điều phòng ngủ hai mươi sáu độ.",
+      "phoasr_wer": 0.75,
+      "quan_wer": 0.7083333333333334
+    },
+    {
+      "id": "train_0166",
+      "reference": "Gọi cho Lan đi ạ, với lại đặt báo thức sáu giờ sáng mai cho em nữa.",
+      "phoasr": "Gọi cho Lenin với đọc quá sức, sáu giờ sáng mai cho em nữa.",
+      "quan": "Gọi cho Lan đìa với đặt quá sức, sáu giờ sớm mai cho em nữa.",
+      "phoasr_wer": 0.4117647058823529,
+      "quan_wer": 0.35294117647058826
+    },
+    {
+      "id": "train_1314",
+      "reference": "Sáu giờ sáng có người gọi mà anh ngủ quên chưa bắt. Nhắn tin cho số nớ giờ đón đoàn giùm anh, hẹn gặp ở ga nghe.",
+      "phoasr": "Sáu giờ sáng, có người gọi mà ăn uống quên chưa bắt nhắn tin cho số nơi, chớ đón toàn dùng anh. Hẹn gặp ở ga nghe.",
+      "quan": "Sáu giờ sáng có người gọi mà ăn uống quên chưa bắt, nhắn tin cho số nơi, giờ đón đoàn dùng anh, hẹn gặp ở ra nghe.",
+      "phoasr_wer": 0.2222222222222222,
+      "quan_wer": 0.18518518518518517
+    },
+    {
+      "id": "train_0170",
+      "reference": "Tắt đèn phòng làm việc giúp tôi, với nhắn SMS cho Lan là nhớ mang hộ cái sạc nhé.",
+      "phoasr": "Phát điên phạm làm việc giúp tôi gửi nhánh SSM cho Lan là nhớ mang gỗ cái xạ bi nhé!",
+      "quan": "Thắt đèn phòng làm việc giúp tôi gửi nhắn SMS cho Lan là nhớ mang gốc cái xạ bi nhé.",
+      "phoasr_wer": 0.47368421052631576,
+      "quan_wer": 0.2631578947368421
+    },
+    {
+      "id": "train_0297",
+      "reference": "Tắt đèn phòng làm việc đi, rồi nhắn SMS cho Lan là nhớ mang hộ cái sạc nhé.",
+      "phoasr": "Tắt đèn phòng làm việc đi rồi nhấn SMS cho Lan là nhớ mang hộ cái sạn nhé.",
+      "quan": "Tắt đèn phòng làm việc đi, rồi nhắn SMS cho Lan là nhớ mang hộ cái sạn nhé.",
+      "phoasr_wer": 0.1111111111111111,
+      "quan_wer": 0.05555555555555555
+    },
+    {
+      "id": "train_1318",
+      "reference": "Năm giờ bốn lăm em nhé. Tiện thể đọc chị kết quả đài Hà Nội kỳ vừa rồi luôn.",
+      "phoasr": "Năm giờ bốn lăm em nhé, chị khẽ đọc chi kết quả đài Hà Nội chi vừa rồi luôn.",
+      "quan": "Ngâm giờ bốn lăm em nhé, chị khẽ đọc chi kết quả đài Hà Nội, chi vừa rồi luôn.",
+      "phoasr_wer": 0.21052631578947367,
+      "quan_wer": 0.2631578947368421
+    },
+    {
+      "id": "train_0740",
+      "reference": "À thôi khỏi đặt vé nha, chuyến công tác đó vừa đổi sang họp trực tuyến rồi, em không phải bay nữa.",
+      "phoasr": "À thôi, khỏi đặt vé nha, khiến công tác đó vừa đổi sang hợp trực tuyến rồi, em không phải bay nữa.",
+      "quan": "À thôi, khỏi đặt vé nha, khiến công tác đó vừa đổi sang hợp trực tuyến rồi, em cũng phải bay nữa.",
+      "phoasr_wer": 0.09090909090909091,
+      "quan_wer": 0.13636363636363635
+    },
+    {
+      "id": "train_0180",
+      "reference": "Tắt đèn phòng làm việc đi, với nhắn SMS cho Lan là mai gửi mình file nhé.",
+      "phoasr": "Chắc nàng phòng nằm chuyện đi với những em bé chơ lăng và may người yêu mình phải nén.",
+      "quan": "Chắc nàng phòng nằm chuyện đi với những em bé chơ lăng và may gửi mình vài nhé.",
+      "phoasr_wer": 0.8823529411764706,
+      "quan_wer": 0.7058823529411765
+    },
+    {
+      "id": "train_0253",
+      "reference": "Tắt đèn phòng làm việc đi, với lại nhắn SMS cho Lan là mai gửi mình file nhé.",
+      "phoasr": "Phát thanh phòng làm việc đi với lại dẫn SMS trên mạng là Mai Diễm Minh Phai nha.",
+      "quan": "Cát em phòng làm việc đi, với lại dẫn SMS trên Lan là mai giữ mình file nha.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1326",
+      "reference": "Thế em quét mã bảo tàng ấy trả bằng ví nhé, vé cho các em đi hôm nay với một vé người lớn của chị.",
+      "phoasr": "Thế em quét mà bảo tàng ấy trả bằng ví nhé. Ví cho chắc em đi hôm nay với một vé người lớn của chị.",
+      "quan": "Thế em quét mà bảo tàng ấy trả bằng ví nhá, vé cho các em đi hôm nay với một vé người lớn của chị.",
+      "phoasr_wer": 0.12,
+      "quan_wer": 0.08
+    },
+    {
+      "id": "train_1328",
+      "reference": "Từ nhà đi bộ qua Lantern Bay Hotel chưa tới hai mươi phút thì nhắn Lucas tự đi, rồi gạch việc đó luôn.",
+      "phoasr": "Từ nhà đi bộ qua Lenton bay Hotel, chưa tới 20 phút thì nhắn Lucas thử đi rồi gạt việc đó luôn.",
+      "quan": "Từ nhà đi bộ qua Lenton, bay Hotel, chưa tới 20 phút thì nhắn Lucas tới đây rồi gặt việc đó luôn.",
+      "phoasr_wer": 0.21739130434782608,
+      "quan_wer": 0.2608695652173913
+    },
+    {
+      "id": "train_0183",
+      "reference": "Hoá đơn nào đến hạn trong 5 ngày tới thì trả qua ngân hàng giúp em, nhưng cái nào hơn 500 nghìn thì cứ để lại, đừng trả.",
+      "phoasr": "Khán đơn nào đến hạn trong năm ngày tới thì trải qua ngân hàng giúp em, nhưng cái nào hơn năm trăm nghìn thì cứ để lại, đừng trả.",
+      "quan": "Khán đơn nào đến hạn trong 5 ngày tới thì trả qua ngân hàng giúp em, nhưng cái nào hơn 500 nghìn thì cứ để lại, đừng trả.",
+      "phoasr_wer": 0.17857142857142858,
+      "quan_wer": 0.03571428571428571
+    },
+    {
+      "id": "train_0185",
+      "reference": "Đặt món bún bò giò ở quán Bún bò Huế Cô Ba giúp em, mỗi người trong nhóm Gia đình một phần, không tính em nhé.",
+      "phoasr": "Đặt món bún bò giả ở quán bún bà Huế Cô Ba giúp em, mỗi người trong nhóm gia đình một phần, không thính em nhé.",
+      "quan": "Đặt món bún bào giò ở quán bún bào Huế Cô Be giúp em, mỗi người trong nhóm gia đình một phần, không tính em nhé.",
+      "phoasr_wer": 0.11538461538461539,
+      "quan_wer": 0.11538461538461539
+    },
+    {
+      "id": "train_0211",
+      "reference": "Đặt bún bò giò ở quán Bún bò Huế Cô Ba cho em, mỗi người trong nhóm chat Gia đình một phần, không tính em nhé.",
+      "phoasr": "Đạn bún bàn giờ ở quán bún bàn Huế Cô Ba cho em, mỗi người trong nhóm xét gia đình một phần, không tính em nhé.",
+      "quan": "Đoạn bún bàn giờ ở quán bún bào Huế Cô Ba cho em, mỗi người trong nhóm xét gia đình một phần, không tính em nhé.",
+      "phoasr_wer": 0.19230769230769232,
+      "quan_wer": 0.19230769230769232
+    },
+    {
+      "id": "train_0335",
+      "reference": "Cho mình đặt Bún bò giò ở quán Bún bò Huế Cô Ba, mỗi người trong nhóm chat Gia đình một phần, không tính mình.",
+      "phoasr": "Cho mình đặt bún bò giò, ở quán bún bò Huế khô ba, mọi người trông trông chắc là để một phần không tính mình.",
+      "quan": "Cho mình đặt bún bò giò, ở quán bún bò Huế khô ba, mỗi người xong chóng chắc đều một phần, không tính mình.",
+      "phoasr_wer": 0.28,
+      "quan_wer": 0.24
+    },
+    {
+      "id": "train_0338",
+      "reference": "Em muốn đặt Bún bò giò ở quán Bún bò Huế Cô Ba, mỗi người trong nhóm chat Gia đình một phần, không tính em ạ.",
+      "phoasr": "Em muốn đặt bún bò dò ở quán bún bò ế Thu Ba. Mỗi người trong nhóm xác gia đình một phần không tính em ạ.",
+      "quan": "Em muốn đặt bún bò dò ở quán bún bò ế Thu Ba, mỗi người trong nhóm xám gia đình một phần không tính em ạ.",
+      "phoasr_wer": 0.15384615384615385,
+      "quan_wer": 0.15384615384615385
+    },
+    {
+      "id": "train_0344",
+      "reference": "Đặt Bún bò giò ở quán Bún bò Huế Cô Ba, mỗi người trong nhóm chat Gia đình một phần, không tính em ạ.",
+      "phoasr": "Đặt bún bò giọt ở quán quán bò Huế Cuba, mỗi người trong nhóm xá gia đình một phần không tính khen bà.",
+      "quan": "Đặt bún bò giò ở quán quán bò Huế Cô Ba, mỗi người trong nhóm sán gia đình một phần không tính khen mà.",
+      "phoasr_wer": 0.2916666666666667,
+      "quan_wer": 0.16666666666666666
+    },
+    {
+      "id": "train_0348",
+      "reference": "Đặt giúp mình Bún bò giò ở quán Bún bò Huế Cô Ba, mỗi người trong nhóm chat Gia đình một phần, không tính mình.",
+      "phoasr": "Đạt giúp mình bốn bờ giò ở quán, bốn bờ Huế cô Ba, mỗi người trong nhóm xác gia đình một phần, không tính mình.",
+      "quan": "Đặt giúp mình bốn bờ giò ở quán, bốn bờ Huế Cô Ba, mỗi người trong nhóm xác gia đình một phần, không tính mình.",
+      "phoasr_wer": 0.24,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0389",
+      "reference": "Đặt bún bò giò ở quán Bún bò Huế Cô Ba nhé, mỗi người trong nhóm chat Gia đình một phần, không tính tôi.",
+      "phoasr": "Đặt bún bò giò ở quán bún bò Huế Cuba nhé. Mọi người trong nhóm chat gia đình một phần, không chính tôi.",
+      "quan": "Đặt bún bò giò ở quán bún bò Huế Cuba nhé, mỗi người trong nhóm chat gia đình một phần, không chính tôi.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.125
+    },
+    {
+      "id": "train_0184",
+      "reference": "Trả bằng ngân hàng giúp em mấy hoá đơn hạn trong 5 ngày tới đi, riêng hoá đơn nào trên 500 nghìn thì chừa ra, chưa trả nha.",
+      "phoasr": "Trẻ bằng ngân hàng giúp em với hóa đơn hạn trong năm ngày tới đi. Viên hóa đơn nào trên năm trăm nghìn thì trừa ra. Chưa trẻ nhé\".",
+      "quan": "Trẻ bằng ngân hàng giúp em với hóa đơn hạn trong năm ngày tới đi, cái hóa đơn nào trên năm trăm nghìn thì trừa ra, chơi trẻ nhá.",
+      "phoasr_wer": 0.39285714285714285,
+      "quan_wer": 0.42857142857142855
+    },
+    {
+      "id": "train_0188",
+      "reference": "45 phút nữa nhắc chị gọi lại cho khách nhé.",
+      "phoasr": "Bốn lăm phút nữa nhé, chị còn lại cho khách nhé.",
+      "quan": "Bốn lăm phút nữa nhé chị gọi lại cho khách nhé.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.3
+    },
+    {
+      "id": "train_1334",
+      "reference": "Thế xoá lịch uống Omega-3 đi, rồi chuyển ví trả vợ tiền khám hôm qua giúp anh.",
+      "phoasr": "Thế soái lệch huống Omega Pa đi rồi chuyển ví trả vợ tiền khém Hồng Oai, Đức Anh.",
+      "quan": "Thế xoái lịch huống Omega ba đi, rồi chuyển ví trả vợ tiền khám Hồng oai, Đức Anh.",
+      "phoasr_wer": 0.4444444444444444,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_0190",
+      "reference": "Mấy cái hoá đơn hạn trong 5 ngày tới trả bằng ngân hàng luôn đi, cái nào nhiều hơn 500 nghìn thì để đấy chưa trả, anh tính sau.",
+      "phoasr": "Mấy cô ấy rớt hụt trong năm ngày tới trả bằng ngân hàng luôn đi cái răng nhiều hơn năm trăm nghìn thì để đấy chứ trời.",
+      "quan": "Mấy gói ở đơn vị trong năm ngày tới trả bằng ngân hàng luôn đi, cái rào nhiều hơn năm trăm ngàn thì để đấy.",
+      "phoasr_wer": 0.4482758620689655,
+      "quan_wer": 0.4482758620689655
+    },
+    {
+      "id": "train_1336",
+      "reference": "Khoá cửa kho giùm cô, rồi làm mã cửa kho cho Anh Lộc xài tới hết giờ giao hàng sáng nay nha con.",
+      "phoasr": "Khoái cửa khoai giùm cô rồi làm mẹ cửa khoai cho anh Lập xài hết giờ cho hàng sáng nay nha con.",
+      "quan": "Khoát cửa kho giùm cô, rồi làm mẹ, cửa kho cho anh Lộc, xài cái hết giờ cho Hà sáng nay nha con.",
+      "phoasr_wer": 0.30434782608695654,
+      "quan_wer": 0.21739130434782608
+    },
+    {
+      "id": "train_0192",
+      "reference": "Bật đèn phòng khách lên cho tôi, mà chỉ 30 phần trăm thôi nhé, quạt thì thôi đừng bật, điều hoà phòng khách cứ để 26 độ.",
+      "phoasr": "Bật đèn phòng khách cho tôi mà chỉ tăng mười phần trăm thôi nhé. Quán thì thuê đồ vật để vào phòng khách cứ để hai sáu độ đi.",
+      "quan": "Bật đèn phòng khách cho tôi, mà chị tăng mười phần trăm thôi nhé. Quản thì thuê đồn bật, để vào phòng khách cứ để hai sáu đốt đi.",
+      "phoasr_wer": 0.4444444444444444,
+      "quan_wer": 0.48148148148148145
+    },
+    {
+      "id": "train_0753",
+      "reference": "Ờ chốt vậy, hủy gói đó luôn cho anh.",
+      "phoasr": "Thờ chốt vậy thì gói nó luôn cho anh.",
+      "quan": "Ờ, chút vậy, tỉa gói nó luôn cho anh.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1337",
+      "reference": "Em coi giùm chị tỷ giá cái đồng tiền bên Harbor Point Partners báo ngân sách đó, đổi ra tiền Việt nha.",
+      "phoasr": "Em coi giùm chị tị giá cái đồng tiền bên Ha Boc Coi, Bắc Nờ báo ngân sách đó đổi ra tiền Việt Nha",
+      "quan": "Em coi giùm chị tự giá cái đồng tiền bên Ha Boc Khoai bắt nợ, báo ngân sách đó, đổi ra tiền Việt nha.",
+      "phoasr_wer": 0.2727272727272727,
+      "quan_wer": 0.2727272727272727
+    },
+    {
+      "id": "train_1338",
+      "reference": "Em coi giá vàng nhẫn tròn bán ra hôm nay nhiêu, rồi nhắc anh đi mua vàng trước buổi họp với Liam Porter hai tiếng nha.",
+      "phoasr": "Em coi giá vàng những trò bán rồi hôm nay nhiêu rồi, nhắc anh đi mua vàng trước buổi họp với ly em bót tơ hai tiếng nha.",
+      "quan": "Em coi giá vàng những trò bán do hôm nay nhiêu. Rồi nhắc anh đi mua vàng trước buổi họp với ly em bôt tơ hai tiếng nha.",
+      "phoasr_wer": 0.2692307692307692,
+      "quan_wer": 0.2692307692307692
+    },
+    {
+      "id": "train_0194",
+      "reference": "Cái lịch cà phê với gia đình mai dời muộn thêm 30 phút, đặt báo thức trước đó một tiếng, rồi nhắn SMS cho Bác Ba giờ mới nhé.",
+      "phoasr": "Đó là cà phê với gia đình. Mai dài muộn thêm ba mươi phút, thật bớt hết trước đó một tiếng gọi nhắn SS cho bác ba giờ mới nhé.",
+      "quan": "Đó là cà phê với gia đình. Mai dài muộn thêm ba mươi phút, tập bớt hết trước đó một tiếng, gọi nhắn SMS cho bác ba giờ mới nhé.",
+      "phoasr_wer": 0.3448275862068966,
+      "quan_wer": 0.3103448275862069
+    },
+    {
+      "id": "train_0761",
+      "reference": "Giờ em xem từ sáng tới giờ có cảnh báo gì ở cổng phụ không, có thì làm như chị dặn nha.",
+      "phoasr": "Giờ em xem từ sáng tới giờ có cảnh báo với bọn phụ không? Có thể làm cho chị dặn nha.",
+      "quan": "Giờ em xem từ sáng tới giờ có cảnh báo với công phụ không, có thì làm cho chị dặn nha.",
+      "phoasr_wer": 0.22727272727272727,
+      "quan_wer": 0.18181818181818182
+    },
+    {
+      "id": "train_0201",
+      "reference": "Lịch họp team mai dời muộn thêm 45 phút nhé, đặt báo thức trước đó một tiếng cho chị, xong nhắn SMS cho Cô giáo Mai giờ mới.",
+      "phoasr": "Lịch họp team mơ giờ muộn thêm 45 phút nhé. Đặt báo thức trước đó một tiếng cho chị. Xong nhén EHS cho cô giáo mơ giờ mới.",
+      "quan": "Lịch họp team mơ giờ muộn thêm 45 phút nhé, đặt báo thức trước đó một tiếng cho chị, xong nhán SMS cho cô giáo mơ, giờ mới.",
+      "phoasr_wer": 0.17857142857142858,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0772",
+      "reference": "Hội thảo Kết nối Xanh hình như đổi rồi đó em. Tìm thông báo mới nhất của ban tổ chức, nhớ là bài đăng sau thư mời nha, rồi sửa giờ với địa điểm trong lịch, xong nhắn chị Linh điều phối hai thay đổi đó.",
+      "phoasr": "Bạn Mỳ Thảo kết nối xanh hồi như nổi rồi đó em. Điểm thông tin báo mới nhất của bạn tổ chức nhớ là bài đăng sau khi vào nhà rồi sửa chờ với địa điểm trong lịch sáng muốn theo chị đến địa khối hay thay đổi đó.",
+      "quan": "Bị Thảo kết nối xanh hồi như đổi rồi đó em. Điện thông tin báo mới nhất của bạn tổ chức nhớ là bài đăng sau khi mà về nhà. Rồi sửa chờ với địa điểm trong lịch xanh muốn cho chị giống bia khối hay thai hỏi chị. Đó.",
+      "phoasr_wer": 0.391304347826087,
+      "quan_wer": 0.43478260869565216
+    },
+    {
+      "id": "train_1348",
+      "reference": "Cho anh vô cuộc họp Roadmap Review sáng nay luôn đi em.",
+      "phoasr": "Trang vô cuộc họp rất mát vì video sáng nay luôn đi em.",
+      "quan": "Trang vô cuộc họp bắt mát vì video sáng nay luôn đi em.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0204",
+      "reference": "Nếu ví đủ thì trả tiền truyền hình bằng ví và nhắn SMS cho Tuấn là đã đóng, còn không đủ thì trả bằng ngân hàng và nhắc tôi tám giờ tối nay nạp ví nha.",
+      "phoasr": "Nếu ví dụ trả tiền truyền hình bằng ví và anh An cho rằng nó đã đóng, còn không đủ để trả bằng ngân hàng và nặng tội chán giờ tối nay là ví nào?",
+      "quan": "Nếu ví dụ trả tiền truyền hình bằng ví, và anh An nha, tôi đáng cho tớ nó đã đóng, còn không đủ để trả bằng ngân hàng và nặng tôi sáng giờ, tối nay nạp ví nha.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_0283",
+      "reference": "Nếu ví đủ thì trả tiền mạng bằng ví và nhắn SMS cho mẹ là đóng rồi, còn không đủ thì trả bằng ngân hàng và nhắc tôi tám giờ tối nạp ví.",
+      "phoasr": "Nếu ví đủ thì trả tiền mạng bằng ví và nhấn SM S cho mạ là đóng rồi, còn không đủ thì trả bằng ngân hàng và nhất tôi tám giờ tối nạp ví.",
+      "quan": "Nếu ví đủ thì trả tiền mạng bằng ví và nhấn SMS cho mạng là đóng rồi, còn không đủ thì trả bằng ngân hàng, và nhất tối tám giờ tối nạp ví.",
+      "phoasr_wer": 0.15151515151515152,
+      "quan_wer": 0.12121212121212122
+    },
+    {
+      "id": "train_1349",
+      "reference": "Rồi, em gửi mail xác nhận cho ổng, cc anh Tom Baker luôn, với đặt báo thức trước giờ đón một tiếng nha.",
+      "phoasr": "Rồi em rỉa mail xác nhận trọn cc nằm tăm Parker luôn, bày đặt báo thức trước giờ đón học chiến nha.",
+      "quan": "Rồi, em rủ em xác nhận trọn, cc anh Tâm bạc a luôn, bày đặt báo thức trước giờ đón hộp chiến nha.",
+      "phoasr_wer": 0.391304347826087,
+      "quan_wer": 0.43478260869565216
+    },
+    {
+      "id": "train_0776",
+      "reference": "Này, trong nhóm nhà cung cấp Minh Hà họ vừa báo số đường dây sự cố mới đấy, em lấy số mới nhất ấy lưu đè vào danh bạ bên nhà cung cấp Minh Hà, xong gọi thử số đó cho tôi xem có ai nghe không.",
+      "phoasr": "Này, trong nhóm nhà cung cấp Minh Hà, họ vừa báo số đường dây rượt mới đấy. Em lấy số mới nhất lưu đè vào danh bạ bên nhà dùng cung cấp. Bên nhà cung cấp Minh Hà xong rồi thử điện thoại đó cho tôi xem có ai nghe không nha.",
+      "quan": "Này, trong giống nhà cung cấp Minh Hà, họ vừa báo số đường dây, rồi cố mới đấy, em lấy số mới nhất, lưu đề vào danh bạ, bên nhà dùng cung cấp, bên nhà cung cấp Minh Hà, xong rồi thử điện thoại đó cho tôi xem, có ai nghe không nha.",
+      "phoasr_wer": 0.2553191489361702,
+      "quan_wer": 0.2765957446808511
+    },
+    {
+      "id": "train_0778",
+      "reference": "Ok, vậy sửa email của bên đang giao dịch thành địa chỉ mới đi, soạn sẵn một thư nháp gửi tới địa chỉ đó báo là từ kỳ sau mình dùng email này để đối soát, rồi nhắn Zalo cho chị Mai bên mua hàng là bản nháp xong rồi, chị kiểm tra giúp nha.",
+      "phoasr": "Ok, để sửa email của bên dau dịch hành địa chỉ mới đi, soạn sẵn một thư nhát nửa cái địa chỉ mới đó. Đó là từ kì sau mình dùng email này để đoán sốt, rồi nhấn zalo trên trên mai bên mua hàng là vải nhát xong rồi, chỉ cứng khai nhức nha.",
+      "quan": "Ok, dạy sửa email của bên dấu dịch hành địa chỉ mới đi, soạn sẵn một thư nhát nửa cái địa chỉ mới đó, đó là từ kì sau mình dùng email này để đoán số, rồi nhắn Zalo trên trên mai bên mua hàng là bảy nhát xong rồi, chị cứng khai giúp nha.",
+      "phoasr_wer": 0.38181818181818183,
+      "quan_wer": 0.32727272727272727
+    },
+    {
+      "id": "train_1355",
+      "reference": "Còn RON95 thì sao, nếu đắt hơn E5 quá một nghìn một lít thì đổi điểm lấy voucher đổ xăng cho tớ nhé.",
+      "phoasr": "Còn Ron chín lăm thì sao? Nếu đắt hơn e năm quá một nghìn một lít thì đổi điểm lấy vô sơ đổ xăng cho tới nhé.",
+      "quan": "Còn Ron 95 thì sao? Nếu đắt hơn E5 quá một nghìn một lít thì đổi điểm lấy vô sơ đổ xăng cho tới nhé.",
+      "phoasr_wer": 0.34782608695652173,
+      "quan_wer": 0.21739130434782608
+    },
+    {
+      "id": "train_0781",
+      "reference": "Hôm qua nhà mình xài hết bao nhiêu số điện vậy em? Nếu quá mười tám số thì cài cho anh tự tắt bình nóng lạnh lúc mười giờ rưỡi tối mỗi ngày nha.",
+      "phoasr": "Không qua nhà mà xài hết bao nhiêu số điện về em, nếu có mười tám số thì cho cài tự tắt máy nóng lạnh lúc mười giờ rưỡi tối qua ngày anh em.",
+      "quan": "Không qua nhà mà xài hết bao nhiêu số điện về em, nếu mà mười tám số thì cho cái tự tắt mấy nóng lạnh lúc mười giờ rưỡi tối qua ngày hẳn em.",
+      "phoasr_wer": 0.29411764705882354,
+      "quan_wer": 0.29411764705882354
+    },
+    {
+      "id": "train_0212",
+      "reference": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế, đặt giùm tôi, ai trong nhóm Gia đình cũng một phần, trừ tôi ra nghen.",
+      "phoasr": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế đặt chừng tôi A trong nhóm gia đình cũng một phần chứ tôi vang nhang.",
+      "quan": "Trưa nay tôi muốn ăn bún bò giò ở quán bún bò Huế, đặt giùm tôi, ở trong giống gia đình, cũng một phần chứ tôi vang ngang.",
+      "phoasr_wer": 0.17857142857142858,
+      "quan_wer": 0.17857142857142858
+    },
+    {
+      "id": "train_0787",
+      "reference": "Ừ vậy giữ chiếc số 17 cho tôi, rồi cứ tính đúng thời gian em vừa tra mà nhắc tôi rời trạm, sao cho mười giờ thứ năm vừa kịp có mặt ở đó nhé.",
+      "phoasr": "Vậy giữ chiếc số 17 cho tôi cái tính đến thời gian anh vừa tra mà nhắc tôi vừa tạm sao trong 10h tháng 5 thì chị có mặt ở đó nhé.",
+      "quan": "Ờ vậy giữ chắc số mười bảy cho tôi cái tính đúng thời gian anh vừa tra mà nhắc tôi rồi trả, sao trong mười giờ thứ năm thì chị có mặt ở đó nhé.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.34285714285714286
+    },
+    {
+      "id": "train_1364",
+      "reference": "Anh bơi xong rồi, em ghi buổi tập đúng như Kevin Walsh dặn nhé, với đặt báo thức năm giờ rưỡi sáng mai giúp anh.",
+      "phoasr": "Anh bơi xong rồi anh ghi bữa tập đúng như Kevin van Gaal chèn nhã với thật báo thức 5 giờ rưỡi sáng mai chụp anh.",
+      "quan": "Anh bơi xong rồi ăn ghi bữa tập đủ như Kevin van giàn nhã, với tật báo tích 5 giờ rưỡi sáng mai chụp anh.",
+      "phoasr_wer": 0.36,
+      "quan_wer": 0.4
+    },
+    {
+      "id": "train_0224",
+      "reference": "Vàng SJC bán ra hôm nay trên 131 triệu thì nhắc tôi 9 giờ sáng mai đi bán, chưa tới thì chuyển 2 triệu từ tài khoản thanh toán cho Lê Minh góp mua vàng.",
+      "phoasr": "Và GCC bán ra hôm nay trên một trăm năm mươi mốt triệu thì nhóm tôi chính sẽ sáng mai đi bán cho tới thì chuyển hai triệu từ thực tế thanh toán cho Lê Minh góp mua vàng.",
+      "quan": "Và GCC bán ra hôm nay cho em một tám ba mươi mốt triệu, thì nhóm tôi chính là sáng mai đi bán, cho tới thì chuyển hai triệu từ thực hành thanh toán cho Lê Minh góp mua bán.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.4857142857142857
+    },
+    {
+      "id": "train_0228",
+      "reference": "Đặt báo thức sáu rưỡi sáng mai, rồi gọi cho Lan dùm tôi nha.",
+      "phoasr": "Đặt báo thức sống dưới sáng mai về gọi cho Lan rồi thuê nhà",
+      "quan": "Đặt báo thức sống giữa sáng mai, về gói cho Lan giùm tôi nha.",
+      "phoasr_wer": 0.42857142857142855,
+      "quan_wer": 0.35714285714285715
+    },
+    {
+      "id": "train_0796",
+      "reference": "Ừ em đặt bưu tá qua lấy hàng như chị vừa nói đi, rồi thêm vào lịch cái giờ chuẩn bị gói đồ luôn nhé.",
+      "phoasr": "Em đặt phương thảo qua lấy hàng như chị vừa nói đi vừa thêm vào lịch cái giày chuẩn bị hóa đồ luôn nhé.",
+      "quan": "Ờ, em đặt phương tháo qua lấy hàng cho chị vừa nói đi, vừa hên vào lịch cái giày chuẩn bị hóa đồ đúng nhá.",
+      "phoasr_wer": 0.24,
+      "quan_wer": 0.4
+    },
+    {
+      "id": "train_0232",
+      "reference": "Nếu vàng SJC mua vào dưới 123 triệu thì nhắc tôi 9 giờ sáng mai đi mua vàng nhé.",
+      "phoasr": "Nếu vàng mua vào dưới một trăm hai mươi ba triệu thì tôi chính giờ sáng nay đi mua vàng Ý.",
+      "quan": "Nếu vàng đó thì mua vào dưới một trăm hai ba triệu, thì nhất tôi chín giờ sáng nay đi mua vàng ấy.",
+      "phoasr_wer": 0.5263157894736842,
+      "quan_wer": 0.5263157894736842
+    },
+    {
+      "id": "train_0808",
+      "reference": "Ừ, thế ghi lại buổi chạy lúc sáu giờ sáng nay vào phần tập luyện cho anh nhé, chạy bao nhiêu phút thì cứ lấy đúng như tên ghi trong lịch ấy.",
+      "phoasr": "Ừ thì ghi lại đùa chạy lúc sáu giờ sáng nay vào phần tập luyện cho anh nhé. Chạy bao nhiêu phút thì cứ lấy đúng như ten ghi trong lịch ấy.",
+      "quan": "Ừ, thầy ghi lại đùa chạy lúc sáu giờ sáng nay vào phần tập luyện cho anh nhé, chạy bao nhiêu phút thì cứ lấy đúng, như tên ghi trong lịch ấy.",
+      "phoasr_wer": 0.09375,
+      "quan_wer": 0.0625
+    },
+    {
+      "id": "train_0810",
+      "reference": "Ừ đặt giữ đi, xong thêm cho mình việc đi lấy sách, hạn năm giờ chiều hôm trước ngày hết hạn giữ ấy, rồi chặn lịch từ năm tới sáu giờ chiều hôm đó luôn nhé.",
+      "phoasr": "Ừ, đòi giữ đi xong thêm cho mình việc đi bán sách. Hàng năm giờ chiều hôm trước ngày hết hạn giữa đấy rồi. Trời ơi, lịch từ năm tới sáng ngày chiều hôm đó luôn nhé.",
+      "quan": "Ừ, đặt giữ đi, xong thêm cho mình việc đi bán sách, hạng năm giờ chiều hôm trước, ngài hết hạng giữa đấy, rồi trợ lịch từ năm tới sáng giờ chiều hôm đó luôn nhé.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_0812",
+      "reference": "Thế đăng ký luôn cho chị khoá đấy nhé, xong ghi lại mã lớp với lịch học vào ghi chú, kẻo chị quên.",
+      "phoasr": "Thấy đăng ký luôn cho chị quá đáng nhé, xong khi lại mẹ lớp với lệnh học và ghi chú kẻo chị quen.",
+      "quan": "Thấy thăng ký luôn cho chị khoá đó nhé, xong khi lại mẹ lớp với lần học với cây trú kéo chị quen.",
+      "phoasr_wer": 0.34782608695652173,
+      "quan_wer": 0.4782608695652174
+    },
+    {
+      "id": "train_0244",
+      "reference": "Báo thức sáu giờ rưỡi sáng mai nhé, với lại chuyển ví cho Minh chút tiền giùm tôi.",
+      "phoasr": "A Thức Sáu Giờ Rủi Sáng Mai Nha Quay Lại Chuyển Ví Cho Mình Trúc Tiền Giúp Tôi",
+      "quan": "Ba thức sáu giờ rưỡi sáng mai nhé, với lại chuyển ví cho Minh chút tiền giúp tôi.",
+      "phoasr_wer": 0.3888888888888889,
+      "quan_wer": 0.1111111111111111
+    },
+    {
+      "id": "train_0816",
+      "reference": "Được đấy, cho tập đó vào danh sách nghe sau đi, rồi tạo cho anh một việc là nghe xong tập ấy, hạn tám giờ tối chủ nhật, trước hôm thảo luận nhé.",
+      "phoasr": "Được đấy, cho tập đó vào danh sách nghe sau đi rồi tải cho anh một việc là nghe xong tập ấy hẹn thám giờ tối chủ nhật trước phòng thảo luận nhé.",
+      "quan": "Được đấy, cho tập đó vào danh sách nghe sau đi, rồi tải cho anh một việc là nghe xong tập ấy, hẹn thám giờ tối chủ nhật trước hôm thảo luận nhé.",
+      "phoasr_wer": 0.12121212121212122,
+      "quan_wer": 0.09090909090909091
+    },
+    {
+      "id": "train_1395",
+      "reference": "Redwood Fiber gửi hoá đơn rồi, bật tự động thanh toán cho nó đi em, dưới ba trăm nghìn thì trả bằng ngân hàng nghe.",
+      "phoasr": "Fedwood phải rửa hóa đơn vị trí của bậc tự động thanh toán, sẽ nói D& dưới vài trăm ngàn thì sẽ bằng ngân hàng nhé.",
+      "quan": "FW chuyển hóa đơn rồi, bật tự động anh Toán sẽ nói đi em, dưới 300 ngàn thì sẽ bằng ngân hàng nha.",
+      "phoasr_wer": 0.64,
+      "quan_wer": 0.48
+    },
+    {
+      "id": "train_0249",
+      "reference": "Trả tiền điện bằng ví điện tử cho tôi, ví không đủ thì lấy ngân hàng trả, xong nhắn SMS cho Bố báo là đóng xong rồi.",
+      "phoasr": "Trả tiền bằng ví điện tử cho tôi ví không đủ thì lấy nhanh hành trả xong nhanh IDM cho bố Béo lại đóng xong rồi.",
+      "quan": "Trả tiền bằng ví điện tử cho tôi, ví không đủ thì lấy nhanh hành trả xong nhắn Eo đèn Eo cho bố Béo lại đóng xong rồi.",
+      "phoasr_wer": 0.25925925925925924,
+      "quan_wer": 0.2962962962962963
+    },
+    {
+      "id": "train_1397",
+      "reference": "Con ngưng giùm cô cái máy đang giặt khăn Crestview Hotels nghen.",
+      "phoasr": "Con nên dựng cơ cái máy đèn sạch khăn Chris Peale Hills nhé.",
+      "quan": "Con nên dựng cơ cái máy đèn sạch khăn, que képp mu, hút heo ngang.",
+      "phoasr_wer": 0.75,
+      "quan_wer": 0.9166666666666666
+    },
+    {
+      "id": "train_1400",
+      "reference": "Nếu tài khoản lương đủ trả cả tiền điện lẫn tiền nước thì bật autopay cho hai cái, không thì tiền nước thôi nha.",
+      "phoasr": "Nếu tài khoản lương đủ trả cả tiền điện lẫn tiền nước thì bật OTP cho cả 2 cái, xong thì tiền nước thôi nha.",
+      "quan": "Nếu là khoản lương đủ trả cả tiền điện lẫn tiền nước thì bật OTP cho cả 2 cái, xong thì tiền lướt thôi nha.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0824",
+      "reference": "Ừ nghe cũng hợp lý đó, cảm ơn em nha, để anh bàn thêm với bà xã đã.",
+      "phoasr": "Nghe cũng hợp lý đó. Cảm ơn em nha. Để anh bằng thêm mấy bà sẽ để.",
+      "quan": "Ừ nghe cũng mệt lý đó, cảm ơn em nha, để anh bàn thêm mấy bà sẽ.",
+      "phoasr_wer": 0.2777777777777778,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_1402",
+      "reference": "Tắt giùm cô cái máy sấy đồ, rồi ghi việc bốn giờ chiều ni gọi Amber Interiors hỏi vụ rèm cửa nghe.",
+      "phoasr": "Tắt giùm cô cái máy sấy đồ rồi ghi việc bốn giờ chiều, Ni gọi Amber Italia hỏi vụ rèm cửa nghe.",
+      "quan": "Tắt giùm cô cái máy sấy đồ, rồi ghi việc 4h chiều, Ni gọi Amber Italia hỏi vụ rèm cửa nghe.",
+      "phoasr_wer": 0.045454545454545456,
+      "quan_wer": 0.13636363636363635
+    },
+    {
+      "id": "train_0828",
+      "reference": "Ơ bạn ơi, thứ sáu này hẹn bưu điện qua số 18 phố Trúc Bạch lấy gói hàng giúp mình nha. Với cả sáu giờ chiều hôm trước nhắc mình in cái nhãn dán nữa.",
+      "phoasr": "Các bạn ơi, thứ sáu này hẹn bưu điện qua số mười tám phố Trúc Bật lấy gói hàng giúp mình nha. Với cả sáu giờ chiều hôm trước nhắc mình in cái nhãn răng nữa.",
+      "quan": "Các bạn ơi, thứ sau này hẹn bưu điện qua số mười tám phố Trúc Bật lấy gói hàng giúp mình nha, với cả sáu giờ chiều hôm trước nhắc mình yên cái nhãn rán nữa.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0259",
+      "reference": "Lấy tài khoản thanh toán trả Nguyễn Thị Lan đúng tiền nước tháng này, chủ nhà Phạm Hùng đúng tiền truyền hình tháng này, không đủ cả hai thì bù bằng tiết kiệm nhé.",
+      "phoasr": "Lấy tài khoản thanh toán trả Nguyễn Thị Lan đúng thì nước tháng này chủ nhạc Phạm Hùng đúng truyền truyền hình tháng này không đủ thì bộ phận tiết kiệm nghé.",
+      "quan": "Lấy tài khoản thanh toán trả Nguyễn Thị Lan đúng tiền nước tháng này, chủ nhạc Phạm Hùng đúng truyền truyền hình tháng này, không đủ tiết kiệm.",
+      "phoasr_wer": 0.23529411764705882,
+      "quan_wer": 0.23529411764705882
+    },
+    {
+      "id": "train_0263",
+      "reference": "Đặt báo thức năm rưỡi sáng mai, với chuyển ví cho Bố ít tiền nhé.",
+      "phoasr": "Đạt bao thức năm mươi sáng mai với chuyện ví cho mỗi tỷ mệnh",
+      "quan": "Đặt báo thức năm buổi sáng mai với chuyện viết cho bố ít tiền.",
+      "phoasr_wer": 0.5333333333333333,
+      "quan_wer": 0.26666666666666666
+    },
+    {
+      "id": "train_0834",
+      "reference": "Ừ gọi đi em. Gọi xong thì ghi chú lại hộ chị là đã gọi Tuấn gara số đó, mai chị còn nhớ mà hỏi tiếp.",
+      "phoasr": "Ừ vậy đi em, gọi xăng thì ghi chú hai hộp chịnh thả đá gọn tuấn nhà đa số đó. Mai chị còn nhớ mà hỏi tiếp.",
+      "quan": "Ừ, gọi đi em, gọi xong thì ghi chú hai hộp chịn cái đá gọn tuấn nhà đa số đó, mai chị còn nhớ mà hỏi tiếp.",
+      "phoasr_wer": 0.38461538461538464,
+      "quan_wer": 0.3076923076923077
+    },
+    {
+      "id": "train_0266",
+      "reference": "Nếu mai mưa thì dời lịch đá bóng sáng mai muộn hai tiếng rồi nhắn SMS cho Tuấn báo giờ mới, hông mưa thì thôi.",
+      "phoasr": "Nếu mai mưa thì giờ lực đá bóng sáng mai mùa hai tiếng rồi nhấn SPS cho Tuấn báo giờ mới, hôm mưa thì thôi.",
+      "quan": "Nếu mai mưa thì dò lịch ra bóng sáng mai mùa hai tiếng rồi nhắn SMS cho Tuấn báo giờ mới, hông mưa thì thôi.",
+      "phoasr_wer": 0.24,
+      "quan_wer": 0.12
+    },
+    {
+      "id": "train_1415",
+      "reference": "Em giao nhầm rồi, việc voucher đặt hoa mới là của Na, còn bánh kem thì trả lại cho ba nghe.",
+      "phoasr": "Em giao nhầm rồi, việc âu trời đặt khoang mới là của na, còn bánh kem thì trả lại cho ba nghe.",
+      "quan": "Em giao nhầm rồi, việc bầu trời đặt khoa mới là của na, còn bánh kem thì trả lại cho ba nghe.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_0840",
+      "reference": "Chị Ngân bên pháp lý ấy. Gọi chị ấy trước đi, rồi soạn nháp nhắc lại chuyện tài liệu NDA hai bên đã thống nhất hôm trước nhé.",
+      "phoasr": "Chị ngăn anh pháp lý, gọi chị ái trước rồi soạn nhốt, nhắc là trình tài liệu NDA. Giao banh giao thông nhắc hôm trước nhé.",
+      "quan": "Chị ngăn pháp lý ấy, gọi chị ấy trước, rồi soạn nhút, nhắc lẹ trình tài liệu NDA, ra bên gọi thăm nhắc hôm trước nhá.",
+      "phoasr_wer": 0.4642857142857143,
+      "quan_wer": 0.39285714285714285
+    },
+    {
+      "id": "train_0274",
+      "reference": "Chuyển giúp tôi Nguyễn Thị Lan đúng tiền mạng tháng này với Trần Văn Tuấn đúng tiền truyền hình tháng này từ tài khoản thanh toán, nếu không đủ cả hai thì lấy tiết kiệm.",
+      "phoasr": "Chuyện giúp tôi Nguyễn Thị Lan đúng tiền mạng tháng này với Trần Văn Tuấn đúng tiền truyền hình tháng này từ tài khoản thanh to nếu không đủ cả hai để lấy tiết kiệm.",
+      "quan": "Chuyện giúp tôi Nguyễn Thị Lan đúng tiền mạng tháng này với Trần Văn Tuấn đúng tiền truyền hình tháng này từ đại khoản thanh to, nếu không đủ cả hai thì lấy tiết kiệm.",
+      "phoasr_wer": 0.08571428571428572,
+      "quan_wer": 0.08571428571428572
+    },
+    {
+      "id": "train_1425",
+      "reference": "Thế vé rẻ nhất lúc nãy mà cao hơn mức công ty hoàn thì gọi video riêng cho chị Mai bên Sunbridge Digital luôn, đừng gọi vào nhóm nha.",
+      "phoasr": "Thế ví dẻ nhất lúc nãy mà cao hơn mức công ty Hoàn thì gọi video riêng cho chị Mai bên Sunberg Digital luôn được gọi vào nhóm nhé.",
+      "quan": "Thế ví giải nhất lúc nãy mà cao hơn mức công ty Hoàn thì gọi video riêng cho chị Mai bên SunbergSyluu được gọi vào nhóm nha.",
+      "phoasr_wer": 0.1724137931034483,
+      "quan_wer": 0.20689655172413793
+    },
+    {
+      "id": "train_0275",
+      "reference": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, quạt đừng bật nhé, rồi bật điều hoà phòng khách 26 độ.",
+      "phoasr": "Bật đèn phòng khách lên nhưng để mờ 30% thôi, hoạt đừng bật nhé rồi bật điều phòng khách 26 độ.",
+      "quan": "Bật đèn phòng khách lên, nhưng để mờ 30 phần trăm thôi, hoạt đừng bật nhé, rồi bật điều phòng khách 26 độ.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.08333333333333333
+    },
+    {
+      "id": "train_0373",
+      "reference": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, quạt thì đừng bật, với bật điều hoà phòng khách 26 độ nhé.",
+      "phoasr": "Bật đèn phòng khách lên nhưng để mờ ba mươi phần trăm thôi quẹt khi đụng bẩn với mặt điều trong phòng khách hai mươi sáu độ nhé.",
+      "quan": "Bật đèn phòng khách lên nhưng để mờ 30 phần trăm thôi, quẹt khi đùm bẩn. Với bật điều trong phòng khách 26 độ nhé.",
+      "phoasr_wer": 0.44,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0848",
+      "reference": "Sáng mai em có lịch khám ở Bệnh viện Bạch Mai lúc chín giờ, xem giúp em đường từ nhà qua đó với, xong tám giờ mười lăm nhắc em ra khỏi nhà nha.",
+      "phoasr": "Sáng mai em có lịch khám và bệnh viện vạch mai lúc chín giờ. Xin giúp em đừng từ nhà qua đâu với xong tháng giờ mười lăm. Nhớt em ra khỏi nhà nha\".",
+      "quan": "Sáng mai em có lịch khám của bệnh viện Vạch Mai lúc chín giờ, xin giúp em đừng từ nhà qua đâu với, xong tám giờ mười lăm nhắc em ra khỏi nhà nha.",
+      "phoasr_wer": 0.20588235294117646,
+      "quan_wer": 0.14705882352941177
+    },
+    {
+      "id": "train_0279",
+      "reference": "Vàng SJC bán ra hôm nay hơn 131 triệu thì nhắc tôi 9 giờ sáng mai đi bán vàng, chưa tới thì lấy tài khoản thanh toán chuyển Trần Văn Tuấn 2 triệu tiền góp mua vàng.",
+      "phoasr": "Và gái SCG bán ra hôm nay hơn một trăm hai mươi mốt triệu thì nhắc tôi chín giờ sáng mai đi bán vàng, chưa tới thì lấy tài khoản thanh toán chuyển Trần Văn Tuấn hai triệu tiền góp mua vàng.",
+      "quan": "Và gái SGH bán ra hôm nay hơn 121 triệu, thì nhắc tôi 9 giờ sáng mai đi bán vàng, chưa tới thì lấy tài khoản thanh toán chuyển Trần Văn Tuấn 2 triệu tiền góp mua vàng.",
+      "phoasr_wer": 0.2702702702702703,
+      "quan_wer": 0.10810810810810811
+    },
+    {
+      "id": "train_1430",
+      "reference": "Thêm nhắc anh uống kẽm Brightpath mỗi ngày nhé, uống cùng giờ với thuốc Brightpath em vừa đọc.",
+      "phoasr": "Thêm nhát ăn uống cà mì bát, mỗi ngày nhà hàng cũng cùng nhau với thuốc virus đã vừa đóng.",
+      "quan": "Thêm nhắc anh uống càm, bia bát, mỗi ngày nhà hàng cũng cùng nhau với thuốc lá đã vừa đọc.",
+      "phoasr_wer": 0.6666666666666666,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_1431",
+      "reference": "Hẹn Thảo họp online trước buổi họp đoàn Kuala Lumpur một tiếng giùm cô nghe con.",
+      "phoasr": "Hẹn thảo họp online trước buổi họp đoàn, khuyla lưng vua một chuyến giùm cua nghe coi",
+      "quan": "Hẹn hào họp online trước buổi họp đoàn Quy La Lumpua một chuyến giùm cua nghe coi.",
+      "phoasr_wer": 0.375,
+      "quan_wer": 0.4375
+    },
+    {
+      "id": "train_1435",
+      "reference": "Ghi số phút tôi học Speaking Club tối nay, rồi đặt thêm một buổi lớp đó bảy rưỡi tối thứ Sáu tuần sau nhé.",
+      "phoasr": "Vì số phút tôi học Spacklắp tối nay rồi đặt thêm một bộ Iota vậy, tối thứ sáu tuần sau nhé.",
+      "quan": "Ghì số phút tôi học Speaking lớp tối nay, rồi đặt thêm một bộ e lớp đó vậy, rồi tối thứ 6 tuần sau nhé.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.2916666666666667
+    },
+    {
+      "id": "train_0857",
+      "reference": "Nhắn cho Nam giúp em là họp xong em gọi lại nhé.",
+      "phoasr": "Nhánh Trang An trước em là hợp xong, em gọi lại vẽ",
+      "quan": "Nhắn cho anh em, trước em là hợp xong em gọi lại vé.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.4166666666666667
+    },
+    {
+      "id": "train_0287",
+      "reference": "Nhắc mình gọi cho mẹ cái nhé.",
+      "phoasr": "Nhất mình gọi cho mẹ cay nghe",
+      "quan": "Nhân mình gọi cho mẹ cây nghe.",
+      "phoasr_wer": 0.42857142857142855,
+      "quan_wer": 0.42857142857142855
+    },
+    {
+      "id": "train_0292",
+      "reference": "Mai em bị muộn, cho lịch khám răng lùi lại nửa tiếng nhé, báo thức thì đặt trước giờ mới một tiếng, rồi nhắn SMS cho Hương giờ mới ạ.",
+      "phoasr": "Mai em bị muộn, cho lịch khám răng lùi lại nửa tiếng nhé. Bao thức thì đặng trước giờ mới một tiếng, rồi nhắn SIM S cho hương giờ mới hạ.",
+      "quan": "Mai em bị muộn, cho lịch khám răng lùi lại nửa tiếng nhé. Bao thức thì đặng trước giờ mới một tiếng, rồi nhắn e tim em cho hương giờ mới hạ.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0863",
+      "reference": "Ơ có ai bấm chuông kìa, em bật camera lên rồi nhận diện xem người đứng trước cửa là ai giùm em với.",
+      "phoasr": "Ơ có ai bấm chuông kìa, em vặn camera lên rồi nhận dạng xem người đứng trước cửa là ai dùm em với.",
+      "quan": "Ơ, có ai bấm chuông kìa, em bật camera lên rồi nhận dĩa xem người đứng trước cửa là ai dùm em với.",
+      "phoasr_wer": 0.13043478260869565,
+      "quan_wer": 0.08695652173913043
+    },
+    {
+      "id": "train_0867",
+      "reference": "Ba cây số thì được bao nhiêu mét ấy nhỉ, đổi ra hộ anh cái.",
+      "phoasr": "Ba cây số thì được bao nhiêu mét đấy nhở đòi hộ anh ra cái?",
+      "quan": "Ba cây số thì được bao nhiêu mét đấy nhở? Đổi hộ anh ra cái.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.26666666666666666
+    },
+    {
+      "id": "train_1451",
+      "reference": "Còn cái báo cửa phòng Lemon Tree con mới đọc đó, cũng đánh dấu xem luôn nha con.",
+      "phoasr": "Còn cái báo cửa phòng Lê Nguyên Tri con mới đọc đó cũng đánh dấu xem luôn nha con.",
+      "quan": "Còn cái báo của phòng lên mênh kia con mới đọc đó cũng đánh dấu xem luôn nha con.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_0873",
+      "reference": "Giữ cho anh chiếc xe đạp số 18 ở trạm Công viên Thống Nhất nha, xong chỉ anh đường từ công viên ra Hồ Gươm luôn.",
+      "phoasr": "Giữa ra chiếc xe đạp số mười tám ở trạm công viên Thống Nhất nha, Sơn chỉ ăn đường từ công viên ra màu gớm luôn.",
+      "quan": "Giữ cho anh chiếc xe đạp số mười tám ở trạm công viên Thống Nhất nha, sau em chỉ anh đường từ công viên ra màu gớm luôn.",
+      "phoasr_wer": 0.34615384615384615,
+      "quan_wer": 0.23076923076923078
+    },
+    {
+      "id": "train_1462",
+      "reference": "Quãng đó mà dưới hai cây số thì em ghi vô ghi chú khách Hàn là đi bộ, không thì ghi đi taxi nghe.",
+      "phoasr": "Bọn đó mà dưới đây ăn cây số thì em đi... Chú khách hàng là đi buộc, không thì đi tắt xe ăn.",
+      "quan": "Bọn đó mà dưới A Cai số thì em đi, chú khách hàng là đi buộc, không thì đi tắt xe ăn.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0883",
+      "reference": "Ờ, ghi số đó vào cái ghi chú theo dõi điện tháng này giùm anh nha.",
+      "phoasr": "Việc số đó vào cái ghi chú theo dõi định thế này dùm anh nha.",
+      "quan": "Ờ, việc số đó vào cái ghi chú, theo dõi điện thế này dùm anh nha.",
+      "phoasr_wer": 0.3125,
+      "quan_wer": 0.1875
+    },
+    {
+      "id": "train_0885",
+      "reference": "Thế thì xếp cho tôi lịch đi đạp xe lúc bảy giờ sáng mai nhé.",
+      "phoasr": "Thế thì sẽ được cho tôi đi xe đạp lúc bảy giờ sáng mai nhé.",
+      "quan": "Thế thì sẽ lịch cho tôi đi xe đạp lúc bảy giờ sáng mai nhé.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_0886",
+      "reference": "Ừ, em ghi là anh đã nhận được hợp đồng rồi, và sẽ phản hồi chị ấy trước thứ Tư nhé.",
+      "phoasr": "Em biết là anh đã nhận được hợp đồng rồi và sẽ phản hồi chị ấy trước khi tôi nhé.",
+      "quan": "Ừm, em biết là anh đã nhận được hợp đồng rồi và sẽ phản hồi chị ấy trước khi tôi nhé.",
+      "phoasr_wer": 0.19047619047619047,
+      "quan_wer": 0.19047619047619047
+    },
+    {
+      "id": "train_1474",
+      "reference": "Thêm thuốc Omeprazole vô lịch uống thuốc cho tôi, uống đúng lúc đèn phòng ngủ bật buổi sáng nghen.",
+      "phoasr": "Thèm thuốc, Oman và Jungles vừa lịch uống thuốc chặt tỏi, uống đúng lốc đèn và một bát buổi sáng ngang.",
+      "quan": "Thêm thuốc Ome Pratio vừa lịch uống, thú chật tơi, uống đúng lúc đèn, phòng một bọc buổi sáng ngang.",
+      "phoasr_wer": 0.631578947368421,
+      "quan_wer": 0.47368421052631576
+    },
+    {
+      "id": "train_1477",
+      "reference": "Ừ, ghi thời gian buổi học nhóm với James Wong vào khoá lập trình giúp tớ, xong xem mai ở trường có mưa không.",
+      "phoasr": "Ừ, ghi thời gian học bộ nhóm với Chen Won và lập trình giúp tớ, xong xem mai ở trường có mưa không.",
+      "quan": "Ừ, ghi thời gian học bộ nhóm với Trang Won và học lập trình giúp tớ, xong xem mai ở trường có mưa không.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0890",
+      "reference": "Ờ, giao cho An đi.",
+      "phoasr": "Ờ, cho chắc ăn đi!",
+      "quan": "Ờ, cho cháu ăn đi.",
+      "phoasr_wer": 0.6,
+      "quan_wer": 0.6
+    },
+    {
+      "id": "train_0893",
+      "reference": "Ừm, vậy thêm cho em việc hoàn thiện bản trình bày, hạn sớm hơn hạn nộp hai ngày, vẫn năm giờ chiều nha.",
+      "phoasr": "Ừm, vậy thêm trẻ em việc hoàn thiện bản trình bày hàng xóm hơn hàng nộp hai ngày vào năm giờ chiều nha.",
+      "quan": "Ừm, vậy thêm trẻ em việc hoàn thiện bản trình bày, hàng sớm hơn hàng nộp hai ngày, vào năm giờ chiều nha.",
+      "phoasr_wer": 0.21739130434782608,
+      "quan_wer": 0.17391304347826086
+    },
+    {
+      "id": "train_0323",
+      "reference": "Tiền nước tháng này chuyển cho Nguyễn Thị Lan vừa đủ, tiền truyền hình chuyển Trần Văn Tuấn vừa đủ, lấy tài khoản thanh toán, không đủ cả hai thì lấy tiết kiệm nhé.",
+      "phoasr": "Tiền nước thế này chuyển sang Nguyễn Thị Loan vừa đủ, tiền truyền hình chuyển Trần Văn Tuấn vừa đủ, lấy tài khoản thanh toán không đủ cả ha thì lấy tiếp kiệm nhé.",
+      "quan": "Tiền nước thế này chuyển cho Nguyễn Thị Loan vừa đủ, tiền truyền hình chuyển Trần Văn Tuấn vừa đủ, lấy tài khoản thanh toán không đủ cả ha, thì lấy tiếp kiệm nhé.",
+      "phoasr_wer": 0.14705882352941177,
+      "quan_wer": 0.11764705882352941
+    },
+    {
+      "id": "train_0897",
+      "reference": "Ừ được đó, lưu câu đó vào ghi chú cho mình, tiêu đề là Cà phê rang nha.",
+      "phoasr": "Ờ được đó, lưu kênh đó vào ghi chú cho mình tiêu đề là cà phê rang nhà.",
+      "quan": "Ừ, được đó, lưu cân đó vào ghi chú cho mình tiêu đề là thà phê răng nha.",
+      "phoasr_wer": 0.16666666666666666,
+      "quan_wer": 0.16666666666666666
+    },
+    {
+      "id": "train_0336",
+      "reference": "Nhắc tôi đổ xăng 8 giờ sáng mai, với lại nhắn SMS cho Lan là nhớ mang hộ cái sạc nha.",
+      "phoasr": "Nhắc thời đổ xăng tám giờ sáng mai với lại dạng ét mê ét cho Lan là nhớ mang hộ cái sạc nha.",
+      "quan": "Nhắc thôi đổ xăng tám giờ sáng mai với lại giang SMS cho Lan lại nhớ mang hộ cái sạc nha.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.19047619047619047
+    },
+    {
+      "id": "train_0390",
+      "reference": "Nhắc tôi đổ xăng 9 giờ sáng mai, với nhắn tin SMS cho Lan là nhớ mang hộ cái sạc nhé.",
+      "phoasr": "Nhắc tôi đổ xăng chín giờ sáng mai với nhắn tin SS S là nhớ mang hộ cái sạp nhé.",
+      "quan": "Nhắc tôi đổ xăng chín giờ sáng mai, với nhắn tin SMS cơ lan là nhớ mang hộ cái sạp nhé.",
+      "phoasr_wer": 0.23809523809523808,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_1499",
+      "reference": "Ui chao, tối ni em ăn không hết mô. Mấy đơn đồ ăn đang giao về nhà, huỷ giùm em một đơn thôi nghe.",
+      "phoasr": "Ui cháu tối nay em không ăn hết mồm, mấy đứa đồ anh đang giao về nhà vị giùm em một đơn thôi nghe.",
+      "quan": "Ui cháu, tối mia em không ăn hết mồm, mấy đứa đùa anh đang giao về nhà gửi giùm em một đơn thôi nghe.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.375
+    },
+    {
+      "id": "train_0971",
+      "reference": "Ít hè. Vé phim CineViệt thì lấy điểm đổi một vé, với hẹn báo thức trước giờ chiếu nửa tiếng nghe.",
+      "phoasr": "Ít Hà vé xinê Việt thì lấy điểm đổi một vé với hạng báo thức rút rời chiếu nửa tiếng Nga.",
+      "quan": "Ít Hà vé vé Phin Sine Việt thì lấy điểm đổi một vé với hạn báo thức trước giờ chiếu nửa tiếng Nga.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1505",
+      "reference": "Con ơi, cái xe cô đặt sáng mai ra ga... à không, ra sân bay nớ, mấy giờ hắn tới đón cô rứa con?",
+      "phoasr": "Có nói cái xe cô đách sạn mai ra ga A không? Lát sân bay nữa, bây giờ hành thời đồng phú rồi con.",
+      "quan": "Có nói cái xe cô đách sạn mai ra ga A không? Lát sân bay nợ, bày giờ hành tội đồng phú cho con.",
+      "phoasr_wer": 0.5416666666666666,
+      "quan_wer": 0.5416666666666666
+    },
+    {
+      "id": "train_0920",
+      "reference": "Ừ đổi vé luôn đi. À thôi khỏi, cuối tuần anh bận rồi, để sau.",
+      "phoasr": "Ừ, đổi vé luôn đi à? Thôi, khỏi cuối tuần anh bận rộn để sau.",
+      "quan": "Ừ đổi vé luôn đi à thôi khỏi cuối tuần anh bận đồ đời sau.",
+      "phoasr_wer": 0.06666666666666667,
+      "quan_wer": 0.13333333333333333
+    },
+    {
+      "id": "train_1514",
+      "reference": "Hôm ấy có kiện hàng giao mà tôi không nghe máy, xem giao lúc mấy giờ, có trùng giờ tôi tập không?",
+      "phoasr": "Hôm ấy có chuyện hàng giao mà tôi không nghe máy, xem giao lúc mấy giờ có trùng đều tạp không.",
+      "quan": "Hôm ấy có chuyện hàng giao mà tôi không nghe máy, xem giao lúc mấy giờ có trùng giờ tập không.",
+      "phoasr_wer": 0.18181818181818182,
+      "quan_wer": 0.09090909090909091
+    },
+    {
+      "id": "train_1526",
+      "reference": "Xem gần phòng tập bên Lê Đức Thọ có quán The Lemon Tree Café không, không có thì tìm gần trường tớ nhé.",
+      "phoasr": "Xem gần phòng tập bên Lê Đức Thọ có quán The Leventry cafe không? Không thì tìm gần chị tôi nhé!",
+      "quan": "Xem gần phòng tập bên Lê Đức Thọ có quán đồ Lê Minh Truy cà phê không, không thì tìm gần trừ tôi nhé.",
+      "phoasr_wer": 0.2608695652173913,
+      "quan_wer": 0.391304347826087
+    },
+    {
+      "id": "train_1527",
+      "reference": "Lưu giùm mình quán Blue Fern trên Tôn Thất Thiệp tên chỗ làm việc, rồi nhắn anh Long tối nay qua đó với mình nha.",
+      "phoasr": "Lu giùm mình oán blu fan trên thông thấp viết tên chủ làm việc rồi nhấn anh Long tối nay qua đó với mình nha.",
+      "quan": "Lu giùm mình quánlu fan trên Tông Thất Quyết tên chủ làm việc, rồi nhắn anh Long tối nay qua đó với mình nha.",
+      "phoasr_wer": 0.36,
+      "quan_wer": 0.28
+    },
+    {
+      "id": "train_0362",
+      "reference": "Vàng SJC bán ra hôm nay trên 121 triệu thì nhắc tôi 9 giờ sáng mai đi bán, chưa tới thì trích tài khoản thanh toán 2 triệu cho Trần Văn Tuấn góp mua vàng.",
+      "phoasr": "Vàng SGC bán ra hôm nay trên một trăm hai mươi mốt triệu thì nhắc tôi chín giờ sáng mai đi bán, chưa tới thì trích tài khoản thanh toán hai triệu cho Trần Văn Tuấn Ngọc mua vàng. Khó viết!",
+      "quan": "Vàng SGC bán ra hôm nay, trên một trăm hai mươi mốt triệu, thì nhắc tôi chín giờ sáng mai đi bán, chưa tới thì trích tài khoản thanh khoản hai triệu cho Trần Văn Tuấn Ngọc mua vàng, khó viết.",
+      "phoasr_wer": 0.3142857142857143,
+      "quan_wer": 0.34285714285714286
+    },
+    {
+      "id": "train_0939",
+      "reference": "Trưa nay phường mình có họp trên mạng đấy, vào giúp tôi với. Không phải bên câu lạc bộ cờ đâu nhé.",
+      "phoasr": "Trưa nay mình có họp trên mạng đấy và giúp tôi với, không phải bên con đàn bộ cờ đâu nhé.",
+      "quan": "Trưa nay mình có họp trên mạng đấy, vào giúp tôi với, không phải bên con nạp bộ cờ đâu nhé.",
+      "phoasr_wer": 0.18181818181818182,
+      "quan_wer": 0.13636363636363635
+    },
+    {
+      "id": "train_0943",
+      "reference": "Chuyển ví anh Lộc tiền mười lăm lít xăng E5, à không, xăng 95 nha con.",
+      "phoasr": "Chuyển ví anh lọc tiền mười lăm lít xa như En Năm à không? Sáng chín lăm nha con.",
+      "quan": "Chuyển ví anh lọc tiền mười lăm lít xanh em ăn, à không, sẵn chín lăm nha con.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.4375
+    },
+    {
+      "id": "train_0368",
+      "reference": "Dùng ví nạp 100 nghìn tiền điện thoại cho Tuấn anh trai, rồi chuyển ví cho Bác Ba đúng bằng tiền mạng tháng này nha.",
+      "phoasr": "Dùng ví là một trăm nghìn kiệt điện thoại cho Tuấn Anh trai và chuyển ví cho bác Ba đúng đoàn tiền mạng tháng này nhé!",
+      "quan": "Dùng ví nằm một trăm nghìn tiền điện thoại cho Tuấn Anh trai, rồi chuyển ví cho bác ba đúng đoàn tiền mạng tháng này nhé.",
+      "phoasr_wer": 0.28,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0412",
+      "reference": "Dùng ví nạp 50 nghìn tiền điện thoại cho anh Tuấn, rồi chuyển ví cho Bác Ba đúng bằng tiền mạng tháng này nhé.",
+      "phoasr": "Dùng ví là năm mươi nghìn tiền điện thoại trên tuấn rồi chuyển ví cho bác Ba đúng mền tiền bán tháng này nhé.",
+      "quan": "Dùng ví nạp năm mươi nghìn tiền điện thoại trên tuấn, rồi chuyển ví cho bác ba đúng mặt tiền bán tháng này nhé.",
+      "phoasr_wer": 0.2916666666666667,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0948",
+      "reference": "Đặt lớp đó tám giờ sáng nay giùm tôi, rồi mở đèn phòng khách, à hông, đèn phòng làm việc nha.",
+      "phoasr": "Đặt lớp đó tám giờ sáng này dùm tôi rồi mở đèn phòng khách à? Không, đèn phòng làm việc nha.",
+      "quan": "Đặt lớp đó tám giờ sáng nay dùm tôi, rồi mở đèn phòng khách, à không, đèn phòng làm việc nha.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.09523809523809523
+    },
+    {
+      "id": "train_1540",
+      "reference": "Mai chị muốn dậy trước giờ Marcus Hale hẹn hai tiếng, em xem giờ đó chị có báo thức nào đang bật không.",
+      "phoasr": "Mai chị muốn giày trước giờ mà cớ sao em gặp hai kiến em xem giờ đó chị có báo thức nào đang bật không?",
+      "quan": "Mai chị muốn giày trước giờ mà cớ sao, em gặp hai kiến em xem giờ đó chị có báo thức nào đáng bật không.",
+      "phoasr_wer": 0.30434782608695654,
+      "quan_wer": 0.34782608695652173
+    },
+    {
+      "id": "train_0950",
+      "reference": "Con ơi, sáng ni cô muốn đạp xe dọc biển, giữ giùm cô một chiếc ở trạm Biển Đông nghe.",
+      "phoasr": "Con nói thì chẳng đi không muốn lạc xe đi dọc biển, giữ chung cố một chuyến ở ven biển đâu nhỉ?",
+      "quan": "Có lúc nào thì sẵn đi không mổ nạp xe đi dọc biển, giữ giùm cô một chuyến ở tạm biển đâu nhé.",
+      "phoasr_wer": 0.65,
+      "quan_wer": 0.7
+    },
+    {
+      "id": "train_0949",
+      "reference": "Tôi hay quên lắm. Coi hoá đơn điện nước, mạng mẽo cái nào tới hạn sớm nhứt thì bật tự trả nha.",
+      "phoasr": "Hay quanh lắm, coi hóa đơn điện nước mà nhiều cái nào tới hàng sớm nhất thì bọc từ trả nhà.",
+      "quan": "Hay quên lắm, coi hóa đơn điện nước, mày mỉa cái nào tới hàng sớm nhất thì bọc từ trả nha.",
+      "phoasr_wer": 0.45454545454545453,
+      "quan_wer": 0.36363636363636365
+    },
+    {
+      "id": "train_0956",
+      "reference": "Xe bốn ba A, năm sáu bảy chấm tám chín của anh có dính phạt nguội chi không rứa?",
+      "phoasr": "Chị Bốn Mẹ Năm Sáu Bảy Chấm Tm Chín của anh có dính thịt nội chi không rứa?",
+      "quan": "Chị bố me 5, 6, 7, chấm T, 9 của anh có dính thịt ngồi chi không đứa?",
+      "phoasr_wer": 0.3157894736842105,
+      "quan_wer": 0.631578947368421
+    },
+    {
+      "id": "train_0382",
+      "reference": "Tầng hai tắt hết đèn giúp tôi nha, chỉ phòng nào quạt đang quay thì để đèn, rồi bật điều hoà phòng ngủ 26 độ.",
+      "phoasr": "Đừng hay tắt đèn giúp tôi nhé, chỉ phòng nào quẹt đăng quay thì để đèn rồi bật điều phủ hai mươi sáu độ.",
+      "quan": "Tần hai tắt hết đèn giúp tôi nhá, chỉ phòng nào quẹt đăng quay thì để đèn, rồi bật điều phủ hai mươi sáu độ.",
+      "phoasr_wer": 0.4,
+      "quan_wer": 0.32
+    },
+    {
+      "id": "train_0966",
+      "reference": "Kiện nào giao tới trước giờ chị về thì em đặt nhắc chị trước mười lăm phút nhé, để chị gọi anh ấy ra nhận.",
+      "phoasr": "Chuyện nào dao tới trước giờ chị về thì em đặt nhắc chị trước mười lăm phút nhé để chị gọi anh ấy ra nhận.",
+      "quan": "Kiện nào giao tới trước giờ chị về, thì em đặt nhắc chị trước mười lăm phút nhé, để chị gọi anh ấy ra nhận.",
+      "phoasr_wer": 0.08,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_1559",
+      "reference": "Lưu chỗ Andrew Scott hẹn vô bản đồ giùm chị, đặt tên là gặp đối tác thứ Sáu nghe em.",
+      "phoasr": "Lữ, chỗ án cổ xẻ, hèn vô bản đồ dung trì đáp tên gấp đối tác thứ sáu nghé",
+      "quan": "Lứa chỗ án cổ xẻt hẹn vô bản đồ dung chị, đáp tên gấp đôi tạc thứ sáu nghe.",
+      "phoasr_wer": 0.6,
+      "quan_wer": 0.55
+    },
+    {
+      "id": "train_0970",
+      "reference": "Chạy lại chế độ buổi sáng đi, à thôi, ảnh sắp tới, chạy tiếp khách hen.",
+      "phoasr": "Chạy lại chỗ đồ vừa mới sáng đi à? Thôi anh sắp tới chạy tiếp khách hàng.",
+      "quan": "Chạy lại chỗ đồ vùi sáng đi, à thôi, ảnh sắp tới chạy tiếp khách hàng.",
+      "phoasr_wer": 0.375,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0392",
+      "reference": "Mai đặt báo thức năm rưỡi sáng cho tôi, với lại chuyển qua ví cho Bác Ba chút tiền nữa nghen.",
+      "phoasr": "Mai đặt vào thức năm rưỡi sáng cho tôi với đại chuyển qua ví cho vác vai rút tiền nữa nghe.",
+      "quan": "Mai đặt vào sức nằm rưỡi sáng cho tôi, với đại chuyển qua ví cho vác vai, rút tiền nữa nghe.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.38095238095238093
+    },
+    {
+      "id": "train_0393",
+      "reference": "Đặt báo thức 6 giờ sáng mai, rồi gọi cho Lan giúp mình nha.",
+      "phoasr": "Bà thích sáu giờ sáng mai rồi gọi cho Lan giúp mình nha!",
+      "quan": "Đặt ba thức sáu giờ sáng mai, rồi gọi trai ba giúp bạn nha.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.35714285714285715
+    },
+    {
+      "id": "train_0973",
+      "reference": "Chiếc điện cho tôi, tôi chạy giao mấy mối cho kịp. Giữ thêm chiếc thường cho Tí đạp theo, rồi nhắc tôi tám giờ đem trả xe nha.",
+      "phoasr": "Chiếc điện cho tôi, tôi chạy ra mấy mối cho kịp, giữ thêm chiếc thường cho tí đạp theo rồi nhắc tôi tắm giờ đêm trả xe nha.",
+      "quan": "Chiếc điện cho tôi, tôi chạy giao mấy mối cho kịp, giữ thêm chiếc thường cho tí đập theo, rồi nhắc tôi tắm giờ đêm trả xe nha.",
+      "phoasr_wer": 0.10714285714285714,
+      "quan_wer": 0.10714285714285714
+    },
+    {
+      "id": "train_0974",
+      "reference": "Nhắn vợ là anh nhớ rồi... à thôi khỏi. Coi cái bài sửa đường gần nhà anh, lưu lại giùm.",
+      "phoasr": "Nhắn vợ là nhớ rồi à mà thôi, khỏi coi cái bài sửa đường gần nhà anh lu lại giùm.",
+      "quan": "Nhắn vợ là nhớ rồi, à thôi khỏi, coi cái bài sửa đường gần nhà anh lưu lại giùm.",
+      "phoasr_wer": 0.15,
+      "quan_wer": 0.05
+    },
+    {
+      "id": "train_1567",
+      "reference": "Thôi em đi buýt về trước. Giữ giùm em một chiếc xe đạp thường ở trạm Mỹ Đình, hết thì lấy chiếc rẻ nhất nha.",
+      "phoasr": "Thôi em đi xe buýt về trước, dưới dùm em một chiếc xe đạp thường ở trạm Mỹ Đình, hết thì lấy chiếc gã nhắc nha.",
+      "quan": "Thôi em đi xe buýt về trước, dưới dùm em một chiếc xe đạp thường ở trạm Mỹ Đình, hãy thi lấy chiếc gã nhắc nhá.",
+      "phoasr_wer": 0.2,
+      "quan_wer": 0.32
+    },
+    {
+      "id": "train_0975",
+      "reference": "Táo với dầu ăn anh Hùng mua rồi, em đánh dấu luôn nhé. Sáng nay lịch chị trống thì xếp đi chợ lúc tám giờ, không thì ba giờ chiều.",
+      "phoasr": "Táo với dầu ăn, anh Hùng mua rồi em đánh dấu luôn nhé. Sáng nay lịch trễ rống thì sếp đi chợ lúc tám giờ không thì bay giờ chiều.",
+      "quan": "Táo với dầu ăn anh Hùng mua rồi, em đánh dấu luôn nhé, sáng nay lịch chị rúng thì sếp đi chợ lúc tám giờ, không thì ba giờ chiều.",
+      "phoasr_wer": 0.13333333333333333,
+      "quan_wer": 0.06666666666666667
+    },
+    {
+      "id": "train_1570",
+      "reference": "Mấy gói Taipei trừ tiền ngày mười tháng mười hai á, em hủy bớt một gói thôi.",
+      "phoasr": "Mấy gói chai bay trừ tiền ngày mười tháng mười hai á em bớt gói một gói thôi.",
+      "quan": "Mấy gói tai bây trừ tiền ngày mười tháng mười hai á, em bớt gói thôi.",
+      "phoasr_wer": 0.23529411764705882,
+      "quan_wer": 0.23529411764705882
+    },
+    {
+      "id": "train_1571",
+      "reference": "Cái cảnh báo sau lúc Grace Nakamura tới nhà ấy, em coi camera chỗ đó giờ còn hoạt động không.",
+      "phoasr": "Cái cảnh báo sau lúc Rai Nakamura tới nhà ấy, em coi camera chỗ đó giờ còn hành động không?",
+      "quan": "Cái cảnh báo sau lúc Raianna Camura tới nhà ấy, em coi camera chỗ đó giờ còn hành động không?",
+      "phoasr_wer": 0.1,
+      "quan_wer": 0.15
+    },
+    {
+      "id": "train_1563",
+      "reference": "Chị đang dở cái report, em đặt giúp chị cảnh báo điện tháng bằng số điện tháng này trừ phần điều hoà nhé.",
+      "phoasr": "Chị đang dễ thấy việc quay, em đặt giúp chị cảnh báo điện tháng bằng số điện tháng này trừ phần điều nhé.",
+      "quan": "Chị đăng giới cái việc quản em đặt giúp chị cảnh báo điện tháng bằng số điện tháng này trừ phần điều nhé.",
+      "phoasr_wer": 0.21739130434782608,
+      "quan_wer": 0.21739130434782608
+    },
+    {
+      "id": "train_1573",
+      "reference": "Lưu giùm chị bài báo Đà Nẵng sắp rét, rồi thêm khăn len vô danh sách mua sắm đủ cho nhóm Gia đình, chị có rồi.",
+      "phoasr": "Lưu giùm chị bài báo Đà Nẵng sắp rét rồi thêm khinh lên ngô danh sách mua sắm tụ cho nhóm gia đình chị có rồi.",
+      "quan": "Lưu giùm chị bài báo Đà Nẵng sắp cắt, rồi thêm khăn lên ngô danh sách, mua sắm, tụ cho nhóm gia đình chị, có rồi.",
+      "phoasr_wer": 0.15384615384615385,
+      "quan_wer": 0.15384615384615385
+    },
+    {
+      "id": "train_0405",
+      "reference": "Tắt hết đèn tầng 2 giúp tôi, phòng nào đang bật điều hoà thì để nguyên đèn nhé.",
+      "phoasr": "Ta thấy đèn tầng hai giúp tôi. Hoàng đạo đang bật điều hành thì điện nguyên đèn nhé.",
+      "quan": "Tớ thấy đèn tầng hai giúp thôi, hoàn toàn đăng bật điều hành thì điện nguyên đèn nhé.",
+      "phoasr_wer": 0.3888888888888889,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_0427",
+      "reference": "Tắt hết đèn tầng 2 giúp mình, trừ phòng nào đang bật điều hoà thì để nguyên đèn nhé.",
+      "phoasr": "Bác thích điện tử hai giúp mình trừ phòng nào đang bật điều thì đều nguyên liệu nha.",
+      "quan": "Bác thích điện tầng hai giúp mình, trừ phòng nào đang bật điều thì để nguyên liệu nha.",
+      "phoasr_wer": 0.47368421052631576,
+      "quan_wer": 0.3684210526315789
+    },
+    {
+      "id": "train_0406",
+      "reference": "Mai nếu mưa thì huỷ lịch khám răng rồi nhắn SMS báo sếp Dũng, còn không mưa thì đặt ô tô bốn chỗ từ nhà đến đó, đón sớm hơn giờ hẹn nửa tiếng.",
+      "phoasr": "Mai nếu mưa thì huyện địch thắng căng rồi nhấn FMS vào xếp Dũng còn không mưa thì đặt ô tô bốn chỗ từ nhà rửa giá toàn sớm hơn do hẹn nửa tiếng.",
+      "quan": "Mai nếu mưa thì huyện định thắng găng gọi nhắn SMS báo xếp dũng, còn không mưa thì đặt ô tô bốn chô từ nhà dưới giá, đoàn sớm hơn giờ hẹn nửa tiếng.",
+      "phoasr_wer": 0.35294117647058826,
+      "quan_wer": 0.29411764705882354
+    },
+    {
+      "id": "train_1578",
+      "reference": "Coi giùm anh giải đặc biệt cái đài má nhắn, rồi gửi kết quả cho má luôn nha.",
+      "phoasr": "Coi dì Oanh già đặc biệt cái đài mái nhánh rồi kể kết quả cho má luôn nha.",
+      "quan": "Coi dì Oanh già đặc biệt cái đài má nhắn rồi kìa kết quả cho má luôn nha.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_0986",
+      "reference": "Ờ, mấy bài hồi nãy đó, ghi số phút vô từng khoá luôn giùm anh, trưa ế khách anh ngồi học.",
+      "phoasr": "Mấy cái bài hồi nãy đó ghi số phút vô tầng luôn giùm anh, chưa hết khách ăn ngồi học.",
+      "quan": "Ờ, mấy cái bài hồi nãy đó, ghi số phút vô tầng luôn giùm anh, chưa hết khách anh ngồi học.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.23809523809523808
+    },
+    {
+      "id": "train_0409",
+      "reference": "Mai bảy rưỡi sáng báo thức cho chị nhé, xong chuyển ví cho Minh chút tiền.",
+      "phoasr": "Mai bậy rửa sáng báo thức cho chị nhé, xong chuyển ví ra manh truyết tiền.",
+      "quan": "Mai bà rửa sáng báo thức cho chị nhé, xong chuyển ví Trâm Anh chút tiền.",
+      "phoasr_wer": 0.3125,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0994",
+      "reference": "Khuya rồi, con robot ồn quá, dừng hắn lại đi. Tắt đèn trên lầu luôn... ờ mà thôi, ba còn thức, tắt đèn dưới nhà thôi nghe.",
+      "phoasr": "Khuya rồi con robot ồn quá dừng hắn lại đi tắt đèn trên lầu luôn mà thôi ba còn thức tắt đèn dưới nhà thôi nhé.",
+      "quan": "Khuya rồi, con robot ổn quá, dừng hắn lại đi, tắt đèn trên lầu luôn, ờ mà thôi, ba còn thức, tắt đèn dưới nhà thôi nhé.",
+      "phoasr_wer": 0.07407407407407407,
+      "quan_wer": 0.07407407407407407
+    },
+    {
+      "id": "train_1585",
+      "reference": "Đơn đó Sarah trả giùm rồi. Em chia năm người coi mỗi phần bao nhiêu, rồi chuyển ví trả Sarah phần của chị nghe.",
+      "phoasr": "Đợt đó Sartre đã giùm rồi, em chia năm người coi mỗi phần bao nhiêu rồi chuyện với trẻ, chia ra phần của chị Hiền.",
+      "quan": "Đợt đó, Sạt trả trẻ giùm rồi em chia 5 người coi mỗi phần bao nhiêu, rồi chuyện với trẻ, với Sari phần của chị Hiền.",
+      "phoasr_wer": 0.375,
+      "quan_wer": 0.4166666666666667
+    },
+    {
+      "id": "train_1588",
+      "reference": "Ghi vô tủ thực phẩm giùm anh, bánh dừa đoàn Phuket gửi nhà ăn hết bốn gói rồi.",
+      "phoasr": "Khi cô thu thư phần xong ăn, bánh dừa cho Phương kẹt, gửi cho anh ít bún gỏi rầy.",
+      "quan": "Khi khô, thủ thật phần trong ăn, bánh dừa cho Phương kẹt, gửi nhà ăn hết bốn gỗ rầy.",
+      "phoasr_wer": 0.8888888888888888,
+      "quan_wer": 0.6666666666666666
+    },
+    {
+      "id": "train_1002",
+      "reference": "Chiều ni anh có họp online không? Có thì bật đèn phòng làm việc, à thôi, bật quạt phòng đó thôi.",
+      "phoasr": "Chiều nay anh có học bổng hay không? Có đi học bằng đơn phần học vẹt tay, bật cuộc học bằng đất thôi.",
+      "quan": "Chiều nay anh có học bổng hay không? Có đi một đoàn phòng bằng vẹt bác tươi, bật cuộc bàn đất thôi.",
+      "phoasr_wer": 0.7619047619047619,
+      "quan_wer": 0.6666666666666666
+    },
+    {
+      "id": "train_1593",
+      "reference": "Nếu gửi hai chục triệu xong mà tài khoản thanh toán vẫn đủ đóng học phí cho Bin thì gửi luôn, không thì thôi nhé.",
+      "phoasr": "Nếu gửi hai chục triệu xong mà tại còn thanh toán bạn đủ đóng học phí cho pin thì gửi luôn không thì thôi nhé.",
+      "quan": "Nếu gửi hai chục triệu xong mà tại còn thanh toán vạn đồ đóng học phí cho Binh thì gửi luôn, không thì thôi nhé.",
+      "phoasr_wer": 0.16,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_1594",
+      "reference": "Tối nay có khách, phòng nào sáng nay robot chưa hút thì cho nó chạy luôn đi em.",
+      "phoasr": "Tối nay có khách phòng nào sáng nay robot chưa húc thì cho nó chạy luôn đi em.",
+      "quan": "Tối nay có khách, phòng nào sáng nay robot chưa hút thì cho nó chạy luôn đi em.",
+      "phoasr_wer": 0.05555555555555555,
+      "quan_wer": 0.0
+    },
+    {
+      "id": "train_1004",
+      "reference": "Ừ, thế còn hơn hai mươi phút nữa. Vặn to nhạc lên tí... à thôi, chuyển sang bài khác cho tôi nghe.",
+      "phoasr": "Ừ, thế còn hơn hai mươi phút nữa, ảnh to nhặt lên tí ảnh thôi. Chuyển sang bài khác cho tôi nghe.",
+      "quan": "Ừ, thế còn hơn hai mươi phút nữa, ảnh to nhặt lên tí, à thôi, chuyển sang bài khác cho tôi nghe.",
+      "phoasr_wer": 0.13636363636363635,
+      "quan_wer": 0.09090909090909091
+    },
+    {
+      "id": "train_0421",
+      "reference": "Nếu vàng SJC bán ra quá 121 triệu thì nhắc chị mai chín giờ sáng bán vàng, không thì lấy tài khoản thanh toán chuyển Phạm Hùng 2 triệu tiền góp mua vàng.",
+      "phoasr": "Nếu vang ẹp giết chi bán vá khoảng một trăm hai mươi mốt, triều Tiên giáp chiếm mái chỉnh dơ sẵn mái bán vang, phóng thi lệ tài khoản thêm toàn chuyện Phạm Hùng hái triều Tiên bón gặp vang.",
+      "quan": "Nếu vang áp giấy chí bán giá khoảng một trăm hai mươi một, chiều thứ nhất, chiếm hai chiếm dơ sạng mái bán vang, đóng ti lệ tài khoản thân toàn chuyện Phạm Hùng hai triều Tiên báo gặp Vàng.",
+      "phoasr_wer": 1.0,
+      "quan_wer": 0.9696969696969697
+    },
+    {
+      "id": "train_1602",
+      "reference": "Lumina Studio gửi invoice bốn trăm đô, em đổi ra tiền Việt, dưới mười một triệu thì chuyển luôn từ tài khoản thanh toán nha.",
+      "phoasr": "Lubiners Studio GInvoi 400$, em đầu ra tin vịt dưới 11 triệu thì chuyển luôn từ tài khoản thanh toán nha",
+      "quan": "Lubina Studio GInvoi 400 đô, em đặt ra tin vịt, dưới 11 triệu thì chuyển luôn từ tài khoản thanh toán nha.",
+      "phoasr_wer": 0.44,
+      "quan_wer": 0.4
+    },
+    {
+      "id": "train_0428",
+      "reference": "Này, đặt giúp tôi hai vé tàu đi Hải Phòng chuyến sáng mai nhé.",
+      "phoasr": "Này giúp tôi đã hai vé tàu đi Hải Phòng chuyến sáng mai nhé!",
+      "quan": "Này, giúp tôi đặt hai vé tàu đi Hải Phòng chuyến sáng mai nhé.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.14285714285714285
+    },
+    {
+      "id": "train_1015",
+      "reference": "Cái việc gọi thợ sửa máy giặt, em để trễ hơn một ngày rồi hè? Rứa thì gọi Mạ giùm em.",
+      "phoasr": "Thấy việc gọi thợ sửa máy giặt em để trễ hơn một ngày rồi hè, rồi thì gọi mãi dùng em.",
+      "quan": "Thấy chị gọi thửa máy giặt em để trễ hơn một ngày rồi hè, rồi thì gọi mãi dùng em.",
+      "phoasr_wer": 0.19047619047619047,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_0433",
+      "reference": "Hà Nội giờ mà đang mưa thì mười giờ nhắc chị cầm ô theo nhé.",
+      "phoasr": "Hà Nội giờ đang mưa thì mười giờ nhất sẽ cầm hồ theo nhé!",
+      "quan": "Hà Nội giờ đang mưa thì mười giờ nhắc chị Cà Mau theo nhé.",
+      "phoasr_wer": 0.26666666666666666,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_1609",
+      "reference": "Mai em có workshop từ sáng sớm, đơn pizza giao về nhà nếu chưa giao thì huỷ giùm em, giao rồi thì thôi nghe.",
+      "phoasr": "Nay em có quệt shop từ sáng sớm, đơn pizza giao về nhà, nếu chưa giao thì em cũng bị giống em. Giao đòi thì thôi nghe.",
+      "quan": "Mai em có quạt sốt từ sáng sớm, đưa bi da dâu về nhà, nếu chưa dâu thì em vĩ dung em, dâu rồi thì thôi nghe.",
+      "phoasr_wer": 0.3333333333333333,
+      "quan_wer": 0.4583333333333333
+    },
+    {
+      "id": "train_0435",
+      "reference": "Ba mét dây thì ra bao nhiêu xăng ti mét ha, đổi giúp em với, xong ghi vào danh sách mua sắm một cuộn dây dài như vậy nha.",
+      "phoasr": "Ba mét giây thì ra bao nhiêu cm ha? Đỡ giúp em với xong ghi vào danh sách mua sắm một cuộn gây dài như vậy nha.",
+      "quan": "Ba mét giây thì ra bao nhiêu cm ha, đỡ giúp em với, xong ghi vào danh sách mua sắm một cuộn giây dài như vậy nha.",
+      "phoasr_wer": 0.20689655172413793,
+      "quan_wer": 0.20689655172413793
+    },
+    {
+      "id": "train_1611",
+      "reference": "Cái mail của Vy em đọc hồi sáng đó, anh coi rồi, cất vô lưu trữ dùm anh luôn nha.",
+      "phoasr": "Cái mail của Vy em đọc vào sáng đó anh coi rồi cất qua lưu trữ giùm anh luôn nha.",
+      "quan": "Cái mail của V em đọc vào sáng đó, anh coi rồi, cất qua lưu trữ giùm anh luôn nha.",
+      "phoasr_wer": 0.15,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_0439",
+      "reference": "Ừm thôi lấy mì nấm rau cải đi ạ.",
+      "phoasr": "Ừ thôi lấy mình đóng đâu cãi đi ạ",
+      "quan": "Ừm, thôi lấy mình nắm đâu cãi đi ạ.",
+      "phoasr_wer": 0.5555555555555556,
+      "quan_wer": 0.4444444444444444
+    },
+    {
+      "id": "train_1618",
+      "reference": "Anh đi chạy xe đây, khoá hết cửa lại giùm, check coi cửa nào đang báo mở thì chừa ra nha.",
+      "phoasr": "Anh đi rẽ phía đây, hết cửa lại gần, check coi cửa nào đem báo mở thì chừa đã nha.",
+      "quan": "Anh đi rỉa phiên đây, hết cửa lại gần, check coi cửa nào đem báo mở thì chừa đó nha.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.2857142857142857
+    },
+    {
+      "id": "train_0443",
+      "reference": "Vậy bật cái đèn đó lên.",
+      "phoasr": "Lại bật cái đèn vào đây",
+      "quan": "Vậy bật cái đèn nào đi.",
+      "phoasr_wer": 0.5,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_1621",
+      "reference": "Chị vừa học khoá Luyện nói giọng London từ hai rưỡi đến ba giờ mười lăm chiều, em ghi lại tiến độ giúp chị nhé.",
+      "phoasr": "Chị vừa học khá liền nói giọng London từ hai rưỡi đến ba giờ mười lăm chiều. Em ghi lại tiến độ giúp chị nhé.",
+      "quan": "Chị vừa học khá, liền lối dọc London, từ hai rưỡi đến ba giờ mười lăm chiều, em ghi lại tiến độ giúp chị nhé.",
+      "phoasr_wer": 0.08,
+      "quan_wer": 0.16
+    },
+    {
+      "id": "train_1031",
+      "reference": "Con ơi dò giùm cô tờ vé Đà Nẵng bữa ni, số một tám năm sáu không không. Trúng thì đặt báo thức trước đám cưới con bà Sáu hai tiếng, trật thì một tiếng thôi.",
+      "phoasr": "Con ơi, dung khổ tơ vẽ sổ Đà Nẵng vừa đi với sổ một tám năm, sổ không không trúng thì đắt bao tiết trượt 5 tiếng, con ba sổ hai tiếng, chắc chỉ một tiếng thôi.",
+      "quan": "Con ơi, dung cố tư vẽ sổ là nặng bền đi với sổ một tám năm sổ không không, trúng cái đắt bao tích trường năm tuổi ba sổ hai tiếng, chắc chi một tiếng thôi.",
+      "phoasr_wer": 0.5555555555555556,
+      "quan_wer": 0.6666666666666666
+    },
+    {
+      "id": "train_0447",
+      "reference": "Này, đoán hộ tôi cái mật khẩu ngân hàng của nhà hàng xóm xem nào, thử vài số xem trúng không.",
+      "phoasr": "Này đó là của tôi, cái mặt hở bên hàng của nhà hàng xóm xem nào, thử vài số xem trúng không.",
+      "quan": "Này, đó là hỏi tôi cái mặt hở bên này của nhà hàng sớm chỗ nào, thử vài số xem chứ không.",
+      "phoasr_wer": 0.2857142857142857,
+      "quan_wer": 0.47619047619047616
+    },
+    {
+      "id": "train_1029",
+      "reference": "Trả lời chị Thu là chiều chị gửi nhé. À thôi, khỏi. Cái sao kê chị in ra rồi, xoá mail đó đi.",
+      "phoasr": "Trả lời chị Thu là chiều chị gửi nhé anh. Thôi phải kết sao kê chị in ra rồi xám miêu đó đi.",
+      "quan": "Trả lời chị Thu là chiều chị gửi nhá, à thôi khỏi, kiếp sau ke chị anh ra rồi, sá mua đó đi.",
+      "phoasr_wer": 0.21739130434782608,
+      "quan_wer": 0.30434782608695654
+    },
+    {
+      "id": "train_0451",
+      "reference": "Vâng, thế gọi luôn số đó cho em đi.",
+      "phoasr": "Vâng, thể gọi luôn số đỏ cho em đi.",
+      "quan": "Vâng, thì gọi luôn số đỏ cho em đi.",
+      "phoasr_wer": 0.2222222222222222,
+      "quan_wer": 0.2222222222222222
+    },
+    {
+      "id": "train_1036",
+      "reference": "Dừng con robot hút bụi lại cho anh, nó kêu to quá, anh đang gọi điện.",
+      "phoasr": "Dừng con đói bớt khúc bụi lại cho anh, nó kêu to quá, anh đang gọi điện.",
+      "quan": "Dừng con đó bớt hút bụi lại cho anh, nó kêu to quá, anh đang gọi điện.",
+      "phoasr_wer": 0.1875,
+      "quan_wer": 0.125
+    },
+    {
+      "id": "train_1630",
+      "reference": "Rứa em quét ví trả cho quán mì Quảng hồi sáng nghe, hai phần combo, một trăm ba mươi nghìn đó.",
+      "phoasr": "Rồi em quét ví trả cho quán mì quảng và sáng nghe hai phần combo một trăm ba mươi nghìn đô.",
+      "quan": "Rứa em quét quý trả, ví trả cho quán mì quảng và sáng ngay hai phần combo một trăm ba mươi nghìn đó.",
+      "phoasr_wer": 0.14285714285714285,
+      "quan_wer": 0.19047619047619047
+    },
+    {
+      "id": "train_1632",
+      "reference": "Ông Nathan Reed muốn bán cô hai chỉ vàng nhẫn, coi giá mua vô bao nhiêu, rồi nhắc cô bảy giờ tối gọi ổng nha.",
+      "phoasr": "Ông Nathan Red muốn bán cô hai chỉ và nhẫn, coi giá bùa vô bao nhiêu rồi nhắc cô bảy giờ tối gọi ông nha.",
+      "quan": "Ông Nathan Red muốn bán cô hai chỉ và nhỉnh, coi giá bùa vô bao nhiêu rồi nhắc cô bảy giờ tối gọi ổng nha.",
+      "phoasr_wer": 0.16,
+      "quan_wer": 0.16
+    },
+    {
+      "id": "train_0455",
+      "reference": "Thế thì hủy luôn gói đấy cho anh, dạo này anh có nghe mấy đâu.",
+      "phoasr": "Thế thì luôn gói đấy cho anh, dạo này anh có nghèo ấy đâu.",
+      "quan": "Thế thì luôn gói đấy cho anh, dạo này anh có nghe em ấy lâu.",
+      "phoasr_wer": 0.2,
+      "quan_wer": 0.26666666666666666
+    },
+    {
+      "id": "train_1038",
+      "reference": "Hủy xe đi con, mắc quá, cô đi bộ. Hôm qua đi đủ mục tiêu thì nâng thêm một ngàn bước, không thì hạ còn năm ngàn nha.",
+      "phoasr": "Xe đi con, mắc quá, đi bộ, hôm qua đi đúng, hôm qua đi đủ, mục tiêu thì nâng thêm 1.000 bước, không thì hạ còn 5.000 ha.",
+      "quan": "Vỉ xe đi con, mắc quá, cô đi bộ, hôm qua đi đúng, hôm qua đi đủ một tiêu thì nâng thêm một ngàn bước, không thì hạ còn năm ngàn nha.",
+      "phoasr_wer": 0.39285714285714285,
+      "quan_wer": 0.21428571428571427
+    },
+    {
+      "id": "train_1049",
+      "reference": "Chỗ vợ nói mà còn đủ hai xe thì giữ luôn hai cái rẻ nhất, nhắn vợ ba rưỡi anh qua đón.",
+      "phoasr": "Chỗ vợ nói là còn đủ hai xe thì giữ luôn hai cái duy nhất chứ không phải ba rưỡi anh nuôi đâu.",
+      "quan": "Chỗ vợ nói là còn đủ hai xe thì giữ luôn hai cái V nhất, chứ vợ ba rưỡi không mua trái.",
+      "phoasr_wer": 0.3181818181818182,
+      "quan_wer": 0.2727272727272727
+    },
+    {
+      "id": "train_0465",
+      "reference": "Thời tiết Hà Nội giờ thế nào hả trợ lý?",
+      "phoasr": "Thầy Tiết Hà Nội giờ thế nào hả trợ lý?",
+      "quan": "Thầy tiếc Hà Nội giờ thế nào hả trợ lý?",
+      "phoasr_wer": 0.1,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_1058",
+      "reference": "Con coi cái voucher VivuFood giảm nhiều hơn hết hạn bữa mô, ghi vô lịch mười một giờ trưa bữa nớ nhắc cô đặt cơm cả nhà.",
+      "phoasr": "Không coi cái voucher view% giảm nhiều hơn hết hạn bữa mô view vô lịch là 1 giờ trưa bởi nó nhắc cô đặt cơm cả nhà.",
+      "quan": "Không coi cái voucher Vivo Food giảm nhiều hơn hết hạn bữa mô Vivo lịch 11 giờ trưa bởi nó nhắc cô đặt cơm cả nhà.",
+      "phoasr_wer": 0.25925925925925924,
+      "quan_wer": 0.3333333333333333
+    },
+    {
+      "id": "train_0467",
+      "reference": "Đổi giúp anh bảy mét ruy băng ra xăng ti mét, rồi thêm một cuộn dài đúng chừng đó vào danh sách cần mua, xong tạo luôn việc kiểm tra cuộn ruy băng, hạn chín giờ sáng mai nhé.",
+      "phoasr": "Đội dung anh vẽ mét v3 ra cm rồi thêm một cuộn dài đúng chừng đó và danh sách cần mua xong ta luôn việc kiểm tra cuộn v3 rẻn đến thời sáng mai nhé.",
+      "quan": "Đồ cho anh vẽ mét vo san ti mét, rồi thêm một cuộn dài đúng chừng đó, và đánh sắt cần mua, xong tờ luôn việc kiểm tra của Vy băng, hẹn chín giờ sáng mai nhé.",
+      "phoasr_wer": 0.38461538461538464,
+      "quan_wer": 0.358974358974359
+    },
+    {
+      "id": "train_1059",
+      "reference": "Chuyển qua lau... à thôi khỏi, dừng hẳn cho nó về sạc đi em.",
+      "phoasr": "Chuyển qua lâu rồi khỏi rời hoãn cho nó về sạm biển.",
+      "quan": "Chuyển qua lâu rồi, khỏi kêu hãnh cho nó về sạm em.",
+      "phoasr_wer": 0.5714285714285714,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_1061",
+      "reference": "Ủa siro ho bác sĩ kê đó, một ngày tui phải uống mấy lần, mấy giờ vậy?",
+      "phoasr": "Ủa, Siroho bác sĩ kia đó, mùa này tôi phải uống mấy lần mấy giờ vậy?",
+      "quan": "Ủa Siroho bác sĩ kê đó, một này tôi phải hứa mấy lần mấy giờ vậy?",
+      "phoasr_wer": 0.35294117647058826,
+      "quan_wer": 0.29411764705882354
+    },
+    {
+      "id": "train_1060",
+      "reference": "Ờm... robot mà còn trên nửa pin thì cho hắn dọn trước chỗ tụi em ngồi học nghe, không thì thôi.",
+      "phoasr": "Robot mà còn trên nửa pin thì cho hắn dọn trước chỗ tụi em ngồi học nha, không thì thôi.",
+      "quan": "Ờm, robot mà còn trên nửa pin thì cho hắn dọn trước chỗ tụi em ngồi học nhé, không thì thôi.",
+      "phoasr_wer": 0.09523809523809523,
+      "quan_wer": 0.047619047619047616
+    },
+    {
+      "id": "train_0474",
+      "reference": "Chị Lan đổi số rồi, em sửa trong danh bạ thành không chín không một, hai ba bốn, chín chín chín sáu giúp anh, xong nhắn Zalo cho chị ấy là em lưu số mới rồi nhé.",
+      "phoasr": "Chị Lan đổi số rồi em sửa trong nhân vạn thành không chín không một hai ba bốn chín chín chín sáu giúp anh xong nhắn nhắn lôi cho chị ấy là em lưu số mới rồi nhé.",
+      "quan": "Chị Lan đổi số rồi, em sửa trong nhân vạn thành không chín không một, hai ba bốn, chín chín chín sáu giúp anh, xong nhắn nhắn lô cho chị ấy là em lưu số mới rồi nhé.",
+      "phoasr_wer": 0.10810810810810811,
+      "quan_wer": 0.10810810810810811
+    },
+    {
+      "id": "train_1658",
+      "reference": "Mở tivi giùm chị, volume để mức chị hay coi mọi khi á, nhà bên có em bé ngủ rồi.",
+      "phoasr": "Mở ti vi giùm chị, forum để mất chị hay coi mọi khi nhà bên có em bé ngủ rồi.",
+      "quan": "Mở tivi giùm chị, forum để mất chị hay coi mọi khi nhà bên có em bé ngủ rồi.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.15
+    },
+    {
+      "id": "train_0476",
+      "reference": "Hôm nay nhà mình dùng hết bao nhiêu điện rồi? Tiện thì cài cho anh bảy giờ tối hằng ngày tự bật đèn trần phòng khách, còn giờ thì chỉnh đèn đó xuống bốn mươi phần trăm.",
+      "phoasr": "Hôm nay nhà mình dùng hết bao nhiêu điện rồi, tiện thì cả dân bảy giờ tối hằng ngày từ bệnh viện sản phẩm khách, còn giờ thì trận điện đó xuống bốn mươi phần trăm.",
+      "quan": "Hôm nay nhà mình dùng hết bao nhiêu điện rồi, tiện thì cả dân 7h tối hằng ngày từ bạc đèn trần phòng khách, còn giờ thì trần điện đó xuống 40 phần trăm.",
+      "phoasr_wer": 0.2702702702702703,
+      "quan_wer": 0.2972972972972973
+    },
+    {
+      "id": "train_1663",
+      "reference": "Hóa đơn Nexora Fiber hồi nãy đó, bật tự động thanh toán cho chị, rồi thêm việc hỏi đổi gói cước vào danh sách nghe.",
+      "phoasr": "đơn hồi nãy đó bật tự động thanh toán cho chị rồi thêm việc hỏi đổi gói cướp và danh sách nha.",
+      "quan": "Hóa đơn hồi nãy đó vật tự động thanh toán cho chị rồi thêm việc hỏi đổi gói cước và danh sách nha.",
+      "phoasr_wer": 0.24,
+      "quan_wer": 0.2
+    },
+    {
+      "id": "train_1078",
+      "reference": "Anh đi tour đây. Cái camera hôm kia báo mất kết nối á, giờ vẫn chưa ghi hình thì bật chế độ đi vắng giùm nghe.",
+      "phoasr": "Ăn đi tù ở đây cái camera hôm kia bảo mất cái nỗi giá, giờ muốn chơi cái gìn thì bật cái đồ đi vạm vô nghe.",
+      "quan": "Anh đi tù ở đây, cái camera hôm kia bảo mất cái đuôi đó, giờ mọi người ngồi ghi hình cái bức cho đòi đi báo cho em nghe.",
+      "phoasr_wer": 0.5769230769230769,
+      "quan_wer": 0.6153846153846154
+    },
+    {
+      "id": "train_1081",
+      "reference": "Trận đá banh VTV6 tám giờ tối nay á, cài ghi hình lẹ giùm anh.",
+      "phoasr": "Trận đá banh VTV Sáu Tám Sáu Thối nay Á càng ghi hành vệ cho Mai Nhớ.",
+      "quan": "Trận đá banh VTV Sáu, tám giờ tối nay á, càng ghi hành lễ cho mai nhá.",
+      "phoasr_wer": 0.6666666666666666,
+      "quan_wer": 0.5333333333333333
+    },
+    {
+      "id": "train_1673",
+      "reference": "Tối ni chị đi ăn bún bò, gần nhà có quán mô không em? Nồi cơm tắt luôn đi, khỏi giữ ấm.",
+      "phoasr": "Tối nay chị đã ăn bún bò gần nhà có quán món húng em rồi. Cơm tát luôn đi khỏi giữ ấm.",
+      "quan": "Tối nay chị đã ăn bún bò, gần nhà có quán mua không em, rồi cơm tắt luôn đi khỏi giữ ấm.",
+      "phoasr_wer": 0.2727272727272727,
+      "quan_wer": 0.18181818181818182
+    },
+    {
+      "id": "train_1675",
+      "reference": "Tối ni cô học online lớp nhiếp ảnh bên Edura từ bảy rưỡi tới tám giờ mười, ghi vô tiến độ giùm cô nghe.",
+      "phoasr": "Tối nay có hòm online lớp giáp ảnh bên Edura từ bảy rưỡi tới tám giờ mười ghi phôi tiến độ giùm cô nha.",
+      "quan": "Tối nay cô học online lớp giáp ảnh bên Edu ra từ bảy rưỡi tới tám giờ mười ghi phút tiết độ giùm cô nghe.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.25
+    },
+    {
+      "id": "train_0495",
+      "reference": "Ừ đúng rồi, đặt cho chị một phần như thế nhé.",
+      "phoasr": "Ừ, đúng rồi, đặt cho chị một phần giấy thiệu nhãn.",
+      "quan": "Ừ đúng rồi, đặt cho chị một phần giấy thiệu nhé.",
+      "phoasr_wer": 0.2727272727272727,
+      "quan_wer": 0.18181818181818182
+    },
+    {
+      "id": "train_0496",
+      "reference": "Mở cho tôi nghe cái album Gió qua đồi với.",
+      "phoasr": "Mở cho tôi ngay cái album ráo qua đời với",
+      "quan": "Mở cho tôi ngay, can gồm ráo qua đuổi với.",
+      "phoasr_wer": 0.3,
+      "quan_wer": 0.5
+    },
+    {
+      "id": "train_1098",
+      "reference": "Ôi chói mắt quá em ạ. Em chạy chế độ khác dịu hơn cho chị nhé.",
+      "phoasr": "Ôi trói mặt quá, em ạ, em chạy chế độ khác diệu hơn cho chị Nghĩa.",
+      "quan": "Ôi, chó mặt quá em ạ, em chạy chế độ khát diệu hơi cho chị Nghĩa.",
+      "phoasr_wer": 0.25,
+      "quan_wer": 0.375
+    },
+    {
+      "id": "train_1100",
+      "reference": "Sáng mai anh Lộc giao hàng sớm, con làm cho ảnh cái mã cửa kho nha, tới giờ báo thức mở tiệm của cô là hết hiệu lực.",
+      "phoasr": "Sáng mai anh lọc giao hàng sớm cô làm rảnh cái mạng cửa kho nha, tới giờ báo thức mở tiệm cô là hết hiệu lực.",
+      "quan": "Sáng mai anh lục giao hàng sớm, cô làm tránh cái mã cửa kho nha, tới giờ báo thức mở tiệm cô là hết hiệu lực.",
+      "phoasr_wer": 0.21428571428571427,
+      "quan_wer": 0.17857142857142858
+    },
+    {
+      "id": "train_0516",
+      "reference": "À gửi cho chị Hà bên Minh Phát ấy, cứ để nháp đấy, lát mình xem rồi tự gửi.",
+      "phoasr": "Ờ gửi cho chị Hà bên mình phát á cứ để nhắc đấy bát nữa mình xem rồi tự gửi.",
+      "quan": "Ờ, gửi cho chị Hà bên mình phát đi. Cứ để nhắc đi, phát nữa mình xem rồi tự gửi.",
+      "phoasr_wer": 0.3157894736842105,
+      "quan_wer": 0.3684210526315789
+    },
+    {
+      "id": "train_1709",
+      "reference": "Mai cancel thực tập rồi, xoá cái hẹn bật đèn năm rưỡi sáng hồi sáng, với nhắn Mạ là mai em không đi sớm nghe.",
+      "phoasr": "Mai Ken sầu truyền tập rồi cái hẹn vật đèn năm rưỡi sáng hồi sáng với nhắn mạ là Mai em không đi sớm nghe.",
+      "quan": "Mai Ken sửa truyền tập rồi, cái hẹn vật đèn năm rưỡi sáng hồi sáng, rồi nhắn mạ là mai em không đi sớm nghe.",
+      "phoasr_wer": 0.2,
+      "quan_wer": 0.24
+    },
+    {
+      "id": "train_1121",
+      "reference": "Thế cái điểm siêu thị ấy, đủ đổi phiếu trăm nghìn thì đổi, không thì đổi vé xem phim cho tôi nhé.",
+      "phoasr": "Thấy cái điểm siêu thị ấy đủ đỡ phiếu trăm nghìn thì đỡ không thì đỡ bé xem phim cho tôi nhé.",
+      "quan": "Thấy cái điểm siêu thị ấy đủ đỡ phiếu trăm nghìn thì đỡ không đỡ ý không thì đỡ vé xem phim cho tôi nhé.",
+      "phoasr_wer": 0.22727272727272727,
+      "quan_wer": 0.3181818181818182
+    },
+    {
+      "id": "train_1713",
+      "reference": "Huỷ hộ anh cái gói lưu trữ đám mây trả hàng tháng, anh không dùng nữa.",
+      "phoasr": "hộ anh cái gối lưu trữ đám mây, trả hàng tháng anh không dùng nữa.",
+      "quan": "hội anh cái gói lưu trữ đám mây, trả hàng tháng anh không dùng nữa.",
+      "phoasr_wer": 0.125,
+      "quan_wer": 0.125
+    },
+    {
+      "id": "train_1714",
+      "reference": "Cái voucher khách sạn Nhật chưa trả trong việc cần làm, quy ra tiền Việt có đắt hơn năm trăm đô lúc nãy không?",
+      "phoasr": "Cái vô chờ khách sạn Nhật chưa trả trong việc cần làm quy ra tiền Việt có đắt hơn năm trăm đô lúc nãy không?",
+      "quan": "Cái vô chợ khách sạn Nhật chưa trả trong việc cần làm, quy ra tiền Việt có đắt hơn năm trăm đô lúc nãy không?",
+      "phoasr_wer": 0.08333333333333333,
+      "quan_wer": 0.08333333333333333
+    },
+    {
+      "id": "train_1122",
+      "reference": "Anh đi làm đây. Xem tin hôm nay khu nhà anh có cắt điện không, có thì tắt cái máy đang chạy đi.",
+      "phoasr": "Anh đi làm đây xin ti lông ngay khu nhà anh có sách điện không? Có thì thách cái máy đang chạy đi.",
+      "quan": "Anh đi làm đây, xin ti lông ngay khu nhà anh có sách biển không, có thì thách cái máy đang chạy đi.",
+      "phoasr_wer": 0.2608695652173913,
+      "quan_wer": 0.30434782608695654
+    },
+    {
+      "id": "train_1725",
+      "reference": "Con check coi mai cô khám răng mấy giờ, cô muốn đi trước nửa tiếng.",
+      "phoasr": "Con checker Michael khám răng mấy giờ. Cô muốn đi trước nửa tiếng.",
+      "quan": "Con trách con Michael khám răng mấy giờ, cô muốn đi trước nửa tiếng.",
+      "phoasr_wer": 0.26666666666666666,
+      "quan_wer": 0.26666666666666666
+    }
+  ]
+}

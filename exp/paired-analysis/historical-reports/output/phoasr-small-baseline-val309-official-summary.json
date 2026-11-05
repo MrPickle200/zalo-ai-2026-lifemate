@@ -1,0 +1,19 @@
+{
+  "metric": "BTC official sample score",
+  "split": "fixed train-only val309",
+  "matching": "exact tool name and arguments; duplicate calls matched by multiplicity",
+  "validation_samples": 309,
+  "official_score_0_100": 4.914470642625982,
+  "hash_match_samples": 72,
+  "hash_match_rate": 0.23300970873786409,
+  "gold_replay_failures": 0,
+  "gold_replay_state_matches_label": 309,
+  "schema_rejected_submitted_calls": 0,
+  "matched_calls_total": 100,
+  "submitted_calls_total": 692,
+  "gold_calls_total": 734,
+  "aggregate_exact_call_precision": 0.14450867052023122,
+  "aggregate_exact_call_recall": 0.1362397820163488,
+  "aggregate_exact_call_f1_diagnostic": 0.14025245441795234,
+  "proxy_score_mean_diagnostic": 0.22864848204654029
+}

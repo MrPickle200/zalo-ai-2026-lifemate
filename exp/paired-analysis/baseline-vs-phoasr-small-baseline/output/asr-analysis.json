@@ -1,0 +1,239 @@
+{
+  "samples": 309,
+  "wer_cer": {
+    "whisper_small": {
+      "wer": 0.5108359133126935,
+      "cer": 0.3656978601085915,
+      "macro_utterance_wer": 0.5110510730227626,
+      "macro_utterance_cer": 0.365478720185229
+    },
+    "phoasr_whisper_small": {
+      "wer": 0.28040689960194604,
+      "cer": 0.2012592964365561,
+      "macro_utterance_wer": 0.28801872724714717,
+      "macro_utterance_cer": 0.2061415374744291
+    }
+  },
+  "baseline": {
+    "proxy": 0.19187085837571274,
+    "tool_f1": 0.1154562383612663,
+    "state_match": 0.24919093851132687
+  },
+  "phoasr": {
+    "proxy": 0.22864848204654029,
+    "tool_f1": 0.1693480101608806,
+    "state_match": 0.2750809061488673
+  },
+  "paired": {
+    "improved": 55,
+    "worsened": 24,
+    "unchanged": 230,
+    "proxy_gain": 0.03677762367082754,
+    "oracle_gap_closed_proxy": 0.36730189707235833,
+    "oracle_gap_closed_tool_f1": 0.4228670835405967,
+    "oracle_gap_closed_state": 0.31998848041470507
+  },
+  "improved_asr_examples": [
+    {
+      "id": "train_0194",
+      "reference": "Cái lịch cà phê với gia đình mai dời muộn thêm 30 phút, đặt báo thức trước đó một tiếng, rồi nhắn SMS cho Bác Ba giờ mới nhé.",
+      "whisper": "Tất cả các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có thể nhìn thấy các bạn có",
+      "phoasr": "Đó là cà phê với gia đình. Mai dài muộn thêm ba mươi phút, thật bớt hết trước đó một tiếng gọi nhắn SS cho bác ba giờ mới nhé.",
+      "wer_whisper": 6.586206896551724,
+      "wer_phoasr": 0.3448275862068966,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0378",
+      "reference": "Ờ… mai nếu mưa thì dời lịch chạy bộ sáng mai muộn hai tiếng, rồi nhắn SMS cho Minh báo giờ mới, còn không mưa thì thôi.",
+      "whisper": "Mai nếu mưa thì giờ lịch chạy bộ sáng mai mũi 2 tiếng, còn nhắn hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm nay hôm",
+      "phoasr": "Ờ mai nếu mưa thì giờ là chạy bộ, sáng mai mùng hai tiếng còn nhắn SMS cho mình báo giờ mới, còn không mưa thì thôi.",
+      "wer_whisper": 4.962962962962963,
+      "wer_phoasr": 0.18518518518518517,
+      "baseline_score": 0.5,
+      "phoasr_score": 0.5
+    },
+    {
+      "id": "train_0761",
+      "reference": "Giờ em xem từ sáng tới giờ có cảnh báo gì ở cổng phụ không, có thì làm như chị dặn nha.",
+      "whisper": "và chúng ta sẽ nhận được những tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng tình trạng",
+      "phoasr": "Giờ em xem từ sáng tới giờ có cảnh báo với bọn phụ không? Có thể làm cho chị dặn nha.",
+      "wer_whisper": 4.2272727272727275,
+      "wer_phoasr": 0.22727272727272727,
+      "baseline_score": 0.9,
+      "phoasr_score": 0.8333333333333333
+    },
+    {
+      "id": "train_1060",
+      "reference": "Ờm... robot mà còn trên nửa pin thì cho hắn dọn trước chỗ tụi em ngồi học nghe, không thì thôi.",
+      "whisper": "Gia phim",
+      "phoasr": "Robot mà còn trên nửa pin thì cho hắn dọn trước chỗ tụi em ngồi học nha, không thì thôi.",
+      "wer_whisper": 1.0,
+      "wer_phoasr": 0.09523809523809523,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.75
+    },
+    {
+      "id": "train_0568",
+      "reference": "Trả giùm em tiền điện tháng chín đi, trừ thẳng vô ví điện tử nha.",
+      "whisper": "Trải gấp mẹ tình điện thăng chính đây, trở thành vô vết điện tổ nha!",
+      "phoasr": "Trả giùm em tiền điện tháng Chín đi trừ thẳng vô ví điện tử nha.",
+      "wer_whisper": 0.7333333333333333,
+      "wer_phoasr": 0.0,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.75
+    },
+    {
+      "id": "train_0642",
+      "reference": "À, hiệu thuốc quanh phố Huế ấy.",
+      "whisper": "À, hiểu chú quần phố hỏi đấy.",
+      "phoasr": "À, hiệu thuốc quanh phố Huế ấy.",
+      "wer_whisper": 0.7142857142857143,
+      "wer_phoasr": 0.0,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0258",
+      "reference": "Tắt hết đèn tầng hai, trừ phòng nào đang bật điều hoà thì để nguyên nhé.",
+      "whisper": "Tất cả các bạn đã đăng ký kênh của mình và nhé!",
+      "phoasr": "Tắt hết đèn tầng hai, trừ Phong Nang đang bật điều thì chẳng biết nhé!",
+      "wer_whisper": 0.9375,
+      "wer_phoasr": 0.3125,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0500",
+      "reference": "Chuyển cho Hòa một trăm hai mươi nghìn qua ví giúp anh cái.",
+      "whisper": "Chuyển cho khoảng 120.000 quán ví dụ banh cái.",
+      "phoasr": "Chuyển cho một trăm hai mươi nghìn qua ví giúp anh cái.",
+      "wer_whisper": 0.6923076923076923,
+      "wer_phoasr": 0.07692307692307693,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0502",
+      "reference": "Gọi giúp tôi tổng đài hỗ trợ, số một chín không không, một hai ba bốn ấy.",
+      "whisper": "Vợ giúp tôi tổng đài hỗ trợ số 19001234A.",
+      "phoasr": "Gọi giúp tôi tổng đài hỗ trợ số một, chín không không một, hai, ba, bốn ấy.",
+      "wer_whisper": 0.5882352941176471,
+      "wer_phoasr": 0.0,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.8333333333333333
+    },
+    {
+      "id": "train_0428",
+      "reference": "Này, đặt giúp tôi hai vé tàu đi Hải Phòng chuyến sáng mai nhé.",
+      "whisper": "Này, giúp tụi đà hãy vẽ tạo đi hãy phòng chuyển siếng lái nhé.",
+      "phoasr": "Này giúp tôi đã hai vé tàu đi Hải Phòng chuyến sáng mai nhé!",
+      "wer_whisper": 0.7142857142857143,
+      "wer_phoasr": 0.14285714285714285,
+      "baseline_score": 1.0,
+      "phoasr_score": 0.5
+    },
+    {
+      "id": "train_1038",
+      "reference": "Hủy xe đi con, mắc quá, cô đi bộ. Hôm qua đi đủ mục tiêu thì nâng thêm một ngàn bước, không thì hạ còn năm ngàn nha.",
+      "whisper": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn",
+      "phoasr": "Xe đi con, mắc quá, đi bộ, hôm qua đi đúng, hôm qua đi đủ, mục tiêu thì nâng thêm 1.000 bước, không thì hạ còn 5.000 ha.",
+      "wer_whisper": 0.9642857142857143,
+      "wer_phoasr": 0.39285714285714285,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0405",
+      "reference": "Tắt hết đèn tầng 2 giúp tôi, phòng nào đang bật điều hoà thì để nguyên đèn nhé.",
+      "whisper": "Đã thấy lẹn đằng hai lúc thôi, phong nào lắng bắt yếu hai lấy điện viên lẹn nè.",
+      "phoasr": "Ta thấy đèn tầng hai giúp tôi. Hoàng đạo đang bật điều hành thì điện nguyên đèn nhé.",
+      "wer_whisper": 0.9444444444444444,
+      "wer_phoasr": 0.3888888888888889,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_1265",
+      "reference": "Thôi tắt ti vi đi con. Coi đài Đà Nẵng xổ ra số mấy, rồi chuyển bà Sáu hai trăm tiền vé, con Thảo ba trăm nghe.",
+      "whisper": "Thôi tất tý VD con, coi đại đàn nãng số lai số máy lộ chuyện B6200 thịm bé con theo 300 nha.",
+      "phoasr": "Thôi tắt ti vi đi con, coi đài Đà Nẵng số là số mấy rồi chuyện bà Sáu hai trăm tìm bé con thẹo ba trăm nha\".",
+      "wer_whisper": 0.8148148148148148,
+      "wer_phoasr": 0.25925925925925924,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0151",
+      "reference": "Trả tiền mạng bằng ví điện tử đi, ví không đủ thì trừ vào tài khoản ngân hàng nhé.",
+      "whisper": "Chả thì mà mình với điểm thứ đi, biết không đủ thì chứ vào tại Phản Nân hàng nhé.",
+      "phoasr": "Trả tiền mạng mình ví điện thử đi, ví không đủ thì trừ vào tài khoản ngân hàng nhé.",
+      "wer_whisper": 0.631578947368421,
+      "wer_phoasr": 0.10526315789473684,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.2
+    },
+    {
+      "id": "train_0888",
+      "reference": "Chạy chế độ nhanh thôi em.",
+      "whisper": "Chạy chết hôm nay thôi em",
+      "phoasr": "Chạy chế độ nhanh thôi em",
+      "wer_whisper": 0.5,
+      "wer_phoasr": 0.0,
+      "baseline_score": 0.5,
+      "phoasr_score": 1.0
+    },
+    {
+      "id": "train_0943",
+      "reference": "Chuyển ví anh Lộc tiền mười lăm lít xăng E5, à không, xăng 95 nha con.",
+      "whisper": "Chuyện với An Lọc tiền 15, Mis Sao Nghĩ An Am, à hông, sánh chín vào nhà cáo.",
+      "phoasr": "Chuyển ví anh lọc tiền mười lăm lít xa như En Năm à không? Sáng chín lăm nha con.",
+      "wer_whisper": 1.0,
+      "wer_phoasr": 0.5,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_1144",
+      "reference": "Tính hộ tôi tám mươi nghìn yên, với ba trăm ơ-rô... ấy nhầm, ba trăm đô Mỹ, ra tiền Việt là bao nhiêu.",
+      "whisper": "Chính hỗ to 80.000 yên với 300.000 euro, anh nhẳng 300.000 đô Mỹ là thành biệt bao nhiêu?",
+      "phoasr": "Tính hộ tôi tám mươi nghìn yên với ba trăm euro. Anh nhận ba trăm đô Mỹ ra tiền biệt bao nhiêu?",
+      "wer_whisper": 0.75,
+      "wer_phoasr": 0.25,
+      "baseline_score": 0.5,
+      "phoasr_score": 0.5
+    },
+    {
+      "id": "train_1675",
+      "reference": "Tối ni cô học online lớp nhiếp ảnh bên Edura từ bảy rưỡi tới tám giờ mười, ghi vô tiến độ giùm cô nghe.",
+      "whisper": "Tối nay, có hầm online lớp giúp ảnh men Enduran từ 7.30-8.10 ghi phố tiết nội dùng cuông.",
+      "phoasr": "Tối nay có hòm online lớp giáp ảnh bên Edura từ bảy rưỡi tới tám giờ mười ghi phôi tiến độ giùm cô nha.",
+      "wer_whisper": 0.75,
+      "wer_phoasr": 0.25,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_0037",
+      "reference": "Nếu mai mưa thì huỷ giúp tôi lịch đi chơi công viên sáng mai nhé.",
+      "whisper": "Nếu mang hơ thì hãy để hãy cho tôi đẹp đi cho con viên xem mang hút.",
+      "phoasr": "Nếu mai ngơ thì nghỉ giấc tôi đẹp đi chơi công viên, sáng mai ngớ",
+      "wer_whisper": 0.8,
+      "wer_phoasr": 0.3333333333333333,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.0
+    },
+    {
+      "id": "train_1263",
+      "reference": "Chiều ni cô ra Sao Kim Plaza mua món thứ hai trong ghi chú, con coi danh sách đi chợ có món nớ chưa, chưa có thì thêm vô cho cô.",
+      "whisper": "Chỉu Nikola South Kim Pleasure mua món thứ 2 trong ghê chủ, còn có danh sắt để trợ các món nữa chưa? Chưa có thể thêm bầu chắc ôm.",
+      "phoasr": "Chiều ni cô ra sau kim pờ lai giam mua món thứ hai trong ghi chú, con coi danh sách đi chợ có món nớ chưa, chợ có thì thêm bầu cho cô.",
+      "wer_whisper": 0.6451612903225806,
+      "wer_phoasr": 0.1935483870967742,
+      "baseline_score": 0.0,
+      "phoasr_score": 0.25
+    }
+  ],
+  "metric_note": "Corpus WER/CER are micro-averaged edit counts over the validation corpus; macro utterance rates are also reported. Punctuation/case excluded, Vietnamese whitespace tokenization for WER, whitespace removed for CER."
+}
