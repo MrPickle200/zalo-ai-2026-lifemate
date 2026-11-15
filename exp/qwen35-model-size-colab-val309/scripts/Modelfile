@@ -1,0 +1,5 @@
+FROM ./sft-epoch3-en-Q4_K_M.gguf
+PARAMETER num_ctx 8192
+PARAMETER num_batch 512
+PARAMETER num_predict 768
+PARAMETER temperature 0

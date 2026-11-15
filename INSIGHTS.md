@@ -1,5 +1,12 @@
 # Insights
 
+## Ollama `num_batch` reproducibility and latency pilot (2026-11-05)
+
+- Reproduction was unstable because the effective server batch setting was not recorded in the prior experiment manifest. The archived server runner used `-b 512 -ub 512`; the current default uses `-b 1024 -ub 1024`, despite the same Ollama version, model digest, request payload, prompt and transcript cache. Explicit `num_batch=512` exactly matched all archived calls and state hashes on 60/60 samples. Explicit1024 matched the current implicit-default output on 60/60. The old-vs-current mismatch (36 ordered calls, 21 hashes) is therefore attributed to effective `num_batch` drift, not telemetry instrumentation.
+- On the enriched pilot60, explicit512 vs current default1024 reduced the sample median 6.5% (29.32→27.42s), p95 6.9% (58.71→54.66s), and samples over 30 seconds from 30 to 29. BTC formula was 17.5159 vs 14.0635/100 under exact tool-name/arguments matching, duplicate multiplicity, gold-replayed state-hash gate and M>0; 512 reproduced the archived score. Paired bootstrap intervals for latency and score include zero. Set the application-side Ollama API default explicitly to 512 for reproducibility and faster local iteration; this pilot does not establish an A30 runtime benefit or a val309 score gain. Override with `LIFEMATE_OLLAMA_NUM_BATCH` when testing another value.
+- Ollama prompt/decode duration telemetry shows decode dominated total request work on this run. GPU placement was already 100% GPU; peak VRAM was 3,980/6,141 MiB, and Flash Attention was active in auto mode. No repeated model reload occurred in continuous inference. `num_gpu`, KV q8_0 and keep_alive were not justified by the observed bottlenecks.
+- Limitations: 60 enriched train-only samples, local RTX 4050, and configuration switches can add runner-load time. These scores do not estimate val309 and do not establish A30 <=30-second compliance. Details: `exp/inference-latency-optimization-val60/output/summary.md`.
+
 ## Qwen3.5 thinking/tool-protocol experiment (complete 2026-11-03)
 
 - Full fixed train-only val309 BTC scores (official after local 30s runtime gate; pre-mask diagnostic in parentheses): A no-think JSON **1.3916 (1.3916)**; B no-think native tools **6.3484 (6.4779)**; C thinking JSON **5.6095 (9.2079)**; D thinking native tools **7.2168 (7.4326)**. Calls matched by exact tool name and arguments, duplicates by multiplicity, with gold-state hash gate and ToolEnv replay.
@@ -141,6 +148,13 @@
 - Downstream-oracle selection across all alternatives was skipped to honor the exact-one-ToolEnv-per-sample competition constraint. Most visible source errors remain intent/negation and entity/relation wording (e.g. “huỷ lịch” vs unrelated words, “gọi báo cho Minh” vs “đừng có báo cho mình”); the N-best examples do not establish that these are consistently recoverable.
 - Conclusion: candidate generation has a small but real WER headroom; simple consensus selection is not useful, and no evidence supports a production reranker/fusion yet. Qwen action selection, argument grounding, and multi-step policy remain the primary bottleneck on this hard subset.
 
+## QUAN continuation and CoT screen (2026-11-07)
+
+- Two lower-LR QUAN continuation epochs slightly worsened corpus WER and CER on the same val309 IDs; early stopping retained the existing checkpoint. The extra training did not establish a better ASR candidate, so downstream A/B was a repeated-control check, not a base-vs-fine-tuned comparison.
+- On the fixed enriched cohort60, identical A/B first-request payload hashes still produced differing calls/state hashes on 26/60 samples. This confirms meaningful run-to-run output variance under the current Ollama setup; near-zero paired BTC differences should not drive a model or checkpoint decision.
+- CoT's BTC point estimate was +0.39 over A, but the 95% paired interval `[−7.44,+8.29]` spans zero widely. The local 30-second diagnostic moved −3.89 points, samples over 30 seconds rose 30→36, cap-hit requests 19→23, and generated tokens including thinking rose 8%. Keep the existing prompt; this screen does not justify CoT promotion.
+- The cohort is enriched and local RTX 4050 timing is not an A30 benchmark. See `exp/quan-continuation-cot-v1/output/summary.md` for exact scoring, paired controls, and artifacts.
+
 ## PhoASR N-best expansion — 100 additional validation IDs (2026-11-01)
 
 - The cohort was fixed as the first 100 IDs in validation order after removing the prior hard-30, avoiding any selection based on observed outcomes. Production WER/CER was 0.3638/0.2492; N-best oracle reached 0.3364/0.2279. Oracle WER improved 29/100, tied 71, worsened none.
@@ -155,3 +169,125 @@
 - ASR metrics do not fully determine downstream behavior: a large WER/CER improvement coincided with only eight BTC improvements and four regressions. Inspect per-sample number/unit, time, negation, entity, tool-name/argument, early-stop and over-call fields in `exp/qwen35-track-c-quan-vs-phoasr-val309/output/pilot60/paired-analysis.json` before a larger run. Keep the default transcript unchanged until a larger paired evaluation resolves the uncertainty.
 - Full val309 was not run because the pre-run Track C estimate exceeded four hours (about 5.47h for two branches). These are pilot-only results, not Public LB or A30 runtime estimates.
 - Concrete paired cases include `train_1144`, where QUAN's currency/amount transcript accompanied the two gold `exchange_rate.convert` calls while PhoASR led to five `exchange_rate.get_rate` calls, and `train_0241`, where QUAN produced the gold weather/calendar/cancel sequence while PhoASR created a calendar event. `train_0013` regressed when QUAN produced extra contacts/SMS calls beyond the gold weather call. Treat these as observed paired examples; the transcripts alone do not establish causality.
+
+## Full Track C error analysis — QUAN FT + Qwen3.5 thinking/JSON (2026-11-05)
+
+- Fixed train-only val309, one prediction ToolEnv/sample, exact name+arguments and duplicate-multiplicity matching, hash gate, gold trajectory replay through ToolEnv. BTC formula was **12.9851/100 before the separate 30-second gate**; after applying the competition timeout zero rule it was **7.3571/100**. 114/309 hashes matched; M/U/G=233/293/734; aggregate call F1 diagnostic 0.3698. The 15 exact no-action/hash-match samples still score zero under BTC's M>0 requirement.
+- Generation/runtime dominates this local run: 147/309 samples hit the `num_predict=512` length limit during a failed JSON repair; 23 more had invalid action shape. No ToolEnv schema rejections or runtime exceptions. 177 samples exceeded 30s; mean/p50/p95/max on RTX 4050 were 35.35/33.23/64.65/104.85s. Do not treat local timing as an A30 benchmark.
+- No missing-info calls were predicted despite 47 gold `sys.ask_missing_info` cases. Argument mismatch and under/over-call errors remain substantial. Exact transcript token checks (numeric 60.2%, temporal markers 77.3%, negation 96.4%) are diagnostic only; WER/slot correlation does not establish action causality.
+- Reproduction check against the earlier same-config pilot60: ordered tool calls and state hashes matched 60/60; formula-score delta was exactly zero. The small runtime-gated paired change is timing-only.
+- Follow-up priority: isolate generation-budget vs native protocol because this run has many cap failures and prior Qwen3.5 protocol ablation showed fewer repairs with native calls; then test missing-info behavior; audit post-observation next-action errors; use oracle transcripts only in clearly marked diagnostic branches. Prior retrieval examples did not reduce missing-info errors, cap 5/6/7 did not fix tool routing, and the previous QLoRA next-action run scored below baseline, so these are not recommended as automatic fixes.
+- Full tables, examples, uncertainty labels, paired pilot comparison, limits, and GO/NO-GO criteria are in `exp/current-config-error-analysis-val309/output/summary.md`.
+
+## `num_predict` 512 vs 768 pilot (2026-11-05)
+
+- On an enriched fixed pilot60, increasing the cap reduced the sample count that hit a generation cap or needed JSON repair from 39 to 18 (53.8%). BTC formula point estimate moved from 14.5820 to 17.5159/100 (+2.9339 points), but paired bootstrap CI [−0.7407,+7.2725] includes zero and only 4 samples improved, 2 worsened, 54 tied. This supports a mechanism effect in the selected cohort, not a val309 score claim.
+- The instrumented 512 replay did not reproduce the archived 512 artifact: 34 ordered call differences, 33 call-multiset differences, 20 hash differences out of 60, with transcripts matching 60/60. Source, prompt, model digest/version and request settings were checked; the output variance remains unexplained. Treat single-run A/B gains cautiously and prioritize resolving reproducibility before broad confirmation.
+- No context-limited requests reached `num_ctx=8192`; all `done_reason=length` requests also reached the configured `num_predict`. Component estimates (UTF-8 characters/4) undercounted Ollama's authoritative prompt count by about 970 tokens at the median, so retain them only as rough relative breakdowns. Thinking remains part of the shared `eval_count`; do not interpret extra generated tokens as a separate reasoning budget.
+- Keep the production default at 512 for now. The pilot cohort was error-enriched, the paired interval crossed zero, and the pre-run full-768 estimate was 4.55h, above the task's four-hour cap. The separate post-run projection of 2.60h does not change the screening-only decision.
+
+## Qwen3.5 thinking generation budget pilot60 (2026-11-06)
+
+- `num_predict` is the total generation cap for each request, including thinking and JSON answer; multiple ReAct requests can occur per sample. Across caps 512/768/1024/1536, the pilot BTC formula means were 16.857/14.460/15.905/14.516 on an enriched train-only cohort. Paired intervals were wide and all included zero; these are not val309 estimates.
+- Raising the cap reduced actual request cap hits from 31 samples at 512 to 3 at 1536, while 1536 had 4/172 requests reach the cap and one separate context-limited candidate. The paired 1536−1024 score trend was negative (−1.389 points, 95% CI [−6.111,+2.778]); there was no reason to open 2048.
+- A same-setting 512 repeat had identical initial request payload hashes for all 60 IDs but differed from the primary 512 run on 17 ordered call sequences and 11 state hashes. It matched the archived pilot exactly, so the primary output is not reproducible under the observed runtime. The quality-selection gate failed; do not pick a cap from the point estimates until this output variance is understood and the controlled comparison is rerun.
+- Prompt/model/version fingerprints matched the prior pilot, but the `agent.py` source hash differs and old per-request telemetry did not record `num_batch`. The new requests explicitly used 512. Do not infer a single cause from these differences; request hashes show identical initial inputs, while generation output still diverged.
+- The initial runner repeated flushed prefixes in artifact files; all duplicates were exact copies, archived, and deduplicated by ID. This was an artifact-writing issue, not repeated ToolEnv inference. Keep the recovery audit with the experiment.
+- Full detail and uncertainty: `exp/qwen35-thinking-budget-val60/output/summary.md` and `output/reproducibility.json`. RTX 4050 timings/GPU readings are local diagnostics only; no A30 compliance claim follows.
+
+
+## Qwen3.5 SFT downstream screen — 2026-11-07
+
+- On the fixed enriched cohort60, the official BTC point estimates were base/no-CoT A 14.97, SFT/no-CoT B 22.84, and SFT+CoT C 26.00. SFT-only paired delta B−A was +7.87 points (95% bootstrap CI [−1.40,+17.37]); adding CoT to SFT C−B was +3.16 [−4.03,+10.74]. Both intervals include zero, so this screen does not establish either isolated effect. C−A was +11.03 [3.22,19.69], which is a combined change and cannot attribute the gain.
+- The fixed 20-anchor A repeat exactly reproduced initial payload hashes, ordered calls, ToolEnv state hashes and final states (20/20). This run was reproducible on these anchors under the locked setup; generalize only after larger evaluation.
+- B/C were faster than A on local RTX 4050 and had fewer >30s samples, but local timings are diagnostics, not A30 compliance. Keep the SFT+CoT branch as a candidate for locked full-val309 evaluation; do not promote based only on this enriched screen or submit it.
+- Training data used a Vietnamese prompt while the benchmark uses the English production prompt, and the remote training report has no input-weight hash. Both remain interpretation limits.
+
+## Qwen3.5 SFT epoch-3 continuation screen (2026-11-08)
+
+- On the same enriched cohort60, the continued adapter + CoT scored 23.28 BTC before local runtime gating, versus 26.00 for the reused epoch-2 C result. Paired difference −2.72 points, 95% CI [−7.72,+1.33]; 4 improved, 5 worsened, 51 tied. The interval crosses zero and the point estimate is lower; do not promote the extra epoch from this screen.
+- Exact calls rose 47→51 matched and unmatched calls fell 70→64, but hash matches fell 35→32; per-sample BTC also requires state-hash match. Local 30s-gated scores were 23.67→23.28, also uncertain. Local run timing is not an A30 result.
+- The archive confirms continuation from epoch2 and the SFT data hash, but not the exact remote base-weight bytes. The reused epoch2 result also means there is no new control-repeat variance estimate. See `exp/qwen35-sft-epoch3-cot-val60/output/summary.md` and its paired per-ID file.
+
+## Qwen3.5 SFT epoch-3 + CoT public-test candidate (2026-11-08)
+
+- The local candidate passed the official validator: 634 rows, 634 unique IDs in manifest order, zero schema/order errors, zero inference runtime errors, exactly one ToolEnv per sample. It was not submitted to Public LB, and no public/private labels were used.
+- Local RTX 4050 mean latency was 24.09s and 177/634 samples exceeded 30s; p95 was 53.90s. This does not demonstrate A30 compliance, so runtime remains the main deployment uncertainty. 63/2,181 requests reached the 768-token cap.
+- The public-test artifact has no score absent labeled evaluation. The 60-ID enriched screen scored 23.28 BTC before runtime gating, below reused epoch-2 C at 26.00 with a paired CI crossing zero; do not infer a public-test gain. Candidate hashes and validator result are in `exp/qwen35-sft-epoch3-cot-val60/output/submission/summary.json`.
+## Qwen3.5 SFT + CoT branch C public-test candidate (2026-11-07)
+
+- The full candidate is schema-valid and ordered: 634 rows, 634 unique public-test IDs, zero schema/order errors. This confirms packaging and ToolEnv output shape only; public-test labels were not used, so there is no quality score from this run.
+- One request on `public_0527` failed with CUDA out of memory. Keep the recorded error visible; do not describe this candidate as runtime-failure-free. It was produced locally on RTX 4050, so its 158 samples above 30 seconds and measured latency distribution cannot establish the official A30 timeout rate.
+- The generation pipeline did not submit to the Public LB. The user later reported a Public LB score of **39.16** for this candidate; this score was not independently verified. Candidate and predictions sidecar hashes, model/prompt/ASR locks, and per-sample ToolEnv audit are recorded in `exp/qwen35-sft-c-public-submission/output/summary.json` and `submission-lock.json`.
+## QUAN transcript-normalization spelling-only fallback (2026-11-09)
+
+- The requested fixed cohort60 was confirmed against both existing manifests and its newline-joined ID hash. Native Ollama 0.40.15 was reachable from system Python/PowerShell, outside the project `.venv`; the user’s environment note did not mean inference should be abandoned.
+- A safe numeric parser was not available, so the benchmark was split to the explicitly permitted spelling-only fallback. The frozen whole-token NFC mapping changed 0/309 hypotheses and 0/60 cohort transcripts; all other treatment inputs were identical.
+- On identical A/B prompts and transcripts, official BTC was 23.22 vs 26.00; paired +2.78 points, 95% CI [−0.28,+7.22], 56 tied / 3 improved / 1 worsened. A-repeat scored 30.67 on its fixed 20 anchors; A-repeat−A was +2.50 [0.00,+7.50], while A-repeat−B was 0.00 [0.00,0.00]. First-request payload hashes matched on every A/B sample, yet outputs differed on 7 samples, showing material run variance. Do not attribute the A/B point difference to spelling normalization.
+- All gold ToolEnv replays passed, no inference runtime exceptions or schema rejections occurred, and no raw CoT was stored. RTX 4050 local 30-second masks are diagnostic only, not A30 compliance. No submission/Public LB was used.
+- This does not complete the requested numeric-plus-spelling treatment. The full task remains pending a safely scoped numeric parser and a separately locked confirmatory run; do not promote from this screening fallback. Details: `exp/quan-transcript-normalization-val60/output/inference/summary.md`.
+
+## QUAN train-map correction on held-out val60 (2026-11-10)
+
+- On the fixed enriched val60 screen, number parsing ran before map matching and normalized 35 QUAN spans. The train-only map applied 28 candidate corrections across 22 tasks; none matched the BTC reference at the aligned span (0/28 exact precision). Number-value WER rose from 0.1540 raw to 0.1784 with the map.
+- With the same Qwen SFT epoch-2 + CoT setup, BTC formula was 23.29 raw QUAN, 19.83 after number normalization + map, and 32.33 with the BTC script as oracle input. B−A was −3.45 points (95% paired CI [−10.00,+1.83], 3 improved / 3 worsened / 54 tied). This is a diagnostic enriched cohort; the BTC interval includes zero, while the map's held-out exact correction precision is 0%.
+- Treat the medium/high candidate map as unsafe for global replacement on this screen. Details and per-application evidence: exp/quan-map-correction-val60-v1/output/benchmark/summary.md.
+
+
+## QUAN-transcribe epoch-02 continuation on val60 (2026-11-10)
+
+- The raw two-epoch continuation transcript scored project WER 0.1795 and number-value WER 0.1569 on the fixed enriched 60-ID screen; downstream BTC formula score was 24.62/100, with zero inference runtime errors and zero gold replay failures.
+- Compared with raw QUAN epoch-06 branch A, D changed downstream BTC by +1.33 points (paired 95% CI [-2.17,+5.83]). This single-run enriched screen is diagnostic; do not infer a general epoch effect from it.
+- D used the locked Qwen SFT epoch-2 + CoT model/prompt and raw epoch-02 QUAN transcript, with no map. Details: exp/quan-map-correction-val60-v1/output/benchmark/summary.md.
+
+
+## QUAN transcript map comparison on full val309 (2026-11-10)
+
+- Ran all four transcript inputs on all 309 held-out validation IDs using the same Qwen SFT epoch-2 + CoT setup. A/B use epoch-06 QUAN transcripts (B normalizes Vietnamese number phrases before the frozen train-only map), C uses the BTC-provided reference script as an oracle, and D uses the raw QUAN-transcribe epoch-02 continuation.
+- Full metrics, map audit and paired bootstrap comparisons are recorded at exp/quan-map-correction-val309-v1/output/benchmark/summary.md. On this full split, map precision was 3/192 (1.6%); paired D−A BTC difference was -1.36 points (95% CI [-4.09,+1.31]).
+- Validation labels were used for evaluation/reporting only; train-only map rules were frozen before the run. No submission was produced.
+- The Vietnamese cardinal parser composes tens as tens-unit × 10 + units, then handles hundreds and larger scale words recursively; it converts complete word spans to digits before matching the frozen map. It normalized 232 transcript spans on full val309.
+- The combined parser+map branch changed 140 utterances and only 3/192 map applications exactly matched the aligned reference (1.6%). B had worse Project WER (19.77% vs A 16.20%), number-value WER (16.95% vs 14.54%), and BTC formula score (29.80 vs 31.59); do not use this map globally without rebuilding it.
+- Ollama was 0.40.15 on rounds 1–10 and 0.40.16 on rounds 11–16; model digest and prompt were unchanged and all four branches within each ID block used the same version. train_1725 exceeded the 8,192-token context in all branches and received zero BTC sample score.
+
+## Qwen SFT epoch 2 vs epoch 3 English + PhoWhisper large v2 (2026-11-11)
+
+- Trên mẫu ngẫu nhiên cố định 80/309 task, giữ PhoWhisper large v2 cho audio chính và history, prompt English + CoT, ToolEnv và cấu hình suy luận như nhau. BTC sau ngưỡng local 30 giây: epoch 2 **38.82**, epoch 3 English **43.78**; trước ngưỡng lần lượt **42.22** và **50.23**.
+- Chênh lệch ghép cặp epoch 3−epoch 2 **+4.96 điểm** (bootstrap 95% CI **[−3.46,+13.48]**), 16 task nghiêng về epoch 3, 9 về epoch 2, 55 hòa. CI chứa 0 nên chưa đủ bằng chứng đổi sang epoch 3.
+- Epoch 3 có 57 hash trạng thái khớp so với 53, nhưng latency trung bình cao hơn (22.32 vs 19.31 giây) và số task local vượt 30 giây nhiều hơn (15 vs 9). Cả hai nhánh có 0 lỗi runtime.
+- Mẫu 80 task là screening; ngưỡng 30 giây đo trên máy local, không chứng minh thời gian trên A30. PhoWhisper large v2 có thể có chồng lấn với dữ liệu validation. Chi tiết: exp/qwen-epoch2-vs-epoch3en-phowhisper-val80/output/summary.md.
+
+## Ask-missing-info prompt audit on val309 (2026-11-11)
+
+- Post-hoc classification of the 47 gold ask tasks found 24 person/conversation IDs, 13 other object IDs, and 10 genuinely absent or underspecified user values. Exact gold asks were baseline 10/47 vs replacement prompt 1/47.
+- Contact lookup is the clearest recurring subproblem: contacts.search returned multiple candidates in 20/21 baseline searches and 18/19 variant searches among 23 contact_id tasks. Exact asks were 7/23 vs 1/23. A narrow rule should condition on lookup cardinality and context, rather than merely say to ask when a field is missing.
+- Several object IDs are resolvable from a descriptive reference or user criterion, while others are truly ambiguous (e.g. one of two deliveries, one of four orders). Do not ask for internal IDs when lookup can uniquely resolve the intended object. ASR can separately erase the name needed for lookup.
+- The broad prompt replacement had no reliable BTC gain: local gated +0.07 points (95% CI −3.07,+3.08); ungated −1.00 (−4.19,+2.36). Do not promote it. A contact-ambiguity rule remains a hypothesis for a fresh-cohort test; the 47 audit cases are diagnostic only. Full taxonomy: exp/ask-ambiguity-prompt-val309/output/ask_error_taxonomy.md.
+
+
+## Post-lookup ambiguity prompt follow-up (2026-11-11)
+
+- Thử câu lệnh hẹp: chỉ dùng ID khi yêu cầu và lịch sử xác định một ứng viên; nếu còn nhiều ứng viên hợp lý thì hỏi đúng trường ID chưa rõ. So với prompt baseline trên toàn val309, BTC sau ngưỡng local 30 giây là 30.08 vs 28.69; chênh lệch ghép cặp +1.39 điểm (95% CI [−1.57,+4.39]), chưa chứng minh được cải thiện.
+- Tập xác nhận 262 task ngoài 47 task dùng để hình thành giả thuyết có BTC 30.31 vs 27.84, Δ +2.46 [−0.70,+5.55]; tập này không có gold ask nên chỉ đo ảnh hưởng phụ và câu hỏi thừa. Trên 47 task chẩn đoán, exact gold ask giảm từ 10 xuống 6 và BTC đổi −4.59 [−12.90,+3.44]. Không nên thay prompt hiện tại dựa trên kết quả này.
+- Cả nhánh baseline và focused có một lỗi vượt context ở `train_1725` (8,250 > 8,192 token), được tính 0 qua local gate. Baseline dùng lại prediction đã khóa; không tạo submission. Báo cáo: `exp/ask-lookup-disambiguation-followup-val309/output/summary.md`.
+
+
+## Focused prompt: QUAN/PhoASR versus PhoWhisper Large on val309 (2026-11-11)
+
+- Đính chính nguồn của benchmark prompt trước: nhánh đạt 30.08 dùng QUAN checkpoint-verification-rerun cho transcript chính và PhoASRModel cho history. Giữ nguyên Qwen epoch 3, prompt focused, ToolEnv và decoding; thay ASR cả audio chính lẫn history bằng PhoWhisper Large v2 thì BTC local-gated đạt 42.71, chênh **+12.62 điểm** (paired bootstrap 95% CI **[+7.68,+17.46]**, 82 thắng / 33 thua / 194 hòa).
+- Trên 262 task ngoài nhóm gold-ask, PhoWhisper hơn **+13.19** điểm [ +7.90,+18.43 ]. Trong 47 task chẩn đoán, exact ask tăng từ **6/47 lên 14/47**; BTC chênh +9.46 có CI sau local gate [−2.31,+21.89]. Đây là chẩn đoán vì 47 task đã được dùng để hình thành giả thuyết prompt.
+- Cả hai nhánh có một task vượt context 8,192 token (`train_1725`; PhoWhisper 8,253 token). PhoWhisper nhánh chạy một lần; baseline ghép cặp dùng lại prediction đã khóa. Khoảng tin cậy không tính biến thiên giữa các lần chạy. PhoWhisper validation có thể trùng dữ liệu huấn luyện; ngưỡng 30 giây là thời gian local, không chứng minh A30. Không tạo public submission.
+- Chi tiết: `exp/ask-lookup-phowhisper-asr-val309/output/summary.md`; per-ID và lock chứa trong cùng thư mục output.
+
+
+## PhoWhisper Large + Qwen epoch 3 focused-prompt public candidate (2026-11-11)
+
+- Generated `outputs/submissions/phowhisper-large-v2-qwen35-epoch3-en-cot-focused-public-test.jsonl` from 1,933 cached PhoWhisper Large V2 main/history transcripts, Qwen epoch-3 English CoT, and the focused post-lookup prompt. The candidate has 634/634 unique IDs, passes official schema validation, and has 0 runtime errors.
+- Local Qwen + ToolEnv mean was 21.53s/sample (130 above 30s); estimated combined ASR + Qwen mean 27.14s (230 above 30s). These are local timing measurements, not A30 measurements. The setup scored 42.71 BTC on val309 in the paired comparison. User subsequently submitted the candidate and reported Public LB score **47.320** on 2026-11-11.
+- Manifest and hashes: `outputs/submissions/phowhisper-large-v2-qwen35-epoch3-en-cot-focused-public-test_manifest.json`; predictions sidecar: `outputs/submissions/phowhisper-large-v2-qwen35-epoch3-en-cot-focused-public-test_predictions.jsonl`.
+
+
+## Public LB score update: PhoWhisper Large focused-prompt candidate (2026-11-11)
+
+- User reported Public LB score **47.320** for `outputs/submissions/phowhisper-large-v2-qwen35-epoch3-en-cot-focused-public-test.jsonl`.
+- The score is marked user-reported in the candidate manifest; submission and prediction hashes are unchanged.

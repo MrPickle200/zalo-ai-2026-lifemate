@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import time
@@ -32,6 +33,12 @@ class Agent:
         self.ollama_native_tools = (protocol in {"native", "tools", "tool_calling"}
                                     if ollama_native_tools is None else ollama_native_tools)
         self.last_request_diagnostics: dict[str, Any] = {}
+        # Opt-in request telemetry used by controlled experiments. It records hashes,
+        # counters, and prompt-size estimates only; it never stores model thinking.
+        self.request_telemetry: list[dict[str, Any]] = []
+        self._telemetry_request_index = 0
+        self._telemetry_sample_id: str | None = None
+        self._telemetry_action_turn: int | None = None
         self.native_history: list[dict[str, Any]] = []
         self._last_native_messages: list[dict[str, Any]] = []
         self._last_native_tools: list[dict[str, Any]] = []
@@ -103,15 +110,21 @@ class Agent:
     def _ollama_request(self, messages: list[dict[str, Any]], tools: list[dict] | None = None) -> dict:
         model_name = os.environ.get("LIFEMATE_OLLAMA_MODEL", "qwen3.5:4b-q4_K_M")
         ollama_context = min(int(os.environ.get("LIFEMATE_OLLAMA_CONTEXT", "8192")), 16384)
+        ollama_num_batch = int(os.environ.get("LIFEMATE_OLLAMA_NUM_BATCH", "512"))
         body = {"model": model_name, "messages": messages, "stream": False,
                 "think": self.ollama_thinking,
                 "options": {"temperature": 0, "num_predict": int(os.environ.get("LIFEMATE_OLLAMA_NUM_PREDICT", self.max_new_tokens)),
-                            "num_ctx": ollama_context}}
+                            "num_ctx": ollama_context, "num_batch": ollama_num_batch}}
         if tools:
             body["tools"] = tools
         else:
             body["format"] = "json"
         payload = json.dumps(body).encode("utf-8")
+        telemetry_enabled = os.environ.get("LIFEMATE_OLLAMA_TELEMETRY", "0").lower() in {"1", "true", "yes", "on"}
+        telemetry_request_id = None
+        if telemetry_enabled:
+            self._telemetry_request_index += 1
+            telemetry_request_id = self._telemetry_request_index
         request = urllib.request.Request(
             os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/") + "/api/chat",
             data=payload, headers={"Content-Type": "application/json"}, method="POST")
@@ -128,6 +141,7 @@ class Agent:
         self.last_request_diagnostics = {"model": model_name, "prompt_eval_count": result.get("prompt_eval_count"),
             "eval_count": result.get("eval_count"), "total_duration_ns": result.get("total_duration"),
             "load_duration_ns": result.get("load_duration"), "latency_seconds": time.perf_counter() - started,
+            "num_batch": ollama_num_batch,
             "thinking_chars": len(result.get("message", {}).get("thinking") or ""),
             "request_roles": [m.get("role") for m in messages],
             "request_content_chars": sum(len(str(m.get("content", ""))) for m in messages),
@@ -135,7 +149,73 @@ class Agent:
             "response_content_chars": len(result.get("message", {}).get("content") or ""),
             "response_tool_names": [c.get("function", {}).get("name") for c in result.get("message", {}).get("tool_calls", [])],
             "done_reason": result.get("done_reason")}
+        if telemetry_enabled:
+            components = self._estimate_prompt_components(messages, tools)
+            self.request_telemetry.append({
+                "request_id": telemetry_request_id,
+                "sample_id": self._telemetry_sample_id,
+                "action_turn": self._telemetry_action_turn,
+                "request_kind": "repair" if any("Output không hợp lệ" in str(m.get("content", "")) for m in messages) else "normal",
+                "payload_sha256": hashlib.sha256(payload).hexdigest(),
+                "model": model_name,
+                "num_predict": body["options"]["num_predict"],
+                "num_ctx": body["options"]["num_ctx"],
+                "num_batch": body["options"].get("num_batch"),
+                "prompt_eval_count": result.get("prompt_eval_count"),
+                "prompt_eval_duration_ns": result.get("prompt_eval_duration"),
+                "prompt_eval_cached_count": result.get("prompt_eval_cached_count"),
+                "eval_count": result.get("eval_count"),
+                "eval_duration_ns": result.get("eval_duration"),
+                "load_duration_ns": result.get("load_duration"),
+                "total_duration_ns": result.get("total_duration"),
+                "total_tokens": ((result.get("prompt_eval_count") or 0) + (result.get("eval_count") or 0)),
+                "prompt_tokens_per_second": ((result.get("prompt_eval_count") or 0) / (result.get("prompt_eval_duration", 0) or 1) * 1e9
+                                              if result.get("prompt_eval_count") is not None and result.get("prompt_eval_duration") else None),
+                "generated_tokens_per_second": ((result.get("eval_count") or 0) / (result.get("eval_duration", 0) or 1) * 1e9
+                                                if result.get("eval_count") is not None and result.get("eval_duration") else None),
+                "done_reason": result.get("done_reason"),
+                "latency_seconds": time.perf_counter() - started,
+                "thinking_chars": len(result.get("message", {}).get("thinking") or ""),
+                "content_chars": len(result.get("message", {}).get("content") or ""),
+                "prompt_components": components,
+            })
         return result
+
+    @staticmethod
+    def _estimate_prompt_components(messages: list[dict[str, Any]], tools: list[dict] | None = None) -> dict[str, Any]:
+        """Approximate component sizes as UTF-8 text characters / 4; Ollama count is authoritative."""
+        def measure(value: Any) -> dict[str, int]:
+            serialized = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, separators=(",", ":"), default=str)
+            chars = len(serialized)
+            return {"characters": chars, "estimated_tokens_char_div_4": (chars + 3) // 4}
+
+        system = next((str(m.get("content", "")) for m in messages if m.get("role") == "system"), "")
+        user_messages = [m for m in messages if m.get("role") == "user"]
+        payload = {}
+        if len(user_messages) > 0:
+            try:
+                parsed = json.loads(user_messages[0].get("content", ""))
+                payload = parsed if isinstance(parsed, dict) else {}
+            except (TypeError, json.JSONDecodeError):
+                payload = {}
+        repair_content = "\n".join(str(m.get("content", "")) for m in user_messages[1:])
+        history_messages = [m for m in messages if m.get("role") == "assistant"] + user_messages[1:]
+        components = {
+            "system_prompt": measure(system),
+            "transcript_current": measure(payload.get("transcript", "")),
+            "context_profile": measure(payload.get("context", {})),
+            "conversation_history": measure(payload.get("history", [])),
+            "available_tools_schemas": measure(payload.get("available_tools", tools or [])),
+            "observations": measure(payload.get("observations", [])),
+            "examples_in_system_prompt": {"characters": system.count("Correct tool calls:"), "estimated_tokens_char_div_4": None},
+            "repair_material": measure(history_messages if repair_content else []),
+            "unparsed_or_template_overhead": {"characters": 0, "estimated_tokens_char_div_4": None},
+        }
+        components["estimated_component_token_sum"] = sum(
+            row["estimated_tokens_char_div_4"] or 0 for row in components.values() if isinstance(row, dict)
+        )
+        components["estimator"] = "UTF-8 character count / 4 over serialized components; approximate, excluding exact Ollama template/tokenizer overhead"
+        return components
 
     def _generate(self, messages: list[dict[str, str]]) -> str:
         if os.environ.get("LIFEMATE_LLM_BACKEND", "transformers").lower() == "ollama":

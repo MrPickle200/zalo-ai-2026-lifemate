@@ -25,13 +25,15 @@ $env:LIFEMATE_OLLAMA_MODEL = "qwen3.5:4b-q4_K_M"
 $env:LIFEMATE_OLLAMA_THINK = "true"
 $env:LIFEMATE_OLLAMA_PROTOCOL = "json"
 $env:LIFEMATE_OLLAMA_CONTEXT = "8192"
+$env:LIFEMATE_OLLAMA_NUM_BATCH = "512"
 $env:LIFEMATE_PROMPT_LANGUAGE = "en"
 .venv\Scripts\python exp\lifemate-pipeline\scripts\make_submission.py --split public_test
 ```
 
 Override `LIFEMATE_OLLAMA_MODEL`, `LIFEMATE_OLLAMA_THINK`,
-`LIFEMATE_OLLAMA_PROTOCOL` (`json` or `native`), `LIFEMATE_OLLAMA_CONTEXT`, or
-`LIFEMATE_OLLAMA_NUM_PREDICT` as needed. The local Transformers model remains selectable with `LIFEMATE_LLM_MODEL`;
+`LIFEMATE_OLLAMA_PROTOCOL` (`json` or `native`), `LIFEMATE_OLLAMA_CONTEXT`,
+`LIFEMATE_OLLAMA_NUM_BATCH` (default `512`), or `LIFEMATE_OLLAMA_NUM_PREDICT` as needed.
+The local Transformers model remains selectable with `LIFEMATE_LLM_MODEL`;
 choosing Ollama is explicit and does not change the backend default.
 
 If interrupted, add `--resume` to continue from the existing valid output prefix. Run one sample with `exp/lifemate-pipeline/scripts/run_sample.py --sample train_0001`.

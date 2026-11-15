@@ -1,0 +1,26 @@
+{
+  "status": "merged_and_quantized",
+  "checkpoint_path": "exp/qwen35-sft-pho-synthetic-v1/output/adapter_final-5-epochs-20k-rows.zip",
+  "checkpoint_sha256": "27010ab26d35da9aed1c81b2d5b186a88c073e06c53e61f7c88e716cc9b3f916",
+  "base_model_path": "models/kaggle-qwen3-5-4b-v1/Qwen3.5-4B",
+  "base_manifest_sha256": "4fd8bda108bc3f7c2a3099ccd4c824cac6de20adfa305aa008a36a814367f987",
+  "adapter_config": {
+    "adapter_model.safetensors": "ac16bbe9d3c7ded29c6863c46cb4c9900bb3c095130176cd554a860f6f10636f",
+    "adapter_config.json": "8d36bf38d35737d3b36225174fc22926dc14313e17633f3394ef06f3446769ec",
+    "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+    "tokenizer_config.json": "f75e0cddf0147b63ca47732ab9080c7e1ed123a46491bc635872514fe984d87f",
+    "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+  },
+  "merge_manifest_sha256": "8fc912ed58d685d91927058b901c7c750a1f92bb0d0fa54ebfb6dfd034cfc401",
+  "merge_tree_sha256": "6c53c26149b30521f9124ca7fcc5d4b1a87bcc7315449b18362bc45f7d67d1fe",
+  "conversion_manifest_sha256": "ab56e6b1362eec337e6b648f275fa1f6a0bd97cff1dc22665792e402c10ffecf",
+  "quantization": "Q4_K_M",
+  "gguf": {
+    "path": "exp/qwen35-sft-pho-synthetic-v1/output/adapter-final-5epoch-20k-rows-benchmark/gguf/adapter-final-5epoch-20k-rows-Q4_K_M.gguf",
+    "size_bytes": 2708804096,
+    "sha256": "ae5c220611b6641307aa10c0173ef7431ccbf2e214ad1886710c7bfbf8543365"
+  },
+  "source_merge_script": "exp/qwen35-sft-pho-synthetic-v1/scripts/merge_adapter_final4.py",
+  "source_conversion_script": "exp/qwen35-sft-pho-synthetic-v1/scripts/convert_adapter_final4.py",
+  "note": "Reused the verified Qwen3.5-4B base, PEFT safe merge, pinned llama.cpp converter and Q4_K_M quantizer used for final4; source adapter is the 5-epoch 20k-row checkpoint."
+}

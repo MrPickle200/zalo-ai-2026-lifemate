@@ -1,0 +1,47 @@
+{
+  "package": "lifemate-qwen35-sft-epoch2-adapter-v1",
+  "purpose": "Continue SFT from the final adapter produced after the original two-epoch QLoRA run.",
+  "source_archive": "exp/qwen35-sft-next-action-v1/results.zip",
+  "source_archive_sha256": "b9def7e4f245af6f0ccfc41361f0d0805327d9df5284045e3ca479d07bea1b8c",
+  "source_adapter_path_in_archive": "qwen35_lifemate_sft_v1/adapter_final",
+  "source_adapter_epoch": 2,
+  "adapter_model_sha256": "a94a027cd48f8c4c5e7c45108418cdbc9265bba5cebd4595c04a18bdd4ec2611",
+  "adapter_config_sha256": "1f39c037f5e3ea60e121b65ffaf20375b939d57e41d40cfac2697c6caab05d8e",
+  "adapter_config": {
+    "base_model_name_or_path": "/kaggle/input/models/limamateus/qwen3-5-4b/pytorch/default/1/Qwen3.5-4B",
+    "peft_type": "LORA",
+    "r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "down_proj",
+      "gate_proj",
+      "up_proj",
+      "v_proj",
+      "o_proj",
+      "q_proj",
+      "k_proj"
+    ],
+    "peft_version": "0.21.2"
+  },
+  "original_training": {
+    "epochs": 2.0,
+    "learning_rate": 5e-05,
+    "world_size": 4,
+    "effective_batch_size": 16,
+    "max_seq_length": 8192,
+    "train_rows": 3873,
+    "train_runtime_seconds": 39007.1437,
+    "train_loss": 0.10185641301757514
+  },
+  "continuation_plan": {
+    "additional_epochs": 1,
+    "learning_rate": 1e-05,
+    "optimizer_and_scheduler": "fresh; do not resume Trainer optimizer/scheduler state",
+    "train_data_sha256": "8bd2c90e03e18f983fa0119b5284f14bffc1b0b2b5622dc0b091bb3edc1c1a1b",
+    "seed": 20261107,
+    "max_seq_length": 8192,
+    "expected_gpu_setup": "4 x NVIDIA L4; notebook adapts gradient accumulation to visible GPU count",
+    "checkpoint_interval_steps": 60
+  }
+}

@@ -47,6 +47,8 @@ def main() -> int:
     parser.add_argument("--lm", default="models/quan-transcribe/lm")
     parser.add_argument("--beam-width", type=int, default=32)
     parser.add_argument("--ollama-model", default="qwen3.5:4b-q4_K_M")
+    parser.add_argument("--num-predict", type=int, choices=(512, 768, 1024, 1280), default=512)
+    parser.add_argument("--num-batch", type=int, choices=(512, 1024), default=512)
     parser.add_argument("--output", default="outputs/submissions/qwen35-track-c-quan-ft-beam32-public-test.jsonl")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
@@ -76,8 +78,8 @@ def main() -> int:
     artifact_dir.mkdir(parents=True, exist_ok=True)
     transcript_path = artifact_dir / (output.stem + "_transcripts.jsonl")
     transcript_manifest_path = artifact_dir / (output.stem + "_transcripts_manifest.json")
-    diagnostics_path = artifact_dir / (output.stem + "_predictions.jsonl")
-    manifest_path = artifact_dir / (output.stem + "_manifest.json")
+    diagnostics_path = output.with_name(output.stem + "_predictions.jsonl")
+    manifest_path = output.with_name(output.stem + "_manifest.json")
     if output.exists() and not args.resume:
         raise SystemExit(f"Refusing to overwrite {output}; use --resume")
 
@@ -151,14 +153,16 @@ def main() -> int:
     os.environ["LIFEMATE_LLM_BACKEND"] = "ollama"
     os.environ["LIFEMATE_OLLAMA_MODEL"] = args.ollama_model
     os.environ["LIFEMATE_OLLAMA_CONTEXT"] = "8192"
-    os.environ["LIFEMATE_OLLAMA_NUM_PREDICT"] = "512"
+    os.environ["LIFEMATE_OLLAMA_NUM_PREDICT"] = str(args.num_predict)
+    os.environ["LIFEMATE_OLLAMA_NUM_BATCH"] = str(args.num_batch)
     os.environ["LIFEMATE_OLLAMA_THINK"] = "true"
     os.environ["LIFEMATE_OLLAMA_PROTOCOL"] = "json"
     os.environ["LIFEMATE_PROMPT_LANGUAGE"] = "en"
-    agent = Agent(max_new_tokens=512, context_limit=8192, ollama_thinking=True, ollama_native_tools=False)
+    agent = Agent(max_new_tokens=args.num_predict, context_limit=8192, ollama_thinking=True, ollama_native_tools=False)
     # Match Track C history transcription behavior; current-turn transcript is the QUAN cache above.
     pipeline = LifeMatePipeline(root, split, asr=PhoASRModel(), agent=agent, max_steps=5)
     started = time.perf_counter()
+    started_epoch = time.time()
     runtime_failures = sum(bool(row.get("runtime_error")) for row in prior_diag)
     mode = "a" if prior else "w"
     with output.open(mode, encoding="utf-8", newline="\n") as submission, \
@@ -188,6 +192,13 @@ def main() -> int:
             print(f"[{index + 1}/{len(items)}] {item['id']} calls={len(row['tool_calls'])} "
                   f"latency={detail['latency_seconds']:.2f}s error={detail['runtime_error']}", flush=True)
 
+    model_digest = None
+    host = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/")
+    with urllib.request.urlopen(host + "/api/tags", timeout=10) as response:
+        installed_models = json.loads(response.read().decode("utf-8")).get("models", [])
+    matching_tag = next((row for row in installed_models if row.get("name") == args.ollama_model), None)
+    if matching_tag:
+        model_digest = matching_tag.get("digest")
     manifest = {"split": split, "rows": len(items), "submission": str(output),
         "diagnostics": str(diagnostics_path), "transcripts": str(transcript_path),
         "transcript_sha256": sha256(transcript_path), "transcript_manifest": str(transcript_manifest_path),
@@ -196,11 +207,22 @@ def main() -> int:
         "lm": str(lm_dir), "lm_config": lm_config, "lm_config_sha256": sha256(lm_config_path),
         "llm_backend": "Ollama", "llm_model": args.ollama_model, "ollama_version": version,
         "llm_parameters": "4.2B", "quantization": "Q4_K_M", "prompt_version": "observation-grounded-v2",
-        "prompt_language": "en", "thinking": True, "protocol": "JSON; native tool calling disabled",
-        "temperature": 0, "num_predict": 512, "num_ctx": 8192, "max_action_turns": 5,
+        "prompt_language": "en", "prompt_sha256_utf8": "6bcb14754f3fb39780d42d1ad9d904509749ba98551cf54c8fdff75203998637",
+        "thinking": True, "protocol": "JSON; native tool calling disabled",
+        "temperature": 0, "num_predict": args.num_predict, "num_batch": args.num_batch,
+        "num_ctx": 8192, "max_action_turns": 5, "model_digest": model_digest,
+        "reference_validation": ({"experiment": "inference-latency-optimization-val60",
+            "split": "fixed enriched train-only pilot60",
+            "btc_formula_score_before_runtime_gate_0_100": 17.515873015873016}
+            if args.num_predict == 768 and args.num_batch == 512 else None),
         "toolenv_sessions": "exactly one per sample", "runtime_failures_this_run": runtime_failures,
+        "started_epoch": started_epoch, "ended_epoch": time.time(),
         "elapsed_seconds_this_run": time.perf_counter() - started,
-        "public_lb_submitted": False, "note": "Local submission artifact only; no leaderboard submission."}
+        "submission_sha256": sha256(output), "diagnostics_sha256": sha256(diagnostics_path),
+        "public_lb_submitted": False,
+        "note": "Local submission artifact only; no leaderboard submission.",
+        "selection_note": ("Cap requested by user; pilot60 cap-selection quality gate failed reproducibility, so no cap recommendation is implied."
+                           if args.num_predict in (1024, 1280) else None)}
     write_json(manifest_path, manifest)
     print(json.dumps(manifest, ensure_ascii=False, indent=2))
     return 1 if runtime_failures else 0

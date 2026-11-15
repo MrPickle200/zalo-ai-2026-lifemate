@@ -1,0 +1,46 @@
+{
+  "status": "converted_and_quantized",
+  "llama_cpp_commit": "c0ab6e5c0bab3fb21e6cb9d2371f3c41d85ea775",
+  "llama_cpp_license": "MIT",
+  "converter": "exp\\qwen35-sft-benchmark-v1\\third_party\\llama.cpp\\convert_hf_to_gguf.py",
+  "converter_mode": "Qwen3.5 text model; --outtype bf16 --no-mtp",
+  "quantizer": "exp\\qwen35-sft-benchmark-v1\\output\\llama-build-gcc\\bin\\llama-quantize.exe",
+  "quantizer_sha256": "fafc6863f64bfb2a94220a96ecf6437b9bde5b3b0bfe536e62f87f7dbd697429",
+  "quantization": "Q4_K_M",
+  "convert_command": [
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\.venv\\Scripts\\python.exe",
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-benchmark-v1\\third_party\\llama.cpp\\convert_hf_to_gguf.py",
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\merged-hf",
+    "--outfile",
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\gguf\\adapter-final-4epoch-bf16.gguf",
+    "--outtype",
+    "bf16",
+    "--no-mtp"
+  ],
+  "convert_seconds": 152.37761974334717,
+  "bf16_gguf": {
+    "path": "exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\gguf\\adapter-final-4epoch-bf16.gguf",
+    "size_bytes": 8424393216,
+    "sha256": "8c4307a1bda57b6391bc3d1370eb97d07988498eb4ddea0a630b82daec6c0b26"
+  },
+  "quantize_command": [
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-benchmark-v1\\output\\llama-build-gcc\\bin\\llama-quantize.exe",
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\gguf\\adapter-final-4epoch-bf16.gguf",
+    "D:\\Projects\\zalo-ai-challenge-2026\\lifemate\\exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\gguf\\adapter-final-4epoch-Q4_K_M.gguf",
+    "Q4_K_M"
+  ],
+  "quantize_seconds": 142.04379057884216,
+  "q4_k_m_gguf": {
+    "path": "exp/qwen35-sft-pho-synthetic-v1/output/adapter-final-5epoch-20k-rows-benchmark/gguf/adapter-final-5epoch-20k-rows-Q4_K_M.gguf",
+    "size_bytes": 2708804096,
+    "sha256": "ae5c220611b6641307aa10c0173ef7431ccbf2e214ad1886710c7bfbf8543365"
+  },
+  "epoch2_comparison_gguf_sha256": "8c2a77fcec8f0a00edc985553cb2122fd992346f587967e59b8e73bf319d244e",
+  "note": "Same pinned llama.cpp revision, converter mode, quantizer binary and Q4_K_M setting as old branch C; only SFT weights differ.",
+  "generated_bf16_gguf_cleanup": "Temporary BF16 GGUF and merged-HF shards are deleted after Q4_K_M is verified.",
+  "artifact_filename_normalization": {
+    "from": "exp\\qwen35-sft-pho-synthetic-v1\\output\\adapter-final-5epoch-20k-rows-benchmark\\gguf\\adapter-final-4epoch-Q4_K_M.gguf",
+    "to": "exp/qwen35-sft-pho-synthetic-v1/output/adapter-final-5epoch-20k-rows-benchmark/gguf/adapter-final-5epoch-20k-rows-Q4_K_M.gguf",
+    "reason": "The shared final4 converter names output files with its default stem; renamed after size/hash verification for model identity."
+  }
+}

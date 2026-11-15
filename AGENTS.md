@@ -30,3 +30,9 @@ When implementation ideas are needed, consult relevant GitHub repositories and K
 - `tests/`: focused regression checks.
 - `train+public_test/`: competition data and official `zaic_tools` packages; do not inspect or read any `*_environment/` file directly. Use ToolEnv only.
 
+
+## Current inference decision record
+Before selecting a model, prompt, or thinking policy for a benchmark or submission, read `INFERENCE_DECISIONS.md`. It records the current user decision: fixed thinking for public test, adaptive 20-second thinking budget for private test, and the best measured adapter/configuration with evidence limits.
+
+## Result maintenance
+Whenever a new benchmark, validation, or leaderboard result is produced or reported, update `INFERENCE_DECISIONS.md` in the same task: add it to the result ledger and revise the best-model/policy records when appropriate. Label split/cohort, adapter, thinking mode, whether the local runtime gate is applied, and whether a leaderboard score is independently verified or user-reported. Never substitute a stress-cohort score for a full-val score.

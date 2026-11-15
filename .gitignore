@@ -1,4 +1,4 @@
-﻿# Secrets and local environment
+# Secrets and local environment
 .env
 .env.*
 !.env.example
@@ -10,6 +10,7 @@ train+public_test/
 
 # Runtime artifacts
 cache/transcripts/
+# Public submission files, sidecars, and manifests are generated locally.
 outputs/
 exp/*/output/
 !exp/phoasr-nbest-v1/output/
@@ -18,6 +19,9 @@ exp/*/output/
 !exp/qwen-next-action-v1/output/
 !exp/tool-router-v1/output/
 exp/tool-router-v1/output/training-data/model*/model.safetensors
+
+# Heavy Qwen Pho synthetic outputs: adapters, merged weights, GGUFs, and evaluations.
+exp/qwen35-sft-pho-synthetic-v1/output/
 .tmp/
 *.log
 
@@ -32,3 +36,12 @@ __pycache__/
 
 # md files
 TASK.md
+
+# Generated checkpoints and uncompressed SFT corpora stay local; commit code and compact manifests only.
+exp/qwen35-sft-next-action-v1/adapter-*.zip
+exp/qwen35-sft-next-action-v1/qwen35-sft-epoch2-adapter-v1.zip
+exp/qwen35-sft-next-action-v1/kaggle-continuation-upload/adapter_final/adapter_model.safetensors
+exp/qwen35-sft-next-action-v1/kaggle-upload*/sft_train.jsonl
+exp/qwen35-sft-pho-synthetic-v1/notebooks/*.bak_*
+exp/qwen-next-action-v1/output/training-data/sft_train.jsonl
+exp/qwen-next-action-v1/output/training-data/kaggle-data/sft_train.jsonl
